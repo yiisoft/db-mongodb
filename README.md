@@ -2,19 +2,19 @@
     <a href="https://www.mongodb.com/" target="_blank" rel="external">
         <img src="https://webassets.mongodb.com/_com_assets/cms/mongodb-logo-rgb-j6w271g1xn.jpg" height="80px">
     </a>
-    <h1 align="center">MongoDB Extension for Yii 2</h1>
+    <h1 align="center">Yii Framework MongoDB extension</h1>
     <br>
 </p>
 
-This extension provides the [MongoDB](https://www.mongodb.com/) integration for the [Yii framework 2.0](http://www.yiiframework.com).
+This extension provides the [MongoDB](https://www.mongodb.com/) integration for the [Yii framework](http://www.yiiframework.com).
 
 For license information check the [LICENSE](LICENSE.md)-file.
 
 Documentation is at [docs/guide/README.md](docs/guide/README.md).
 
-[![Latest Stable Version](https://poser.pugx.org/yiisoft/yii2-mongodb/v/stable.png)](https://packagist.org/packages/yiisoft/yii2-mongodb)
-[![Total Downloads](https://poser.pugx.org/yiisoft/yii2-mongodb/downloads.png)](https://packagist.org/packages/yiisoft/yii2-mongodb)
-[![Build Status](https://travis-ci.org/yiisoft/yii2-mongodb.svg?branch=master)](https://travis-ci.org/yiisoft/yii2-mongodb)
+[![Latest Stable Version](https://poser.pugx.org/yiisoft/yii-mongodb/v/stable.png)](https://packagist.org/packages/yiisoft/yii-mongodb)
+[![Total Downloads](https://poser.pugx.org/yiisoft/yii-mongodb/downloads.png)](https://packagist.org/packages/yiisoft/yii-mongodb)
+[![Build Status](https://travis-ci.org/yiisoft/yii-mongodb.svg?branch=master)](https://travis-ci.org/yiisoft/yii-mongodb)
 
 
 Installation
@@ -26,19 +26,9 @@ This extension requires MongoDB server version 3.0 or higher.
 
 The preferred way to install this extension is through [composer](http://getcomposer.org/download/).
 
-Either run
-
 ```
-php composer.phar require --prefer-dist yiisoft/yii2-mongodb
+composer require --prefer-dist yiisoft/yii-mongodb
 ```
-
-or add
-
-```
-"yiisoft/yii2-mongodb": "~2.2.0"
-```
-
-to the require section of your composer.json.
 
 Configuration
 -------------
