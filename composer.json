@@ -1,5 +1,5 @@
 {
-    "name": "yiisoft/yii-mongodb",
+    "name": "yiisoft/db-mongodb",
     "description": "Yii Framework MongoDB extension",
     "keywords": ["yii", "mongo", "mongodb", "active-record", "gridfs"],
     "type": "library",
