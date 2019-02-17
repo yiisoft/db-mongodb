@@ -12,9 +12,9 @@ For license information check the [LICENSE](LICENSE.md)-file.
 
 Documentation is at [docs/guide/README.md](docs/guide/README.md).
 
-[![Latest Stable Version](https://poser.pugx.org/yiisoft/yii-mongodb/v/stable.png)](https://packagist.org/packages/yiisoft/yii-mongodb)
-[![Total Downloads](https://poser.pugx.org/yiisoft/yii-mongodb/downloads.png)](https://packagist.org/packages/yiisoft/yii-mongodb)
-[![Build Status](https://travis-ci.org/yiisoft/yii-mongodb.svg?branch=master)](https://travis-ci.org/yiisoft/yii-mongodb)
+[![Latest Stable Version](https://poser.pugx.org/yiisoft/db-mongodb/v/stable.png)](https://packagist.org/packages/yiisoft/db-mongodb)
+[![Total Downloads](https://poser.pugx.org/yiisoft/db-mongodb/downloads.png)](https://packagist.org/packages/yiisoft/db-mongodb)
+[![Build Status](https://travis-ci.org/yiisoft/db-mongodb.svg?branch=master)](https://travis-ci.org/yiisoft/db-mongodb)
 
 
 Installation
@@ -27,7 +27,7 @@ This extension requires MongoDB server version 3.0 or higher.
 The preferred way to install this extension is through [composer](http://getcomposer.org/download/).
 
 ```
-composer require --prefer-dist yiisoft/yii-mongodb
+composer require --prefer-dist yiisoft/db-mongodb
 ```
 
 Configuration
