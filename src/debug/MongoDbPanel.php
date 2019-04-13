@@ -10,7 +10,7 @@ namespace yii\mongodb\debug;
 use Yii;
 use yii\debug\models\search\Db;
 use yii\debug\panels\DbPanel;
-use yii\log\Logger;
+use Yii\Log\Logger;
 
 /**
  * MongoDbPanel panel that collects and displays MongoDB queries performed.
