@@ -12,7 +12,6 @@ namespace yiiunit\mongodb\data\ar;
  */
 class Animal extends ActiveRecord
 {
-
     public $does;
 
     public static function collectionName()
@@ -45,5 +44,4 @@ class Animal extends ActiveRecord
         $class = $row['type'];
         return new $class;
     }
-
 }

@@ -403,7 +403,8 @@ class ActiveRecordTest extends TestCase
         $record->email = new Regex('[a-z]@[a-z]', 'i');
         $record->address = new Binary('abcdef', Binary::TYPE_MD5);
         $record->status = 1;
-        $record->file_id = new Binary('Test Binary', Binary::TYPE_GENERIC);;
+        $record->file_id = new Binary('Test Binary', Binary::TYPE_GENERIC);
+        ;
         $record->save(false);
 
         $this->assertEquals($record->attributes, $record->toArray([], [], false));

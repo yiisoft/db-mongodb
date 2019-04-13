@@ -513,7 +513,8 @@ class MongoDbManagerTest extends TestCase
     public function testInvalidateCache()
     {
         $auth = $this->auth;
-        $auth->cache = new Cache(['handler' => new ArrayCache()]);;
+        $auth->cache = new Cache(['handler' => new ArrayCache()]);
+        ;
         $this->prepareData();
 
         $auth->loadFromCache();

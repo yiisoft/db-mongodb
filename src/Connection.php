@@ -299,7 +299,7 @@ class Connection extends Component
     public function getCollection($name, $refresh = false)
     {
         if (is_array($name)) {
-            list ($dbName, $collectionName) = $name;
+            list($dbName, $collectionName) = $name;
             return $this->getDatabase($dbName)->getCollection($collectionName, $refresh);
         }
         return $this->getDatabase()->getCollection($name, $refresh);
@@ -317,7 +317,7 @@ class Connection extends Component
     public function getFileCollection($prefix = 'fs', $refresh = false)
     {
         if (is_array($prefix)) {
-            list ($dbName, $collectionPrefix) = $prefix;
+            list($dbName, $collectionPrefix) = $prefix;
             if (!isset($collectionPrefix)) {
                 $collectionPrefix = 'fs';
             }

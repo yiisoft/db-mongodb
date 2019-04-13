@@ -54,7 +54,9 @@ class Generator extends \yii\gii\Generator
     {
         return array_merge(parent::rules(), [
             [['db', 'ns', 'collectionName', 'databaseName', 'attributeList', 'modelClass', 'baseClass'], 'filter', 'filter' => 'trim'],
-            [['ns'], 'filter', 'filter' => function($value) { return trim($value, '\\'); }],
+            [['ns'], 'filter', 'filter' => function ($value) {
+                return trim($value, '\\');
+            }],
 
             [['db', 'ns', 'collectionName', 'baseClass'], 'required'],
             [['db', 'modelClass'], 'match', 'pattern' => '/^\w+$/', 'message' => 'Only word characters are allowed.'],

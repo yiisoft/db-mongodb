@@ -71,11 +71,11 @@ class MongoIdValidator extends Validator
         if (is_object($mongoId)) {
             if ($this->forceFormat !== null) {
                 switch ($this->forceFormat) {
-                    case 'string' : {
+                    case 'string': {
                         $model->$attribute = $mongoId->__toString();
                         break;
                     }
-                    case 'object' : {
+                    case 'object': {
                         $model->$attribute = $mongoId;
                         break;
                     }
