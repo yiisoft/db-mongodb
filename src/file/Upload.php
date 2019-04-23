@@ -12,7 +12,7 @@ use MongoDB\BSON\ObjectID;
 use MongoDB\BSON\UTCDatetime;
 use yii\base\InvalidArgumentException;
 use yii\base\BaseObject;
-use yii\helpers\StringHelper;
+use Yiisoft\Strings\StringHelper;
 
 /**
  * Upload represents the GridFS upload operation.

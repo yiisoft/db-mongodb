@@ -12,7 +12,7 @@ use Yii;
 use yii\base\InvalidConfigException;
 use yii\base\BaseObject;
 use yii\helpers\FileHelper;
-use yii\helpers\StringHelper;
+use Yiisoft\Strings\StringHelper;
 
 /**
  * Download represents the GridFS download operation.

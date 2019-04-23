@@ -11,7 +11,7 @@ use yii\base\Component;
 use yii\db\QueryInterface;
 use yii\db\QueryTrait;
 use Yii;
-use yii\helpers\ArrayHelper;
+use Yiisoft\Arrays\ArrayHelper;
 
 /**
  * Query represents Mongo "find" operation.

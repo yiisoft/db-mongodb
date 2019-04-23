@@ -8,11 +8,11 @@
 namespace yii\mongodb\gii\model;
 
 use Yii;
-use yii\helpers\ArrayHelper;
+use Yiisoft\Arrays\ArrayHelper;
 use yii\mongodb\ActiveRecord;
 use yii\mongodb\Connection;
 use yii\gii\CodeFile;
-use yii\helpers\Inflector;
+use Yiisoft\Helpers\InflectorHelper;
 
 /**
  * This generator will generate ActiveRecord class for the specified MongoDB collection.
@@ -185,7 +185,7 @@ class Generator extends \yii\gii\Generator
             if (!strcasecmp($attribute, '_id')) {
                 $label = 'ID';
             } else {
-                $label = Inflector::camel2words($attribute);
+                $label = InflectorHelper::camel2words($attribute);
                 if (substr_compare($label, ' id', -3, 3, true) === 0) {
                     $label = substr($label, 0, -3) . ' ID';
                 }
@@ -272,7 +272,7 @@ class Generator extends \yii\gii\Generator
     protected function generateClassName($collectionName)
     {
         $className = preg_replace('/[^\\w]+/is', '_', $collectionName);
-        return Inflector::id2camel($className, '_');
+        return InflectorHelper::id2camel($className, '_');
     }
 
     /**

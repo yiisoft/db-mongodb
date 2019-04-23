@@ -12,7 +12,7 @@ use yii\base\InvalidCallException;
 use yii\base\InvalidArgumentException;
 use yii\caching\Cache;
 use yii\di\Instance;
-use yii\helpers\ArrayHelper;
+use Yiisoft\Arrays\ArrayHelper;
 use yii\mongodb\Connection;
 use yii\mongodb\Query;
 use yii\rbac\Assignment;

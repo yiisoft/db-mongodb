@@ -12,7 +12,7 @@ use yii\console\controllers\BaseMigrateController;
 use yii\console\Exception;
 use yii\mongodb\Connection;
 use yii\mongodb\Query;
-use yii\helpers\ArrayHelper;
+use Yiisoft\Arrays\ArrayHelper;
 
 /**
  * Manages application MongoDB migrations.

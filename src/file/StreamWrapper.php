@@ -10,7 +10,7 @@ namespace yii\mongodb\file;
 use yii\base\InvalidConfigException;
 use yii\base\BaseObject;
 use yii\di\Instance;
-use yii\helpers\StringHelper;
+use Yiisoft\Strings\StringHelper;
 use yii\mongodb\Connection;
 
 /**

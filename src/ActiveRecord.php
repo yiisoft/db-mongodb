@@ -13,9 +13,9 @@ use Yii;
 use yii\base\InvalidConfigException;
 use yii\db\BaseActiveRecord;
 use yii\db\StaleObjectException;
-use yii\helpers\ArrayHelper;
-use yii\helpers\Inflector;
-use yii\helpers\StringHelper;
+use Yiisoft\Arrays\ArrayHelper;
+use Yiisoft\Helpers\InflectorHelper;
+use Yiisoft\Strings\StringHelper;
 
 /**
  * ActiveRecord is the base class for classes representing Mongo documents in terms of objects.
@@ -112,14 +112,14 @@ abstract class ActiveRecord extends BaseActiveRecord
      *  - if array - first element considered as the name of the database, second - as
      *    name of collection inside that database
      *
-     * By default this method returns the class name as the collection name by calling [[Inflector::camel2id()]].
+     * By default this method returns the class name as the collection name by calling [[InflectorHelper::camel2id()]].
      * For example, 'Customer' becomes 'customer', and 'OrderItem' becomes
      * 'order_item'. You may override this method if the collection is not named after this convention.
      * @return string|array the collection name
      */
     public static function collectionName()
     {
-        return Inflector::camel2id(StringHelper::basename(get_called_class()), '_');
+        return InflectorHelper::camel2id(StringHelper::basename(get_called_class()), '_');
     }
 
     /**

@@ -2,7 +2,7 @@
 
 namespace yiiunit\mongodb;
 
-use yii\helpers\ArrayHelper;
+use Yiisoft\Arrays\ArrayHelper;
 use yii\helpers\FileHelper;
 use yii\mongodb\Connection;
 use Yii;
