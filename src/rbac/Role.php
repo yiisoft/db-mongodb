@@ -8,12 +8,12 @@
 namespace yii\mongodb\rbac;
 
 /**
- * Role is a special version of [[\yii\rbac\Role]] dedicated to MongoDB RBAC implementation.
+ * Role is a special version of [[\Yiisoft\Rbac\Role]] dedicated to MongoDB RBAC implementation.
  *
  * @author Paul Klimov <klimov.paul@gmail.com>
  * @since 2.0.5
  */
-class Role extends \yii\rbac\Role
+class Role extends \Yiisoft\Rbac\Role
 {
     /**
      * @var array|null list of parent item names.

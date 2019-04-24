@@ -2,7 +2,7 @@
 
 namespace yiiunit\mongodb\data\rbac;
 
-use yii\rbac\Rule;
+use Yiisoft\Rbac\Rule;
 
 class ActionRule extends Rule
 {

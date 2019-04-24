@@ -5,9 +5,9 @@ namespace yiiunit\mongodb\rbac;
 use Yii;
 use yii\caching\ArrayCache;
 use yii\caching\Cache;
-use yii\rbac\Item;
-use yii\rbac\Permission;
-use yii\rbac\Role;
+use Yiisoft\Rbac\Item;
+use Yiisoft\Rbac\Permission;
+use Yiisoft\Rbac\Role;
 use yii\mongodb\rbac\MongoDbManager;
 use yiiunit\mongodb\data\rbac\ActionRule;
 use yiiunit\mongodb\data\rbac\AuthorRule;
@@ -94,7 +94,7 @@ class MongoDbManagerTest extends TestCase
         $this->prepareData();
 
         $rule = $this->auth->getRule('isAuthor');
-        $this->assertInstanceOf('yii\rbac\Rule', $rule);
+        $this->assertInstanceOf('Yiisoft\Rbac\Rule', $rule);
         $this->assertEquals('isAuthor', $rule->name);
 
         $rule = $this->auth->getRule('nonExisting');

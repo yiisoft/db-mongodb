@@ -8,12 +8,12 @@
 namespace yii\mongodb\rbac;
 
 /**
- * Permission is a special version of [[\yii\rbac\Permission]] dedicated to MongoDB RBAC implementation.
+ * Permission is a special version of [[\Yiisoft\Rbac\Permission]] dedicated to MongoDB RBAC implementation.
  *
  * @author Paul Klimov <klimov.paul@gmail.com>
  * @since 2.0.5
  */
-class Permission extends \yii\rbac\Permission
+class Permission extends \Yiisoft\Rbac\Permission
 {
     /**
      * @var array|null list of parent item names.

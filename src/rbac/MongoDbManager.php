@@ -15,10 +15,10 @@ use yii\di\Instance;
 use Yiisoft\Arrays\ArrayHelper;
 use yii\mongodb\Connection;
 use yii\mongodb\Query;
-use yii\rbac\Assignment;
-use yii\rbac\BaseManager;
-use yii\rbac\Item;
-use yii\rbac\Rule;
+use Yiisoft\Rbac\Assignment;
+use Yiisoft\Rbac\BaseManager;
+use Yiisoft\Rbac\Item;
+use Yiisoft\Rbac\Rule;
 
 /**
  * MongoDbManager represents an authorization manager that stores authorization information in MongoDB.
@@ -1067,7 +1067,7 @@ class MongoDbManager extends BaseManager
      */
     private function instantiateDefaultRoles()
     {
-        // this method can be removed in favor of `yii\rbac\BaseManager::getDefaultRoles()` in case
+        // this method can be removed in favor of `Yiisoft\Rbac\BaseManager::getDefaultRoles()` in case
         // extension dependency on `yii2` is raised up to 2.0.12
         $result = [];
         foreach ($this->defaultRoles as $roleName) {
