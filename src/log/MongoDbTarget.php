@@ -10,7 +10,7 @@ namespace yii\mongodb\log;
 use yii\base\InvalidConfigException;
 use yii\di\Instance;
 use yii\helpers\VarDumper;
-use yii\log\Target;
+use Yiisoft\Log\Target;
 use yii\mongodb\Connection;
 
 /**
