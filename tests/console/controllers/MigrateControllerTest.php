@@ -2,7 +2,7 @@
 
 namespace yiiunit\mongodb\console\controllers;
 
-use yii\console\controllers\BaseMigrateController;
+use Yiisoft\Yii\Console\Controllers\BaseMigrateController;
 use yii\helpers\FileHelper;
 use yii\mongodb\Exception;
 use yii\mongodb\Migration;
@@ -570,8 +570,8 @@ CODE;
      */
     public function testRefreshMigration()
     {
-        if (!is_callable(['yii\console\controllers\BaseMigrateController', 'actionFresh'])) {
-            $this->markTestSkipped('Method "yii\console\controllers\BaseMigrateController::actionFresh()" does not exist in this Yii framework version.');
+        if (!is_callable(['Yiisoft\Yii\Console\Controllers\BaseMigrateController', 'actionFresh'])) {
+            $this->markTestSkipped('Method "Yiisoft\Yii\Console\Controllers\BaseMigrateController::actionFresh()" does not exist in this Yii framework version.');
         }
 
         $connection = $this->getConnection();

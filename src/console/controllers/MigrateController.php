@@ -8,8 +8,8 @@
 namespace yii\mongodb\console\controllers;
 
 use Yii;
-use yii\console\controllers\BaseMigrateController;
-use yii\console\Exception;
+use Yiisoft\Yii\Console\Controllers\BaseMigrateController;
+use Yiisoft\Yii\Console\Exception;
 use yii\mongodb\Connection;
 use yii\mongodb\Query;
 use Yiisoft\Arrays\ArrayHelper;
@@ -17,7 +17,7 @@ use Yiisoft\Arrays\ArrayHelper;
 /**
  * Manages application MongoDB migrations.
  *
- * This is an analog of [[\yii\console\controllers\MigrateController]] for MongoDB.
+ * This is an analog of [[\Yiisoft\Yii\Console\Controllers\MigrateController]] for MongoDB.
  *
  * This command provides support for tracking the migration history, upgrading
  * or downloading with migrations, and creating new migration skeletons.
