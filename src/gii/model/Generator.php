@@ -12,7 +12,7 @@ use Yiisoft\Arrays\ArrayHelper;
 use yii\mongodb\ActiveRecord;
 use yii\mongodb\Connection;
 use yii\gii\CodeFile;
-use Yiisoft\Helpers\InflectorHelper;
+use Yiisoft\Inflector\InflectorHelper;
 
 /**
  * This generator will generate ActiveRecord class for the specified MongoDB collection.

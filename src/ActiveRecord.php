@@ -14,7 +14,7 @@ use yii\base\InvalidConfigException;
 use yii\db\BaseActiveRecord;
 use yii\db\StaleObjectException;
 use Yiisoft\Arrays\ArrayHelper;
-use Yiisoft\Helpers\InflectorHelper;
+use Yiisoft\Inflector\InflectorHelper;
 use Yiisoft\Strings\StringHelper;
 
 /**
