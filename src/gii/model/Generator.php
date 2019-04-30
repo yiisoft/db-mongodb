@@ -11,7 +11,7 @@ use Yii;
 use Yiisoft\Arrays\ArrayHelper;
 use yii\mongodb\ActiveRecord;
 use yii\mongodb\Connection;
-use yii\gii\CodeFile;
+use Yiisoft\Yii\Gii\CodeFile;
 use Yiisoft\Inflector\InflectorHelper;
 
 /**
@@ -20,7 +20,7 @@ use Yiisoft\Inflector\InflectorHelper;
  * @author Paul Klimov <klimov.paul@gmail.com>
  * @since 2.0
  */
-class Generator extends \yii\gii\Generator
+class Generator extends \Yiisoft\Yii\Gii\Generator
 {
     public $db = 'mongodb';
     public $ns = 'app\models';
