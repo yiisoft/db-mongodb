@@ -1,7 +1,7 @@
 I18N メッセージソースを使用する
 ===============================
 
-[[\yii\mongodb\i18n\MongoDbMessageSource]] を i18n メッセージ翻訳ストレージとして使用することができます。
+[[\Yiisoft\Db\MongoDb\i18n\MongoDbMessageSource]] を i18n メッセージ翻訳ストレージとして使用することができます。
 アプリケーション構成の例:
 
 ```php
@@ -12,7 +12,7 @@ return [
         'i18n' => [
             'translations' => [
                 '*' => [
-                    'class' => 'yii\mongodb\i18n\MongoDbMessageSource'
+                    'class' => 'Yiisoft\Db\MongoDb\i18n\MongoDbMessageSource'
                 ]
             ]
         ],
@@ -21,4 +21,4 @@ return [
 ```
 
 
-構成と翻訳コレクションのデータ構造に関する詳細は [[\yii\mongodb\i18n\MongoDbMessageSource]] を参照してください。
+構成と翻訳コレクションのデータ構造に関する詳細は [[\Yiisoft\Db\MongoDb\i18n\MongoDbMessageSource]] を参照してください。

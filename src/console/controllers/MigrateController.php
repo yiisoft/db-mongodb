@@ -5,13 +5,13 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace yii\mongodb\console\controllers;
+namespace Yiisoft\Db\MongoDb\Console\Controllers;
 
 use Yii;
 use Yiisoft\Yii\Console\Controllers\BaseMigrateController;
 use Yiisoft\Yii\Console\Exception;
-use yii\mongodb\Connection;
-use yii\mongodb\Query;
+use Yiisoft\Db\MongoDb\Connection;
+use Yiisoft\Db\MongoDb\Query;
 use Yiisoft\Arrays\ArrayHelper;
 
 /**
@@ -32,7 +32,7 @@ use Yiisoft\Arrays\ArrayHelper;
  * return [
  *     // ...
  *     'controllerMap' => [
- *         'mongodb-migrate' => 'yii\mongodb\console\controllers\MigrateController'
+ *         'mongodb-migrate' => 'Yiisoft\Db\MongoDb\Console\Controllers\MigrateController'
  *     ],
  * ];
  * ```
@@ -57,7 +57,7 @@ use Yiisoft\Arrays\ArrayHelper;
  * return [
  *     'controllerMap' => [
  *         'mongodb-migrate' => [
- *             '__class' => yii\mongodb\console\controllers\MigrateController::class,
+ *             '__class' => Yiisoft\Db\MongoDb\Console\Controllers\MigrateController::class,
  *             'migrationNamespaces' => [
  *                 'app\migrations',
  *                 'some\extension\migrations',
@@ -125,7 +125,7 @@ class MigrateController extends BaseMigrateController
     /**
      * Creates a new migration instance.
      * @param string $class the migration class name
-     * @return \yii\mongodb\Migration the migration instance
+     * @return \Yiisoft\Db\MongoDb\Migration the migration instance
      */
     protected function createMigration($class)
     {

@@ -1,6 +1,6 @@
 <?php
 
-namespace yiiunit\mongodb;
+namespace Yiisoft\Db\MongoDb\Tests;
 
 use MongoDB\BSON\Javascript;
 use MongoDB\BSON\ObjectID;

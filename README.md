@@ -40,7 +40,7 @@ return [
     //....
     'components' => [
         'mongodb' => [
-            '__class' => yii\mongodb\Connection::class,
+            '__class' => Yiisoft\Db\MongoDb\Connection::class,
             'dsn' => 'mongodb://@localhost:27017/mydatabase',
             'options' => [
                 "username" => "Username",

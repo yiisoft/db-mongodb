@@ -5,7 +5,7 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace yii\mongodb\debug;
+namespace Yiisoft\Db\MongoDb\Debug;
 
 use yii\base\Action;
 use yii\helpers\Json;
@@ -66,7 +66,7 @@ class ExplainAction extends Action
      */
     protected function explainQuery($queryString)
     {
-        /* @var $connection \yii\mongodb\Connection */
+        /* @var $connection \Yiisoft\Db\MongoDb\Connection */
         $connection = $this->panel->getDb();
 
         $queryInfo = Json::decode($queryString);

@@ -1,8 +1,8 @@
 <?php
 
-namespace yiiunit\mongodb\data\ar;
+namespace Yiisoft\Db\MongoDb\Tests\Data\ActiveRecord;
 
-use yiiunit\mongodb\data\ar\file\CustomerFile;
+use Yiisoft\Db\MongoDb\Tests\Data\ActiveRecord\file\CustomerFile;
 
 /**
  * @property \MongoDB\BSON\ObjectID|string $_id
@@ -38,7 +38,7 @@ class Customer extends ActiveRecord
     }
 
     /**
-     * @return \yii\mongodb\ActiveQuery
+     * @return \Yiisoft\Db\MongoDb\ActiveQuery
      */
     public function getOrders()
     {
@@ -46,7 +46,7 @@ class Customer extends ActiveRecord
     }
 
     /**
-     * @return \yii\mongodb\ActiveQuery
+     * @return \Yiisoft\Db\MongoDb\ActiveQuery
      */
     public function getFile()
     {

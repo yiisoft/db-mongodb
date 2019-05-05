@@ -1,11 +1,11 @@
 <?php
 
-namespace yiiunit\mongodb;
+namespace Yiisoft\Db\MongoDb\Tests;
 
-use yiiunit\mongodb\data\ar\ActiveRecord;
-use yiiunit\mongodb\data\ar\Customer;
-use yiiunit\mongodb\data\ar\CustomerOrder;
-use yiiunit\mongodb\data\ar\Item;
+use Yiisoft\Db\MongoDb\Tests\Data\ActiveRecord\ActiveRecord;
+use Yiisoft\Db\MongoDb\Tests\Data\ActiveRecord\Customer;
+use Yiisoft\Db\MongoDb\Tests\Data\ActiveRecord\CustomerOrder;
+use Yiisoft\Db\MongoDb\Tests\Data\ActiveRecord\Item;
 
 class ActiveRelationTest extends TestCase
 {

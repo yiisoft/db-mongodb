@@ -5,7 +5,7 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace yii\mongodb\rbac;
+namespace Yiisoft\Db\MongoDb\Rbac;
 
 use Yii;
 use yii\base\InvalidCallException;
@@ -13,8 +13,8 @@ use yii\base\InvalidArgumentException;
 use yii\caching\Cache;
 use yii\di\Instance;
 use Yiisoft\Arrays\ArrayHelper;
-use yii\mongodb\Connection;
-use yii\mongodb\Query;
+use Yiisoft\Db\MongoDb\Connection;
+use Yiisoft\Db\MongoDb\Query;
 use Yiisoft\Rbac\Assignment;
 use Yiisoft\Rbac\BaseManager;
 use Yiisoft\Rbac\Item;

@@ -1,9 +1,9 @@
 <?php
 
-namespace yiiunit\mongodb;
+namespace Yiisoft\Db\MongoDb\Tests;
 
 use MongoDB\BSON\ObjectID;
-use yii\mongodb\Query;
+use Yiisoft\Db\MongoDb\Query;
 
 class QueryRunTest extends TestCase
 {

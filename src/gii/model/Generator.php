@@ -5,12 +5,12 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace yii\mongodb\gii\model;
+namespace Yiisoft\Db\MongoDb\Gii\Model;
 
 use Yii;
 use Yiisoft\Arrays\ArrayHelper;
-use yii\mongodb\ActiveRecord;
-use yii\mongodb\Connection;
+use Yiisoft\Db\MongoDb\ActiveRecord;
+use Yiisoft\Db\MongoDb\Connection;
 use Yiisoft\Yii\Gii\CodeFile;
 use Yiisoft\Inflector\InflectorHelper;
 
@@ -28,7 +28,7 @@ class Generator extends \Yiisoft\Yii\Gii\Generator
     public $databaseName;
     public $attributeList;
     public $modelClass;
-    public $baseClass = 'yii\mongodb\ActiveRecord';
+    public $baseClass = 'Yiisoft\Db\MongoDb\ActiveRecord';
 
 
     /**

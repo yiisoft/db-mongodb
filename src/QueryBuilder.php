@@ -5,7 +5,7 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace yii\mongodb;
+namespace Yiisoft\Db\MongoDb;
 
 use MongoDB\BSON\Javascript;
 use MongoDB\BSON\ObjectID;
@@ -19,7 +19,7 @@ use Yiisoft\Arrays\ArrayHelper;
  * It is used by [[Command]] for particular commands and queries composition.
  *
  * MongoDB uses JSON format to specify query conditions with quite specific syntax.
- * However [[buildCondition()]] method provides the ability of "translating" common condition format used "yii\db\*"
+ * However [[buildCondition()]] method provides the ability of "translating" common condition format used "Yiisoft\Db\*"
  * into MongoDB condition.
  * For example:
  *
@@ -529,7 +529,7 @@ class QueryBuilder extends BaseObject
     }
 
     /**
-     * Converts "\yii\db\*" quick condition keyword into actual Mongo condition keyword.
+     * Converts "\Yiisoft\Db\*" quick condition keyword into actual Mongo condition keyword.
      * @param string $key raw condition key.
      * @return string actual key.
      */

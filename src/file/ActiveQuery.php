@@ -5,11 +5,11 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace yii\mongodb\file;
+namespace Yiisoft\Db\MongoDb\File;
 
-use yii\db\ActiveQueryInterface;
-use yii\db\ActiveQueryTrait;
-use yii\db\ActiveRelationTrait;
+use Yiisoft\Db\ActiveQueryInterface;
+use Yiisoft\Db\ActiveQueryTrait;
+use Yiisoft\Db\ActiveRelationTrait;
 
 /**
  * ActiveQuery represents a Mongo query associated with an file Active Record class.
@@ -103,7 +103,7 @@ class ActiveQuery extends Query implements ActiveQueryInterface
 
     /**
      * Executes query and returns all results as an array.
-     * @param \yii\mongodb\Connection $db the Mongo connection used to execute the query.
+     * @param \Yiisoft\Db\MongoDb\Connection $db the Mongo connection used to execute the query.
      * If null, the Mongo connection returned by [[modelClass]] will be used.
      * @return array|ActiveRecord the query results. If the query results in nothing, an empty array will be returned.
      */
@@ -114,7 +114,7 @@ class ActiveQuery extends Query implements ActiveQueryInterface
 
     /**
      * Executes query and returns a single row of result.
-     * @param \yii\mongodb\Connection $db the Mongo connection used to execute the query.
+     * @param \Yiisoft\Db\MongoDb\Connection $db the Mongo connection used to execute the query.
      * If null, the Mongo connection returned by [[modelClass]] will be used.
      * @return ActiveRecord|array|null a single row of query result. Depending on the setting of [[asArray]],
      * the query result may be either an array or an ActiveRecord object. Null will be returned
@@ -132,7 +132,7 @@ class ActiveQuery extends Query implements ActiveQueryInterface
 
     /**
      * Returns the Mongo collection for this query.
-     * @param \yii\mongodb\Connection $db Mongo connection.
+     * @param \Yiisoft\Db\MongoDb\Connection $db Mongo connection.
      * @return Collection collection instance.
      */
     public function getCollection($db = null)

@@ -5,11 +5,11 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace yii\mongodb\file;
+namespace Yiisoft\Db\MongoDb\File;
 
 use Yii;
 use yii\base\InvalidArgumentException;
-use yii\db\StaleObjectException;
+use Yiisoft\Db\StaleObjectException;
 use yii\web\UploadedFile;
 
 /**
@@ -43,7 +43,7 @@ use yii\web\UploadedFile;
  * @author Paul Klimov <klimov.paul@gmail.com>
  * @since 2.0
  */
-abstract class ActiveRecord extends \yii\mongodb\ActiveRecord
+abstract class ActiveRecord extends \Yiisoft\Db\MongoDb\ActiveRecord
 {
     /**
      * {@inheritdoc}

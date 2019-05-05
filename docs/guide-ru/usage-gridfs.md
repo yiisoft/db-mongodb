@@ -1,10 +1,10 @@
 Использование GridFS
 ============
 
-Расширение поддерживает [MongoGridFS](https://docs.mongodb.com/manual/core/gridfs/) с помощью классов из пространства имен "\yii\mongodb\file".
+Расширение поддерживает [MongoGridFS](https://docs.mongodb.com/manual/core/gridfs/) с помощью классов из пространства имен "\Yiisoft\Db\MongoDb\File".
 Там вы найдете классы Collection, Query и ActiveRecord.
 
-Вы можете загрузить файл с помощью [[\yii\mongodb\file\Upload]]:
+Вы можете загрузить файл с помощью [[\Yiisoft\Db\MongoDb\File\Upload]]:
 
 ```php
 $document = Yii::$app->mongodb->getFileCollection()->createUpload()
@@ -14,16 +14,16 @@ $document = Yii::$app->mongodb->getFileCollection()->createUpload()
     ->complete();
 ```
 
-Вы можете скачать файл с помощью [[\yii\mongodb\file\Download]]:
+Вы можете скачать файл с помощью [[\Yiisoft\Db\MongoDb\File\Download]]:
 
 ```php
 Yii::$app->mongodb->getFileCollection()->createDownload($document['_id'])->toFile('/path/to/file.dat');
 ```
 
-Каждая строка, файла результата запроса, содержит ключ 'file' экземпляра [[\yii\mongodb\file\Download]]:
+Каждая строка, файла результата запроса, содержит ключ 'file' экземпляра [[\Yiisoft\Db\MongoDb\File\Download]]:
 
 ```php
-use yii\mongodb\file\Query;
+use Yiisoft\Db\MongoDb\File\Query;
 
 $query = new Query();
 $rows = $query->from('fs')
@@ -31,15 +31,15 @@ $rows = $query->from('fs')
     ->all();
 
 foreach ($rows as $row) {
-    var_dump($row['file']); // вывод: "object(\yii\mongodb\file\Download)"
+    var_dump($row['file']); // вывод: "object(\Yiisoft\Db\MongoDb\File\Download)"
     echo $row['file']->toString(); // содержание файла вывода
 }
 ```
 
-С помощью [\yii\mongodb\file\ActiveRecord]] вы можете манипулировать файлами используя свойство 'file':
+С помощью [\Yiisoft\Db\MongoDb\File\ActiveRecord]] вы можете манипулировать файлами используя свойство 'file':
 
 ```php
-use yii\mongodb\file\ActiveRecord;
+use Yiisoft\Db\MongoDb\File\ActiveRecord;
 
 class ImageFile extends ActiveRecord
 {
@@ -52,13 +52,13 @@ $record->file = '/path/to/some/file.jpg'; // локальная загрузка
 $record->save();
 
 $record = ImageFile::find()->where(['number' => 15])->one();
-var_dump($record->file); // вывод: "object(\yii\mongodb\file\Download)"
+var_dump($record->file); // вывод: "object(\Yiisoft\Db\MongoDb\File\Download)"
 echo $row['file']->toString(); // содержание файла вывода
 ```
 
 Вы также можете управлять файлами GridFS через регулярные потоки ресурсов PHP.
-Вам нужно будет зарегистрировать обертку потока предоставленную этим расширением - [[\yii\mongodb\file\StreamWrapper]].
-Это может быть сделано с помощью [[\yii\mongodb\file\Connection::registerFileStreamWrapper()]].
+Вам нужно будет зарегистрировать обертку потока предоставленную этим расширением - [[\Yiisoft\Db\MongoDb\File\StreamWrapper]].
+Это может быть сделано с помощью [[\Yiisoft\Db\MongoDb\File\Connection::registerFileStreamWrapper()]].
 После того как обертка потока зарегистрирована, вы можете открыть поток используя следующий формат:
 
 ```

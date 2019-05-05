@@ -4,7 +4,7 @@ Using Migrations
 MongoDB is schemaless and will create any missing collection on the first demand. However there are many cases, when
 you may need applying persistent changes to the MongoDB database. For example: you may need to create a collection with
 some specific options or create indexes.
-MongoDB migrations are managed via [[yii\mongodb\console\controllers\MigrateController]], which is an analog of regular
+MongoDB migrations are managed via [[Yiisoft\Db\MongoDb\Console\Controllers\MigrateController]], which is an analog of regular
 [[\Yiisoft\Yii\Console\Controllers\MigrateController]].
 
 In order to enable this command you should adjust the configuration of your console application:
@@ -13,7 +13,7 @@ In order to enable this command you should adjust the configuration of your cons
 return [
     // ...
     'controllerMap' => [
-        'mongodb-migrate' => 'yii\mongodb\console\controllers\MigrateController'
+        'mongodb-migrate' => 'Yiisoft\Db\MongoDb\Console\Controllers\MigrateController'
     ],
 ];
 ```

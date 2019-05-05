@@ -5,7 +5,7 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace yii\mongodb\debug;
+namespace Yiisoft\Db\MongoDb\Debug;
 
 use Yii;
 use yii\debug\models\search\Db;
@@ -85,9 +85,9 @@ class MongoDbPanel extends DbPanel
         $target = $this->module->logTarget;
 
         return $target->filterMessages($target->messages, Logger::LEVEL_PROFILE, [
-            'yii\mongodb\Command::*',
-            'yii\mongodb\Query::*',
-            'yii\mongodb\BatchQueryResult::*',
+            'Yiisoft\Db\MongoDb\Command::*',
+            'Yiisoft\Db\MongoDb\Query::*',
+            'Yiisoft\Db\MongoDb\BatchQueryResult::*',
         ]);
     }
 

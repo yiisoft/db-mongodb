@@ -1,16 +1,16 @@
 <?php
 
-namespace yiiunit\mongodb;
+namespace Yiisoft\Db\MongoDb\Tests;
 
 use MongoDB\BSON\Binary;
 use MongoDB\BSON\ObjectID;
 use MongoDB\BSON\Regex;
-use yii\mongodb\ActiveQuery;
-use yiiunit\mongodb\data\ar\ActiveRecord;
-use yiiunit\mongodb\data\ar\Customer;
-use yiiunit\mongodb\data\ar\Animal;
-use yiiunit\mongodb\data\ar\Dog;
-use yiiunit\mongodb\data\ar\Cat;
+use Yiisoft\Db\MongoDb\ActiveQuery;
+use Yiisoft\Db\MongoDb\Tests\Data\ActiveRecord\ActiveRecord;
+use Yiisoft\Db\MongoDb\Tests\Data\ActiveRecord\Customer;
+use Yiisoft\Db\MongoDb\Tests\Data\ActiveRecord\Animal;
+use Yiisoft\Db\MongoDb\Tests\Data\ActiveRecord\Dog;
+use Yiisoft\Db\MongoDb\Tests\Data\ActiveRecord\Cat;
 
 class ActiveRecordTest extends TestCase
 {

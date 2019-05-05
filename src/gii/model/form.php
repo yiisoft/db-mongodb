@@ -1,7 +1,7 @@
 <?php
 /* @var $this yii\web\View */
 /* @var $form yii\widgets\ActiveForm */
-/* @var $generator yii\mongodb\gii\model\Generator */
+/* @var $generator Yiisoft\Db\MongoDb\Gii\Model\Generator */
 
 echo $form->field($generator, 'collectionName');
 echo $form->field($generator, 'databaseName');

@@ -1,7 +1,7 @@
 Использование интернационализации I18N
 =============================
 
-Вы можете использовать [[\yii\mongodb\i18n\MongoDbMessageSource]] для хранения переводов i18n сообщений.
+Вы можете использовать [[\Yiisoft\Db\MongoDb\i18n\MongoDbMessageSource]] для хранения переводов i18n сообщений.
 Пример конфигурации приложения:
 
 ```php
@@ -12,7 +12,7 @@ return [
         'i18n' => [
             'translations' => [
                 '*' => [
-                    '__class' => yii\mongodb\i18n\MongoDbMessageSource::class
+                    '__class' => Yiisoft\Db\MongoDb\i18n\MongoDbMessageSource::class
                 ]
             ]
         ],
@@ -20,4 +20,4 @@ return [
 ];
 ```
 
-Пожалуйста, обратитесь к [[\yii\mongodb\i18n\MongoDbMessageSource]] для получения более подробной информации о конфигурации и перевода структуры коллекции данных.
+Пожалуйста, обратитесь к [[\Yiisoft\Db\MongoDb\i18n\MongoDbMessageSource]] для получения более подробной информации о конфигурации и перевода структуры коллекции данных.

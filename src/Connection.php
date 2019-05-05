@@ -5,7 +5,7 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace yii\mongodb;
+namespace Yiisoft\Db\MongoDb;
 
 use MongoDB\Driver\Manager;
 use yii\base\Component;
@@ -24,7 +24,7 @@ use Yii;
  * the DB connection:
  *
  * ```php
- * $connection = new \yii\mongodb\Connection([
+ * $connection = new \Yiisoft\Db\MongoDb\Connection([
  *     'dsn' => $dsn,
  * ]);
  * $connection->open();
@@ -57,7 +57,7 @@ use Yii;
  * [
  *      'components' => [
  *          'mongodb' => [
- *              '__class' => yii\mongodb\Connection::class,
+ *              '__class' => Yiisoft\Db\MongoDb\Connection::class,
  *              'dsn' => 'mongodb://developer:password@localhost:27017/mydatabase',
  *          ],
  *      ],
@@ -145,7 +145,7 @@ class Connection extends Component
     /**
      * @var string name of the protocol, which should be used for the GridFS stream wrapper.
      * Only alphanumeric values are allowed: do not use any URL special characters, such as '/', '&', ':' etc.
-     * @see \yii\mongodb\file\StreamWrapper
+     * @see \Yiisoft\Db\MongoDb\File\StreamWrapper
      * @since 2.1
      */
     public $fileStreamProtocol = 'gridfs';
@@ -153,7 +153,7 @@ class Connection extends Component
      * @var string name of the class, which should serve as a stream wrapper for [[fileStreamProtocol]] protocol.
      * @since 2.1
      */
-    public $fileStreamWrapperClass = 'yii\mongodb\file\StreamWrapper';
+    public $fileStreamWrapperClass = 'Yiisoft\Db\MongoDb\File\StreamWrapper';
 
     /**
      * @var string name of the MongoDB database to use by default.
@@ -169,12 +169,12 @@ class Connection extends Component
      * @var QueryBuilder|array|string the query builder for this connection
      * @since 2.1
      */
-    private $_queryBuilder = 'yii\mongodb\QueryBuilder';
+    private $_queryBuilder = 'Yiisoft\Db\MongoDb\QueryBuilder';
     /**
      * @var LogBuilder|array|string log entries builder used for this connecton.
      * @since 2.1
      */
-    private $_logBuilder = 'yii\mongodb\LogBuilder';
+    private $_logBuilder = 'Yiisoft\Db\MongoDb\LogBuilder';
     /**
      * @var bool whether GridFS stream wrapper has been already registered.
      * @since 2.1
@@ -423,7 +423,7 @@ class Connection extends Component
     public function registerFileStreamWrapper($force = false)
     {
         if ($force || !$this->_fileStreamWrapperRegistered) {
-            /* @var $class \yii\mongodb\file\StreamWrapper */
+            /* @var $class \Yiisoft\Db\MongoDb\File\StreamWrapper */
             $class = $this->fileStreamWrapperClass;
             $class::register($this->fileStreamProtocol, $force);
 

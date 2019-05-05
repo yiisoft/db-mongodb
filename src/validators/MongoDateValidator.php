@@ -5,7 +5,7 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace yii\mongodb\validators;
+namespace Yiisoft\Db\MongoDb\Gii\Validators;
 
 use MongoDB\BSON\UTCDateTime;
 use yii\validators\DateValidator;
@@ -16,13 +16,13 @@ use yii\validators\DateValidator;
  * Usage example:
  *
  * ```php
- * class Customer extends yii\mongodb\ActiveRecord
+ * class Customer extends Yiisoft\Db\MongoDb\ActiveRecord
  * {
  *     ...
  *     public function rules()
  *     {
  *         return [
- *             ['date', 'yii\mongodb\validators\MongoDateValidator', 'format' => 'MM/dd/yyyy']
+ *             ['date', 'Yiisoft\Db\MongoDb\Gii\Validators\MongoDateValidator', 'format' => 'MM/dd/yyyy']
  *         ];
  *     }
  * }

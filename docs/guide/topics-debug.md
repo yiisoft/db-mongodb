@@ -15,7 +15,7 @@ enabled, it is sufficient to just add the panels configuration):
             '__class' => yii\debug\Module::class,
             'panels' => [
                 'mongodb' => [
-                    '__class' => yii\mongodb\debug\MongoDbPanel::class,
+                    '__class' => Yiisoft\Db\MongoDb\Debug\MongoDbPanel::class,
                     // 'db' => 'mongodb', // MongoDB component ID, defaults to `db`. Uncomment and change this line, if you registered MongoDB component with a different ID.
                 ],
             ],

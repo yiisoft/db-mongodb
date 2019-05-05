@@ -14,7 +14,7 @@ return [
             'class' => 'Yiisoft\Yii\Gii\Module',
             'generators' => [
                 'mongoDbModel' => [
-                    'class' => 'yii\mongodb\gii\model\Generator'
+                    'class' => 'Yiisoft\Db\MongoDb\Gii\Model\Generator'
                 ]
             ],
         ],

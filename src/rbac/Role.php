@@ -5,7 +5,7 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace yii\mongodb\rbac;
+namespace Yiisoft\Db\MongoDb\Rbac;
 
 /**
  * Role is a special version of [[\Yiisoft\Rbac\Role]] dedicated to MongoDB RBAC implementation.

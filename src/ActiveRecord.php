@@ -5,14 +5,14 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace yii\mongodb;
+namespace Yiisoft\Db\MongoDb;
 
 use MongoDB\BSON\Binary;
 use MongoDB\BSON\Type;
 use Yii;
 use yii\base\InvalidConfigException;
-use yii\db\BaseActiveRecord;
-use yii\db\StaleObjectException;
+use Yiisoft\Db\BaseActiveRecord;
+use Yiisoft\Db\StaleObjectException;
 use Yiisoft\Arrays\ArrayHelper;
 use Yiisoft\Inflector\InflectorHelper;
 use Yiisoft\Strings\StringHelper;

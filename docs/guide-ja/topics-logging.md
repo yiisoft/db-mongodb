@@ -2,14 +2,14 @@
 ==========================
 
 このエクステンションは、実行されたコマンドまたはクエリのロギングを提供しています。
-ロギングは選択可能で、[[\yii\mongodb\Connection]] レベルで有効または無効にすることが出来ます。
+ロギングは選択可能で、[[\Yiisoft\Db\MongoDb\Connection]] レベルで有効または無効にすることが出来ます。
 
 ```php
 return [
     //....
     'components' => [
         'mongodb' => [
-            'class' => '\yii\mongodb\Connection',
+            'class' => '\Yiisoft\Db\MongoDb\Connection',
             'dsn' => 'mongodb://developer:password@localhost:27017/mydatabase',
             'enableLogging' => true, // ロギングを有効にする
             'enableProfiling' => true, // プロファイリングを有効にする

@@ -2,14 +2,14 @@
 =====================
 
 Расширение обеспечивает ведение журнала для выполненных команд и запросов.
-Ведение журнала необязательно и может быть включено или отключено в [[\yii\mongodb\Connection]]:
+Ведение журнала необязательно и может быть включено или отключено в [[\Yiisoft\Db\MongoDb\Connection]]:
 
 ```php
 return [
     //....
     'components' => [
         'mongodb' => [
-            '__class' => yii\mongodb\Connection::class,
+            '__class' => Yiisoft\Db\MongoDb\Connection::class,
             'dsn' => 'mongodb://developer:password@localhost:27017/mydatabase',
             'enableLogging' => true, // включить логирование
             'enableProfiling' => true, // включить профилирование

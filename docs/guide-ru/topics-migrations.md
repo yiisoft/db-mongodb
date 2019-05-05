@@ -2,7 +2,7 @@
 ================
 
 MongoDB это - schemaless-бд и может создать необходимые коллекции по первому требованию. Однако, есть много случаев когда вам может понадобиться применение постоянных изменений в базу данных MongoDB. Для примера: вам может понадобится создать коллекцию с некоторыми конкретными вариантами или индексы.
-MongoDB миграции управляются с помощью [[yii\mongodb\console\controllers\MigrateController]], который являетя аналогом регулярного
+MongoDB миграции управляются с помощью [[Yiisoft\Db\MongoDb\Console\Controllers\MigrateController]], который являетя аналогом регулярного
 [[\Yiisoft\Yii\Console\Controllers\MigrateController]].
 
 Для того, чтобы включить эту команду, вы должны настроить конфигурацию консольного приложения:
@@ -11,7 +11,7 @@ MongoDB миграции управляются с помощью [[yii\mongodb\
 return [
     // ...
     'controllerMap' => [
-        'mongodb-migrate' => 'yii\mongodb\console\controllers\MigrateController'
+        'mongodb-migrate' => 'Yiisoft\Db\MongoDb\Console\Controllers\MigrateController'
     ],
 ];
 ```

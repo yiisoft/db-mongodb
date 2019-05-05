@@ -5,11 +5,11 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace yii\mongodb;
+namespace Yiisoft\Db\MongoDb;
 
-use yii\db\ActiveQueryInterface;
-use yii\db\ActiveQueryTrait;
-use yii\db\ActiveRelationTrait;
+use Yiisoft\Db\ActiveQueryInterface;
+use Yiisoft\Db\ActiveQueryTrait;
+use Yiisoft\Db\ActiveRelationTrait;
 
 /**
  * ActiveQuery represents a Mongo query associated with an Active Record class.

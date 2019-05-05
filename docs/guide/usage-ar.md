@@ -1,12 +1,12 @@
 Using the MongoDB ActiveRecord
 ==============================
 
-This extension provides ActiveRecord solution similar ot the [[\yii\db\ActiveRecord]].
-To declare an ActiveRecord class you need to extend [[\yii\mongodb\ActiveRecord]] and
+This extension provides ActiveRecord solution similar ot the [[\Yiisoft\Db\ActiveRecord]].
+To declare an ActiveRecord class you need to extend [[\Yiisoft\Db\MongoDb\ActiveRecord]] and
 implement the `collectionName` and 'attributes' methods:
 
 ```php
-use yii\mongodb\ActiveRecord;
+use Yiisoft\Db\MongoDb\ActiveRecord;
 
 class Customer extends ActiveRecord
 {
@@ -30,11 +30,11 @@ class Customer extends ActiveRecord
 
 Note: collection primary key name ('_id') should be always explicitly setup as an attribute.
 
-You can use [[\yii\data\ActiveDataProvider]] with [[\yii\mongodb\Query]] and [[\yii\mongodb\ActiveQuery]]:
+You can use [[\yii\data\ActiveDataProvider]] with [[\Yiisoft\Db\MongoDb\Query]] and [[\Yiisoft\Db\MongoDb\ActiveQuery]]:
 
 ```php
 use yii\data\ActiveDataProvider;
-use yii\mongodb\Query;
+use Yiisoft\Db\MongoDb\Query;
 
 $query = new Query();
 $query->from('customer')->where(['status' => 2]);

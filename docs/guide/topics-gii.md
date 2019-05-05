@@ -13,7 +13,7 @@ return [
             '__class' => Yiisoft\Yii\Gii\Module::class,
             'generators' => [
                 'mongoDbModel' => [
-                    '__class' => yii\mongodb\gii\model\Generator::class,
+                    '__class' => Yiisoft\Db\MongoDb\Gii\Model\Generator::class,
                 ]
             ],
         ],

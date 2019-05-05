@@ -4,7 +4,7 @@
  */
 
 /* @var $this yii\web\View */
-/* @var $generator yii\mongodb\gii\model\Generator */
+/* @var $generator Yiisoft\Db\MongoDb\Gii\Model\Generator */
 /* @var $collectionName string full collection name */
 /* @var $attributes array list of attribute names */
 /* @var $className string class name */
@@ -41,7 +41,7 @@ class <?= $className ?> extends <?= '\\' . ltrim($generator->baseClass, '\\') . 
 <?php if ($generator->db !== 'mongodb'): ?>
 
     /**
-     * @return \yii\mongodb\Connection the MongoDB connection used by this AR class.
+     * @return \Yiisoft\Db\MongoDb\Connection the MongoDB connection used by this AR class.
      */
     public static function getDb()
     {

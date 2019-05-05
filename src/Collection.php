@@ -5,7 +5,7 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace yii\mongodb;
+namespace Yiisoft\Db\MongoDb;
 
 use MongoDB\BSON\ObjectID;
 use yii\base\BaseObject;

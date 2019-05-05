@@ -31,7 +31,7 @@ echo $this->createUrl(['item/update', 'id' => (string) $row['_id']]);
 
 ```php
 use yii\web\Controller;
-use yii\mongodb\Query;
+use Yiisoft\Db\MongoDb\Query;
 
 class ItemController extends Controller
 {

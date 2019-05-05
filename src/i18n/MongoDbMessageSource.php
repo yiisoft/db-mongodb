@@ -5,14 +5,14 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace yii\mongodb\i18n;
+namespace Yiisoft\Db\MongoDb\i18n;
 
 use yii\base\InvalidConfigException;
 use yii\caching\Cache;
 use yii\di\Instance;
 use yii\i18n\MessageSource;
-use yii\mongodb\Connection;
-use yii\mongodb\Query;
+use Yiisoft\Db\MongoDb\Connection;
+use Yiisoft\Db\MongoDb\Query;
 
 /**
  * MongoDbMessageSource extends [[MessageSource]] and represents a message source that stores translated

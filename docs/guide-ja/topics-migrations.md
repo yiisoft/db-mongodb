@@ -4,7 +4,7 @@
 MongoDB はスキーマレスであり、欠落しているコレクションはすべて最初に要求されたときに作成されます。
 しかし、MongoDB データベースに永続的な変更を適用する必要があることはよくあります。
 例えば、何らかの特定のオプションを指定してコレクションを作成したり、インデックスを作成したりする場合です。
-MongoDB のマイグレーションは [[yii\mongodb\console\controllers\MigrateController]] によって管理されます。
+MongoDB のマイグレーションは [[Yiisoft\Db\MongoDb\Console\Controllers\MigrateController]] によって管理されます。
 これは通常の [[\Yiisoft\Yii\Console\Controllers\MigrateController]] に類似したものです。
 
 このコマンドを有効にするためには、コンソールアプリケーションの構成を次のように修正しなければなりません。
@@ -13,7 +13,7 @@ MongoDB のマイグレーションは [[yii\mongodb\console\controllers\Migrate
 return [
     // ...
     'controllerMap' => [
-        'mongodb-migrate' => 'yii\mongodb\console\controllers\MigrateController'
+        'mongodb-migrate' => 'Yiisoft\Db\MongoDb\Console\Controllers\MigrateController'
     ],
 ];
 ```

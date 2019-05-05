@@ -1,10 +1,10 @@
 <?php
 
-namespace yiiunit\mongodb;
+namespace Yiisoft\Db\MongoDb\Tests;
 
-use yii\mongodb\Collection;
-use yii\mongodb\Command;
-use yii\mongodb\file\Collection as FileCollection;
+use Yiisoft\Db\MongoDb\Collection;
+use Yiisoft\Db\MongoDb\Command;
+use Yiisoft\Db\MongoDb\File\Collection as FileCollection;
 
 class DatabaseTest extends TestCase
 {

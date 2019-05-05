@@ -2,7 +2,7 @@
 ===========
 
 После установки экземпляра соединения с MongoDB, вы можете выполнять MongoDB команды и запросы
-используя [[yii\mongodb\Command]]:
+используя [[Yiisoft\Db\MongoDb\Command]]:
 
 ```php
 // выполнить команду:
@@ -20,17 +20,17 @@ Yii::$app->mongodb->createCommand()
 ```
 
 Используя экземпляр соединения, вы можете получить доступ к базам данным и коллекциям.
-Большинство MongoDB команд доступны через [[\yii\mongodb\Collection]] например:
+Большинство MongoDB команд доступны через [[\Yiisoft\Db\MongoDb\Collection]] например:
 
 ```php
 $collection = Yii::$app->mongodb->getCollection('customer');
 $collection->insert(['name' => 'John Smith', 'status' => 1]);
 ```
 
-Для выполнения `find` запросов, вы должны использовать [[\yii\mongodb\Query]]:
+Для выполнения `find` запросов, вы должны использовать [[\Yiisoft\Db\MongoDb\Query]]:
 
 ```php
-use yii\mongodb\Query;
+use Yiisoft\Db\MongoDb\Query;
 
 $query = new Query();
 // составление запроса

@@ -5,11 +5,11 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace yii\mongodb;
+namespace Yiisoft\Db\MongoDb;
 
 use yii\base\Component;
-use yii\db\QueryInterface;
-use yii\db\QueryTrait;
+use Yiisoft\Db\QueryInterface;
+use Yiisoft\Db\QueryTrait;
 use Yii;
 use Yiisoft\Arrays\ArrayHelper;
 

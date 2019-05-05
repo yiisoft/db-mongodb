@@ -2,7 +2,7 @@
 =========================
 
 Для того чтобы использованить компонент `Cache`, в дополнительных настройках соединения, как описано в разделе  [Установка](installation.md),
-вы должны настроить компонент `cache` как `yii\mongodb\Cache`:
+вы должны настроить компонент `cache` как `Yiisoft\Db\MongoDb\Cache`:
 
 ```php
 return [
@@ -10,7 +10,7 @@ return [
     'components' => [
         // ...
         'cache' => [
-            '__class' => yii\mongodb\Cache::class,
+            '__class' => Yiisoft\Db\MongoDb\Cache::class,
         ],
     ]
 ];

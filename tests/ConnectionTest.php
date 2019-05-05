@@ -1,13 +1,13 @@
 <?php
 
-namespace yiiunit\mongodb;
+namespace Yiisoft\Db\MongoDb\Tests;
 
-use yii\mongodb\Collection;
-use yii\mongodb\Command;
-use yii\mongodb\file\Collection as FileCollection;
-use yii\mongodb\Connection;
-use yii\mongodb\Database;
-use yii\mongodb\QueryBuilder;
+use Yiisoft\Db\MongoDb\Collection;
+use Yiisoft\Db\MongoDb\Command;
+use Yiisoft\Db\MongoDb\File\Collection as FileCollection;
+use Yiisoft\Db\MongoDb\Connection;
+use Yiisoft\Db\MongoDb\Database;
+use Yiisoft\Db\MongoDb\QueryBuilder;
 
 class ConnectionTest extends TestCase
 {
@@ -40,7 +40,7 @@ class ConnectionTest extends TestCase
 
         $connection = new Connection();
         $connection->dsn = 'unknown::memory:';
-        $this->expectException('yii\mongodb\Exception');
+        $this->expectException('Yiisoft\Db\MongoDb\Exception');
         $connection->open();
     }
 

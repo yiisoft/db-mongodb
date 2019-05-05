@@ -1,6 +1,6 @@
 <?php
 
-namespace yiiunit\mongodb;
+namespace Yiisoft\Db\MongoDb\Tests;
 
 use MongoDB\BSON\ObjectID;
 
@@ -99,9 +99,9 @@ class MigrationTest extends TestCase
 }
 
 /**
- * Migration is mock of [[\yii\mongodb\Migration]] used for the unit tests.
+ * Migration is mock of [[\Yiisoft\Db\MongoDb\Migration]] used for the unit tests.
  */
-class Migration extends \yii\mongodb\Migration
+class Migration extends \Yiisoft\Db\MongoDb\Migration
 {
     /**
      * @var array list of log messages

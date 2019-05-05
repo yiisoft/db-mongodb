@@ -1,6 +1,6 @@
 <?php
 
-namespace yiiunit\mongodb\data\ar;
+namespace Yiisoft\Db\MongoDb\Tests\Data\ActiveRecord;
 
 /**
  * @property \MongoDB\BSON\ObjectID|string $_id

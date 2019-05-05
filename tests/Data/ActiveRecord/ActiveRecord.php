@@ -1,11 +1,11 @@
 <?php
 
-namespace yiiunit\mongodb\data\ar;
+namespace Yiisoft\Db\MongoDb\Tests\Data\ActiveRecord;
 
 /**
  * Test Mongo ActiveRecord
  */
-class ActiveRecord extends \yii\mongodb\ActiveRecord
+class ActiveRecord extends \Yiisoft\Db\MongoDb\ActiveRecord
 {
     public static $db;
 

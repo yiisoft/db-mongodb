@@ -37,10 +37,10 @@
         }
     ],
     "autoload": {
-        "psr-4": {"yii\\mongodb\\": "src"}
+        "psr-4": {"Yiisoft\\Db\\MongoDb\\": "src"}
     },
     "autoload-dev": {
-        "psr-4": {"yiiunit\\mongodb\\": "tests"}
+        "psr-4": {"Yiisoft\\Db\\MongoDb\\Tests\\": "tests"}
     },
     "extra": {
         "branch-alias": {

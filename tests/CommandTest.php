@@ -1,6 +1,6 @@
 <?php
 
-namespace yiiunit\mongodb;
+namespace Yiisoft\Db\MongoDb\Tests;
 
 use MongoDB\BSON\ObjectID;
 use MongoDB\Driver\Cursor;
@@ -93,7 +93,7 @@ class CommandTest extends TestCase
         $result = $command->dropIndexes('customer', '*');
         $this->assertEquals(2, $result['nIndexesWas']);
 
-        $this->expectException('yii\mongodb\Exception');
+        $this->expectException('Yiisoft\Db\MongoDb\Exception');
         $this->expectExceptionMessage('index not found with name');
         $command->dropIndexes('customer', 'desc_index');
     }
@@ -218,7 +218,7 @@ class CommandTest extends TestCase
         $this->assertTrue(!isset($result['status']));
 
         // Test exceptions
-        $this->expectException('\yii\mongodb\Exception');
+        $this->expectException('\Yiisoft\Db\MongoDb\Exception');
         $connection->createCommand()->findAndModify('customer', ['name' => 'customer 1'], ['$wrongOperator' => ['status' => 1]]);
     }
 

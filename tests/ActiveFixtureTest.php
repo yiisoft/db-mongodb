@@ -1,12 +1,12 @@
 <?php
 
-namespace yiiunit\mongodb;
+namespace Yiisoft\Db\MongoDb\Tests;
 
 use Yii;
 use yii\helpers\FileHelper;
 use yii\helpers\VarDumper;
-use yii\mongodb\ActiveFixture;
-use yiiunit\mongodb\data\ar\Customer;
+use Yiisoft\Db\MongoDb\ActiveFixture;
+use Yiisoft\Db\MongoDb\Tests\Data\ActiveRecord\Customer;
 
 class ActiveFixtureTest extends TestCase
 {
@@ -116,7 +116,7 @@ class ActiveFixtureTest extends TestCase
         $classDefinition = <<<PHP
 <?php
 
-class {$className} extends \yii\mongodb\ActiveFixture
+class {$className} extends \Yiisoft\Db\MongoDb\ActiveFixture
 {
 }
 PHP;

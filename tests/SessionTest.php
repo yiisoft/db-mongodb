@@ -1,8 +1,8 @@
 <?php
 
-namespace yiiunit\mongodb;
+namespace Yiisoft\Db\MongoDb\Tests;
 
-use yii\mongodb\Session;
+use Yiisoft\Db\MongoDb\Session;
 use Yii;
 
 class SessionTest extends TestCase

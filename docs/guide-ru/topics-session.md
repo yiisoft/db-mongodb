@@ -2,7 +2,7 @@
 ===========================
 
 Для использования компонента `Session`, в дополнительных настройках соединения, как описано в разделе [Установка](installation.md),
-вы должны настроить компонент `session` как `yii\mongodb\Session`:
+вы должны настроить компонент `session` как `Yiisoft\Db\MongoDb\Session`:
 
 ```php
 return [
@@ -10,7 +10,7 @@ return [
     'components' => [
         // ...
         'session' => [
-            '__class' => yii\mongodb\Session::class,
+            '__class' => Yiisoft\Db\MongoDb\Session::class,
         ],
     ]
 ];

@@ -1,10 +1,10 @@
 <?php
 
-namespace yiiunit\mongodb\i18n;
+namespace Yiisoft\Db\MongoDb\Tests\i18n;
 
 use yii\i18n\I18N;
-use yii\mongodb\i18n\MongoDbMessageSource;
-use yiiunit\mongodb\TestCase;
+use Yiisoft\Db\MongoDb\i18n\MongoDbMessageSource;
+use Yiisoft\Db\MongoDb\Tests\TestCase;
 
 class MongoDbMessageSourceTest extends TestCase
 {

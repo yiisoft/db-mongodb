@@ -2,7 +2,7 @@ Utilisation Basic
 =================
 
 Une fois tu as une connection a MongoDB machine, tu peux executer ces commandes et requettes en utiisant 
-[[yii\mongodb\Command]]:
+[[Yiisoft\Db\MongoDb\Command]]:
 
 ```php
 // execute command:
@@ -20,17 +20,17 @@ Yii::$app->mongodb->createCommand()
 ```
 
 En utilisant l'instance de connection, tu peux acceder a les bases de donnee ansi a les collections.
-La plupart des commandes de MongoDb sont accessible via [[\yii\mongodb\Collection]] instance: 
+La plupart des commandes de MongoDb sont accessible via [[\Yiisoft\Db\MongoDb\Collection]] instance: 
 
 ```php
 $collection = Yii::$app->mongodb->getCollection('customer');
 $collection->insert(['name' => 'John Smith', 'status' => 1]);
 ```
 
-Pour effectuer une requette de recherche "find", tu dois utiliser [[\yii\mongodb\Query]]: 
+Pour effectuer une requette de recherche "find", tu dois utiliser [[\Yiisoft\Db\MongoDb\Query]]: 
 
 ```php
-use yii\mongodb\Query;
+use Yiisoft\Db\MongoDb\Query;
 
 $query = new Query();
 // compose the query

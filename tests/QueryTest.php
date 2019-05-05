@@ -1,8 +1,8 @@
 <?php
 
-namespace yiiunit\mongodb;
+namespace Yiisoft\Db\MongoDb\Tests;
 
-use yii\mongodb\Query;
+use Yiisoft\Db\MongoDb\Query;
 
 class QueryTest extends TestCase
 {
@@ -133,7 +133,7 @@ class QueryTest extends TestCase
         $query = new Query();
 
         $result = $query->andFilterCompare('name', null);
-        $this->assertInstanceOf('yii\mongodb\Query', $result);
+        $this->assertInstanceOf('Yiisoft\Db\MongoDb\Query', $result);
         $this->assertNull($query->where);
 
         $query->andFilterCompare('name', '');

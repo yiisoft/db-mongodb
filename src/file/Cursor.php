@@ -5,7 +5,7 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace yii\mongodb\file;
+namespace Yiisoft\Db\MongoDb\File;
 
 /**
  * Cursor is a wrapper around [[\MongoDB\Driver\Cursor]], which allows returning of the

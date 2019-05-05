@@ -1,9 +1,9 @@
 <?php
 
-namespace yiiunit\mongodb;
+namespace Yiisoft\Db\MongoDb\Tests;
 
 use Yii;
-use yii\mongodb\Cache;
+use Yiisoft\Db\MongoDb\Cache;
 
 class CacheTest extends TestCase
 {

@@ -1,7 +1,7 @@
 Using the I18N Message Source
 =============================
 
-You may use [[\yii\mongodb\i18n\MongoDbMessageSource]] for the i18n message translations storage.
+You may use [[\Yiisoft\Db\MongoDb\i18n\MongoDbMessageSource]] for the i18n message translations storage.
 Application configuration example:
 
 ```php
@@ -12,7 +12,7 @@ return [
         'i18n' => [
             'translations' => [
                 '*' => [
-                    '__class' => yii\mongodb\i18n\MongoDbMessageSource::class
+                    '__class' => Yiisoft\Db\MongoDb\i18n\MongoDbMessageSource::class
                 ]
             ]
         ],
@@ -20,7 +20,7 @@ return [
 ];
 ```
 
-[[\yii\mongodb\i18n\MongoDbMessageSource]] uses single collection to store all translations.
+[[\Yiisoft\Db\MongoDb\i18n\MongoDbMessageSource]] uses single collection to store all translations.
 Each entry in this collection should have 3 fields:
 
  - language: string, translation language
@@ -65,5 +65,5 @@ For example:
 
 However such approach is not recommended as BSON keys can not contain symbols like `.` or `$`.
 
-Please refer to [[\yii\mongodb\i18n\MongoDbMessageSource]] for more details about configuration and translation
+Please refer to [[\Yiisoft\Db\MongoDb\i18n\MongoDbMessageSource]] for more details about configuration and translation
 collection data structure.

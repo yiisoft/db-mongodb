@@ -14,7 +14,7 @@
             '__class' => yii\debug\Module::class,
             'panels' => [
                 'mongodb' => [
-                    '__class' => yii\mongodb\debug\MongoDbPanel::class,
+                    '__class' => Yiisoft\Db\MongoDb\Debug\MongoDbPanel::class,
                     // 'db' => 'mongodb', // ID MongoDB компонента, по умолчанию `db`. Раскоментируйте и измените эту строку, если вы регистрируете компонент MongoDB с другим ID.
                 ],
             ],

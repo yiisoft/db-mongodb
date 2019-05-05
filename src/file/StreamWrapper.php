@@ -5,20 +5,20 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace yii\mongodb\file;
+namespace Yiisoft\Db\MongoDb\File;
 
 use yii\base\InvalidConfigException;
 use yii\base\BaseObject;
 use yii\di\Instance;
 use Yiisoft\Strings\StringHelper;
-use yii\mongodb\Connection;
+use Yiisoft\Db\MongoDb\Connection;
 
 /**
  * StreamWrapper provides stream wrapper for MongoDB GridFS, allowing file operations via
  * regular PHP stream resources.
  *
  * Before feature can be used this wrapper should be registered via [[register()]] method.
- * It is usually performed via [[yii\mongodb\Connection::registerFileStreamWrapper()]].
+ * It is usually performed via [[Yiisoft\Db\MongoDb\Connection::registerFileStreamWrapper()]].
  *
  * Note: do not use this class directly - its instance will be created and maintained by PHP internally
  * once corresponding stream resource is created.

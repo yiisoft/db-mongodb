@@ -1,11 +1,11 @@
 MongoDB のアクティブレコードを使用する
 ======================================
 
-このエクステンションは [[\yii\db\ActiveRecord]] と同様なアクティブレコードのソリューションを提供します。
-アクティブレコードクラスを宣言するためには、[[\yii\mongodb\ActiveRecord]] から拡張して、`collectionName` と 'attributes' のメソッドを実装する必要があります。
+このエクステンションは [[\Yiisoft\Db\ActiveRecord]] と同様なアクティブレコードのソリューションを提供します。
+アクティブレコードクラスを宣言するためには、[[\Yiisoft\Db\MongoDb\ActiveRecord]] から拡張して、`collectionName` と 'attributes' のメソッドを実装する必要があります。
 
 ```php
-use yii\mongodb\ActiveRecord;
+use Yiisoft\Db\MongoDb\ActiveRecord;
 
 class Customer extends ActiveRecord
 {
@@ -29,11 +29,11 @@ class Customer extends ActiveRecord
 
 >Note|注意: コレクションのプライマリキーの名前 ('_id') は、常に属性の一つとしてセットアップしなければなりません。
 
-[[\yii\mongodb\Query]] および [[\yii\mongodb\ActiveQuery]] によって [[\yii\data\ActiveDataProvider]] を使用することが出来ます。
+[[\Yiisoft\Db\MongoDb\Query]] および [[\Yiisoft\Db\MongoDb\ActiveQuery]] によって [[\yii\data\ActiveDataProvider]] を使用することが出来ます。
 
 ```php
 use yii\data\ActiveDataProvider;
-use yii\mongodb\Query;
+use Yiisoft\Db\MongoDb\Query;
 
 $query = new Query();
 $query->from('customer')->where(['status' => 2]);

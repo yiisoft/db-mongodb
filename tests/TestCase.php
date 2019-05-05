@@ -1,12 +1,12 @@
 <?php
 
-namespace yiiunit\mongodb;
+namespace Yiisoft\Db\MongoDb\Tests;
 
 use Yiisoft\Arrays\ArrayHelper;
 use yii\helpers\FileHelper;
-use yii\mongodb\Connection;
+use Yiisoft\Db\MongoDb\Connection;
 use Yii;
-use yii\mongodb\Exception;
+use Yiisoft\Db\MongoDb\Exception;
 
 abstract class TestCase extends \PHPUnit\Framework\TestCase
 {
@@ -97,7 +97,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
     /**
      * @param  bool $reset whether to clean up the test database
      * @param  bool $open  whether to open test database
-     * @return \yii\mongodb\Connection
+     * @return \Yiisoft\Db\MongoDb\Connection
      */
     public function getConnection($reset = false, $open = true)
     {
@@ -154,7 +154,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 
     /**
      * Finds all records in collection.
-     * @param  \yii\mongodb\Collection $collection
+     * @param  \Yiisoft\Db\MongoDb\Collection $collection
      * @param  array                   $condition
      * @param  array                   $fields
      * @return array                   rows

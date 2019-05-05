@@ -1,8 +1,8 @@
 <?php
 
-namespace yiiunit\mongodb\data\ar\file;
+namespace Yiisoft\Db\MongoDb\Tests\Data\ActiveRecord\file;
 
-use yii\mongodb\file\ActiveQuery;
+use Yiisoft\Db\MongoDb\File\ActiveQuery;
 
 /**
  * CustomerFileQuery

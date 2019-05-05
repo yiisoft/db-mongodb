@@ -1,8 +1,8 @@
 <?php
 
-namespace yiiunit\mongodb\data\ar;
+namespace Yiisoft\Db\MongoDb\Tests\Data\ActiveRecord;
 
-use yii\mongodb\ActiveQuery;
+use Yiisoft\Db\MongoDb\ActiveQuery;
 
 /**
  * CustomerQuery

@@ -11,7 +11,7 @@ if (!empty($namespace)) {
 }
 ?>
 
-class <?= $className ?> extends \yii\mongodb\Migration
+class <?= $className ?> extends \Yiisoft\Db\MongoDb\Migration
 {
     public function up()
     {

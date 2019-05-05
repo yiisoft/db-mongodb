@@ -2,14 +2,14 @@ Logging and Profiling
 =====================
 
 This extension provides logging for executed commands or queries.
-Logging is optional and can be enabled or disabled at [[\yii\mongodb\Connection]] level:
+Logging is optional and can be enabled or disabled at [[\Yiisoft\Db\MongoDb\Connection]] level:
 
 ```php
 return [
     //....
     'components' => [
         'mongodb' => [
-            '__class' => yii\mongodb\Connection::class,
+            '__class' => Yiisoft\Db\MongoDb\Connection::class,
             'dsn' => 'mongodb://developer:password@localhost:27017/mydatabase',
             'enableLogging' => true, // enable logging
             'enableProfiling' => true, // enable profiling
