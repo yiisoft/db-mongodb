@@ -17,18 +17,21 @@
             "email": "klimov.paul@gmail.com"
         }
     ],
+    "minimum-stability": "dev",
+    "prefer-stable": true,
     "require": {
         "yiisoft/yii-core": "^3.0@dev",
         "yiisoft/db": "dev-master",
         "yiisoft/inflector": "^3.0@dev",
-        "ext-mongodb": ">=1.0.0"
+        "ext-mongodb": ">=1.0.0",
+        "yiisoft/active-record": "^3.0@dev"
     },
     "require-dev": {
         "hiqdev/composer-config-plugin": "^1.0@dev",
         "yiisoft/arrays": "^3.0@dev",
         "yiisoft/strings": "^3.0@dev",
         "phpunit/phpunit": "^7.3",
-        "yiisoft/di": "dev-master",
+        "yiisoft/di": "^3.0@dev",
         "yiisoft/yii-console": "dev-master",
         "yiisoft/log": "dev-master",
         "yiisoft/cache": "dev-master"

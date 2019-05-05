@@ -78,7 +78,8 @@ class Collection extends \Yiisoft\Db\MongoDb\Collection
     {
         $config = $options;
         $config['collection'] = $this;
-        return new Upload($config);
+        $config['__class'] = Upload::class;
+        return Yii::createObject($config);
     }
 
     /**
@@ -89,7 +90,8 @@ class Collection extends \Yiisoft\Db\MongoDb\Collection
      */
     public function createDownload($document)
     {
-        return new Download([
+        return Yii::createObject([
+            '__class' => Download::class,
             'collection' => $this,
             'document' => $document,
         ]);

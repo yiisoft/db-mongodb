@@ -408,11 +408,7 @@ class Connection extends Component
      */
     public function createCommand($document = [], $databaseName = null)
     {
-        return new Command([
-            'db' => $this,
-            'databaseName' => $databaseName,
-            'document' => $document,
-        ]);
+        return new Command($this, $document, $databaseName);
     }
 
     /**

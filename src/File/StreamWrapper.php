@@ -7,9 +7,9 @@
 
 namespace Yiisoft\Db\MongoDb\File;
 
-use yii\base\InvalidConfigException;
+use yii\exceptions\InvalidConfigException;
 use yii\base\BaseObject;
-use yii\di\Instance;
+use yii\helpers\Yii;
 use Yiisoft\Strings\StringHelper;
 use Yiisoft\Db\MongoDb\Connection;
 
@@ -207,7 +207,7 @@ class StreamWrapper extends BaseObject
             : 'mongodb';
 
         /* @var $connection Connection */
-        $connection = Instance::ensure($connection, Connection::class);
+        $connection = Yii::ensureObject($connection, Connection::class);
 
         [$databaseName, $collectionPrefix] = explode('.', $this->_namespace, 2);
         return $connection->getDatabase($databaseName)->getFileCollection($collectionPrefix);

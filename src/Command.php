@@ -14,9 +14,9 @@ use MongoDB\Driver\ReadConcern;
 use MongoDB\Driver\ReadPreference;
 use MongoDB\Driver\WriteConcern;
 use MongoDB\Driver\WriteResult;
-use Yii;
-use yii\base\InvalidConfigException;
 use yii\base\BaseObject;
+use yii\exceptions\InvalidConfigException;
+use yii\helpers\Yii;
 
 /**
  * Command represents MongoDB statement such as command or query.
@@ -85,6 +85,13 @@ class Command extends BaseObject
      * @var ReadConcern|string read concern to be used by this command
      */
     private $_readConcern;
+
+    public function __construct(Connection $db, $document, ?string $databaseName)
+    {
+        $this->db = $db;
+        $this->databaseName = $databaseName;
+        $this->document = $document;
+    }
 
 
     /**
@@ -174,7 +181,7 @@ class Command extends BaseObject
      */
     public function execute()
     {
-        $databaseName = $this->databaseName === null ? $this->db->defaultDatabaseName : $this->databaseName;
+        $databaseName = $this->databaseName ?? $this->db->defaultDatabaseName;
 
         $token = $this->log([$databaseName, 'command'], $this->document, __METHOD__);
 
@@ -209,7 +216,7 @@ class Command extends BaseObject
      */
     public function executeBatch($collectionName, $options = [])
     {
-        $databaseName = $this->databaseName === null ? $this->db->defaultDatabaseName : $this->databaseName;
+        $databaseName = $this->databaseName ?? $this->db->defaultDatabaseName;
 
         $token = $this->log([$databaseName, $collectionName, 'bulkWrite'], $this->document, __METHOD__);
 
@@ -228,7 +235,7 @@ class Command extends BaseObject
                         $batch->update($operation['condition'], $operation['document'], $operation['options']);
                         break;
                     case 'delete':
-                        $batch->delete($operation['condition'], isset($operation['options']) ? $operation['options'] : []);
+                        $batch->delete($operation['condition'], $operation['options'] ?? []);
                         break;
                     default:
                         throw new InvalidConfigException("Unsupported batch operation type '{$operation['type']}'");
@@ -259,7 +266,7 @@ class Command extends BaseObject
      */
     public function query($collectionName, $options = [])
     {
-        $databaseName = $this->databaseName === null ? $this->db->defaultDatabaseName : $this->databaseName;
+        $databaseName = $this->databaseName ?? $this->db->defaultDatabaseName;
 
         $token = $this->log(
             'find',

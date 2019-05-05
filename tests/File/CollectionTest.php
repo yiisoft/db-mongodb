@@ -2,7 +2,7 @@
 
 namespace Yiisoft\Db\MongoDb\File;
 
-use MongoDB\BSON\ObjectID;
+use MongoDB\BSON\ObjectId;
 use Yiisoft\Db\MongoDb\File\Cursor;
 use Yiisoft\Db\MongoDb\File\Download;
 use Yiisoft\Db\MongoDb\Tests\TestCase;
@@ -24,16 +24,16 @@ class CollectionTest extends TestCase
     {
         $collection = $this->getConnection()->getFileCollection();
         $chunkCollection = $collection->getChunkCollection();
-        $this->assertTrue($chunkCollection instanceof \Yiisoft\Db\MongoDb\Collection);
-        $this->assertTrue($chunkCollection->database instanceof \Yiisoft\Db\MongoDb\Database);
+        $this->assertInstanceOf(\Yiisoft\Db\MongoDb\Collection::class, $chunkCollection);
+        $this->assertInstanceOf(\Yiisoft\Db\MongoDb\Database::class, $chunkCollection->database);
     }
 
     public function testGetFileCollection()
     {
         $collection = $this->getConnection()->getFileCollection();
         $fileCollection = $collection->getFileCollection();
-        $this->assertTrue($fileCollection instanceof \Yiisoft\Db\MongoDb\Collection);
-        $this->assertTrue($fileCollection->database instanceof \Yiisoft\Db\MongoDb\Database);
+        $this->assertInstanceOf(\Yiisoft\Db\MongoDb\Collection::class, $fileCollection);
+        $this->assertInstanceOf(\Yiisoft\Db\MongoDb\Database::class, $fileCollection->database);
     }
 
     public function testEnsureIndexes()
@@ -56,7 +56,7 @@ class CollectionTest extends TestCase
     {
         $collection = $this->getConnection()->getFileCollection();
         $cursor = $collection->find();
-        $this->assertTrue($cursor instanceof Cursor);
+        $this->assertInstanceOf(Cursor::class, $cursor);
     }
 
     public function testInsertFile()
@@ -65,10 +65,10 @@ class CollectionTest extends TestCase
 
         $filename = __FILE__;
         $id = $collection->insertFile($filename);
-        $this->assertTrue($id instanceof ObjectID);
+        $this->assertInstanceOf(ObjectId::class, $id);
 
         $files = $this->findAll($collection);
-        $this->assertEquals(1, count($files));
+        $this->assertCount(1, $files);
 
         $file = $files[0];
         $this->assertEquals(basename($filename), $file['filename']);
@@ -81,14 +81,14 @@ class CollectionTest extends TestCase
 
         $bytes = 'Test file content';
         $id = $collection->insertFileContent($bytes);
-        $this->assertTrue($id instanceof ObjectID);
+        $this->assertInstanceOf(ObjectId::class, $id);
 
         $files = $this->findAll($collection);
-        $this->assertEquals(1, count($files));
+        $this->assertCount(1, $files);
 
         /* @var $file Download */
         $file = $files[0];
-        $this->assertTrue($file['file'] instanceof Download);
+        $this->assertInstanceOf(Download::class, $file['file']);
         $this->assertEquals($bytes, $file['file']->getBytes());
     }
 
@@ -103,7 +103,7 @@ class CollectionTest extends TestCase
         $id = $collection->insertFileContent($bytes);
 
         $file = $collection->get($id);
-        $this->assertTrue($file instanceof Download);
+        $this->assertInstanceOf(Download::class, $file);
         $this->assertEquals($bytes, $file->getBytes());
     }
 

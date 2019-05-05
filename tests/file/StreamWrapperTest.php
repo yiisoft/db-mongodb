@@ -38,10 +38,10 @@ class StreamWrapperTest extends TestCase
     {
         $connection = $this->getConnection();
         $this->mockApplication([
-            'components' => [
-                'mongodb' => $connection
-            ],
+            //    'mongodb' => $connection
         ]);
+
+        $this->container->set('mongodb', $connection);
 
         $connection->registerFileStreamWrapper(true);
         $databaseName = $connection->getDefaultDatabaseName();
@@ -62,11 +62,8 @@ class StreamWrapperTest extends TestCase
     public function testReadResource()
     {
         $connection = $this->getConnection();
-        $this->mockApplication([
-            'components' => [
-                'mongodb' => $connection
-            ],
-        ]);
+        $this->mockApplication();
+        $this->container->set('mongodb', $connection);
 
         $collection = $connection->getFileCollection();
         $upload = $collection->createUpload();
@@ -84,11 +81,8 @@ class StreamWrapperTest extends TestCase
     public function testSeek()
     {
         $connection = $this->getConnection();
-        $this->mockApplication([
-            'components' => [
-                'mongodb' => $connection
-            ],
-        ]);
+        $this->mockApplication();
+        $this->container->set('mongodb', $connection);
 
         $connection->registerFileStreamWrapper(true);
         $databaseName = $connection->getDefaultDatabaseName();

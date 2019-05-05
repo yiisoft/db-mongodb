@@ -23,6 +23,19 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
      * @var Connection Mongo connection instance.
      */
     protected $mongodb;
+    public $app;
+    public $container;
+
+
+    public function __construct($name = null, array $data = [], $dataName = '')
+    {
+        parent::__construct($name, $data, $dataName);
+        $this->container = Yii::getContainer();
+        if ($this->container !== null) {
+            $this->factory = $this->container->get('factory');
+            $this->defaultAppConfig = $this->container->getDefinition('app');
+        }
+    }
 
     protected function setUp()
     {
@@ -64,14 +77,18 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
      * @param array $config The application configuration, if needed
      * @param string $appClass name of the application class to create
      */
-    protected function mockApplication($config = [], $appClass = \Yiisoft\Yii\Console\Application::class)
+    protected function mockApplication($config = [], $appClass = \Yiisoft\Yii\Console\Application::class, array $services = [])
     {
-        new $appClass(ArrayHelper::merge([
-            'id' => 'testapp',
-            'basePath' => __DIR__,
-            'vendorPath' => $this->getVendorPath(),
-            'runtimePath' => dirname(__DIR__) . '/runtime',
-        ], $config));
+        if ($this->app && empty($config) && empty($appClass)) {
+            return;
+        }
+        if ($appClass) {
+            $config['__class'] = $appClass;
+        }
+        $this->container->setAll(array_merge($services, [
+            'app' => array_merge($this->defaultAppConfig, $config),
+        ]));
+        $this->app = $this->container->get('app');
     }
 
     protected function getVendorPath()

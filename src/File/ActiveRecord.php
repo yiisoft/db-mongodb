@@ -8,7 +8,7 @@
 namespace Yiisoft\Db\MongoDb\File;
 
 use yii\helpers\Yii;
-use yii\base\InvalidArgumentException;
+use yii\exceptions\InvalidArgumentException;
 use Yiisoft\Db\StaleObjectException;
 use yii\web\UploadedFile;
 

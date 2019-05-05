@@ -29,6 +29,7 @@ class QueryTest extends TestCase
     protected function setUpTestRows()
     {
         $collection = $this->getConnection()->getFileCollection();
+
         for ($i = 1; $i <= 10; $i++) {
             $collection->insertFileContent('content' . $i, [
                 'filename' => 'name' . $i,

@@ -7,9 +7,9 @@
 
 namespace Yiisoft\Db\MongoDb;
 
-use Yiisoft\Db\ActiveQueryInterface;
-use Yiisoft\Db\ActiveQueryTrait;
-use Yiisoft\Db\ActiveRelationTrait;
+use Yiisoft\ActiveRecord\ActiveQueryInterface;
+use Yiisoft\ActiveRecord\ActiveQueryTrait;
+use Yiisoft\ActiveRecord\ActiveRelationTrait;
 
 /**
  * ActiveQuery represents a Mongo query associated with an Active Record class.
@@ -78,7 +78,6 @@ class ActiveQuery extends Query implements ActiveQueryInterface
     public function __construct($modelClass, $config = [])
     {
         $this->modelClass = $modelClass;
-        parent::__construct($config);
     }
 
     /**

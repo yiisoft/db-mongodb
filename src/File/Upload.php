@@ -10,8 +10,9 @@ namespace Yiisoft\Db\MongoDb\File;
 use MongoDB\BSON\Binary;
 use MongoDB\BSON\ObjectID;
 use MongoDB\BSON\UTCDatetime;
-use yii\base\InvalidArgumentException;
 use yii\base\BaseObject;
+use yii\di\Initiable;
+use yii\exceptions\InvalidArgumentException;
 use Yiisoft\Strings\StringHelper;
 
 /**
@@ -35,7 +36,7 @@ use Yiisoft\Strings\StringHelper;
  * @author Paul Klimov <klimov.paul@gmail.com>
  * @since 2.1
  */
-class Upload extends BaseObject
+class Upload extends BaseObject implements Initiable
 {
     /**
      * @var Collection file collection to be used.
@@ -99,7 +100,7 @@ class Upload extends BaseObject
     /**
      * {@inheritdoc}
      */
-    public function init()
+    public function init(): void
     {
         $this->_hashContext = hash_init('md5');
 

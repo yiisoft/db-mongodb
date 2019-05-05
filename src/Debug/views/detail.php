@@ -1,10 +1,10 @@
 <?php
 /* @var $panel Yiisoft\Db\MongoDb\Debug\MongoDbPanel */
-/* @var $searchModel yii\debug\models\search\Db */
+/* @var $searchModel Yiisoft\Yii\Debug\Models\Search\Db */
 /* @var $dataProvider yii\data\ArrayDataProvider */
 
 use yii\helpers\Html;
-use yii\grid\GridView;
+use Yiisoft\Yii\DataView\GridView;
 use yii\web\View;
 
 echo Html::tag('h1', $panel->getName() . ' Queries');

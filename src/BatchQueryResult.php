@@ -151,7 +151,7 @@ class BatchQueryResult extends BaseObject implements \Iterator
                 break;
             }
             $this->_iterator->next();
-            //var_dump($row);
+
             $rows[] = $row;
         }
         return $this->query->populate($rows);
