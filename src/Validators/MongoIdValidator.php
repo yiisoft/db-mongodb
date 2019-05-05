@@ -5,12 +5,12 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace Yiisoft\Db\MongoDb\Gii\Validators;
+namespace Yiisoft\Db\MongoDb\Validators;
 
 use MongoDB\BSON\ObjectID;
-use yii\base\InvalidConfigException;
+use yii\exceptions\InvalidConfigException;
 use yii\validators\Validator;
-use Yii;
+use yii\helpers\Yii;
 
 /**
  * MongoIdValidator verifies if the attribute is a valid Mongo ID.
@@ -53,7 +53,7 @@ class MongoIdValidator extends Validator
     /**
      * {@inheritdoc}
      */
-    public function init()
+    public function init(): void
     {
         parent::init();
         if ($this->message === null) {

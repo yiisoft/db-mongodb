@@ -7,7 +7,7 @@
 
 namespace Yiisoft\Db\MongoDb\File;
 
-use Yii;
+use yii\helpers\Yii;
 
 /**
  * Query represents Mongo "find" operation for GridFS collection.

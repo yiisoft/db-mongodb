@@ -3,7 +3,7 @@
 namespace Yiisoft\Db\MongoDb\Tests;
 
 use Yiisoft\Db\MongoDb\Session;
-use Yii;
+use yii\helpers\Yii;
 
 class SessionTest extends TestCase
 {

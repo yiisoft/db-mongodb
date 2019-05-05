@@ -4,7 +4,7 @@ namespace Yiisoft\Db\MongoDb\Tests\Validators;
 
 use MongoDB\BSON\ObjectID;
 use yii\base\Model;
-use Yiisoft\Db\MongoDb\Gii\Validators\MongoIdValidator;
+use Yiisoft\Db\MongoDb\Validators\MongoIdValidator;
 use Yiisoft\Db\MongoDb\Tests\TestCase;
 
 class MongoIdValidatorTest extends TestCase
@@ -12,7 +12,6 @@ class MongoIdValidatorTest extends TestCase
     protected function setUp()
     {
         parent::setUp();
-        $this->mockApplication();
     }
 
     public function testValidateValue()

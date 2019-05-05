@@ -4,7 +4,7 @@ namespace Yiisoft\Db\MongoDb\Tests\Validators;
 
 use MongoDB\BSON\UTCDateTime;
 use yii\base\Model;
-use Yiisoft\Db\MongoDb\Gii\Validators\MongoDateValidator;
+use Yiisoft\Db\MongoDb\Validators\MongoDateValidator;
 use Yiisoft\Db\MongoDb\Tests\TestCase;
 
 class MongoDateValidatorTest extends TestCase
@@ -12,7 +12,6 @@ class MongoDateValidatorTest extends TestCase
     protected function setUp()
     {
         parent::setUp();
-        $this->mockApplication();
         date_default_timezone_set('UTC');
     }
 

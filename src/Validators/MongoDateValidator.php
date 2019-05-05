@@ -5,7 +5,7 @@
  * @license http://www.yiiframework.com/license/
  */
 
-namespace Yiisoft\Db\MongoDb\Gii\Validators;
+namespace Yiisoft\Db\MongoDb\Validators;
 
 use MongoDB\BSON\UTCDateTime;
 use yii\validators\DateValidator;

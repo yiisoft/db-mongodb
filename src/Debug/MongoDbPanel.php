@@ -7,9 +7,9 @@
 
 namespace Yiisoft\Db\MongoDb\Debug;
 
-use Yii;
-use yii\debug\models\search\Db;
-use yii\debug\panels\DbPanel;
+use yii\helpers\Yii;
+use Yiisoft\Yii\Debug\Models\Search\Db;
+use Yiisoft\Yii\Debug\Panels\DbPanel;
 use Yiisoft\Log\Logger;
 
 /**

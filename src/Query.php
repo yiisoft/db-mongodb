@@ -8,10 +8,10 @@
 namespace Yiisoft\Db\MongoDb;
 
 use yii\base\Component;
+use yii\helpers\Yii;
+use Yiisoft\Arrays\ArrayHelper;
 use Yiisoft\Db\QueryInterface;
 use Yiisoft\Db\QueryTrait;
-use Yii;
-use Yiisoft\Arrays\ArrayHelper;
 
 /**
  * Query represents Mongo "find" operation.

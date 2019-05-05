@@ -8,8 +8,8 @@
 namespace Yiisoft\Db\MongoDb\File;
 
 use MongoDB\BSON\ObjectID;
-use Yii;
-use yii\base\InvalidConfigException;
+use yii\helpers\Yii;
+use yii\exceptions\InvalidConfigException;
 use yii\base\BaseObject;
 use yii\helpers\FileHelper;
 use Yiisoft\Strings\StringHelper;

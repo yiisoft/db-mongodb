@@ -2,7 +2,7 @@
 
 namespace Yiisoft\Db\MongoDb\Tests;
 
-use Yii;
+use yii\helpers\Yii;
 use Yiisoft\Db\MongoDb\Cache;
 
 class CacheTest extends TestCase

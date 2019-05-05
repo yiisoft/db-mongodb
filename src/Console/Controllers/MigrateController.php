@@ -7,7 +7,7 @@
 
 namespace Yiisoft\Db\MongoDb\Console\Controllers;
 
-use Yii;
+use yii\helpers\Yii;
 use Yiisoft\Yii\Console\Controllers\BaseMigrateController;
 use Yiisoft\Yii\Console\Exception;
 use Yiisoft\Db\MongoDb\Connection;
@@ -111,7 +111,7 @@ class MigrateController extends BaseMigrateController
         if (parent::beforeAction($action)) {
             if ($action->id !== 'create') {
                 if (is_string($this->db)) {
-                    $this->db = Yii::$app->get($this->db);
+                    $this->db = Yii::getApp()->get($this->db);
                 }
                 if (!$this->db instanceof Connection) {
                     throw new Exception("The 'db' option must refer to the application component ID of a MongoDB connection.");

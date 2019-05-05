@@ -2,9 +2,9 @@
 
 namespace Yiisoft\Db\MongoDb\Tests;
 
-use Yii;
 use yii\helpers\FileHelper;
 use yii\helpers\VarDumper;
+use yii\helpers\Yii;
 use Yiisoft\Db\MongoDb\ActiveFixture;
 use Yiisoft\Db\MongoDb\Tests\Data\ActiveRecord\Customer;
 

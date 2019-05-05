@@ -8,7 +8,7 @@
 namespace Yiisoft\Db\MongoDb;
 
 use yii\base\BaseObject;
-use Yii;
+use yii\helpers\Yii;
 
 /**
  * Database represents the MongoDB database information.

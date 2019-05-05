@@ -7,7 +7,7 @@
 
 namespace Yiisoft\Db\MongoDb\Gii\Model;
 
-use Yii;
+use yii\helpers\Yii;
 use Yiisoft\Arrays\ArrayHelper;
 use Yiisoft\Db\MongoDb\ActiveRecord;
 use Yiisoft\Db\MongoDb\Connection;

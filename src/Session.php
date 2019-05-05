@@ -7,9 +7,8 @@
 
 namespace Yiisoft\Db\MongoDb;
 
-use Yii;
 use yii\base\ErrorHandler;
-use yii\base\InvalidConfigException;
+use yii\exceptions\InvalidConfigException;
 use yii\di\Instance;
 use yii\web\MultiFieldSession;
 

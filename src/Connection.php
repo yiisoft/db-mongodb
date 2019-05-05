@@ -9,8 +9,8 @@ namespace Yiisoft\Db\MongoDb;
 
 use MongoDB\Driver\Manager;
 use yii\base\Component;
-use yii\base\InvalidConfigException;
-use Yii;
+use yii\exceptions\InvalidConfigException;
+use yii\helpers\Yii;
 
 /**
  * Connection represents a connection to a MongoDb server.

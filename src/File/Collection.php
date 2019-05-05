@@ -9,7 +9,7 @@ namespace Yiisoft\Db\MongoDb\File;
 
 use MongoDB\BSON\ObjectID;
 use Yiisoft\Db\MongoDb\Exception;
-use Yii;
+use yii\helpers\Yii;
 use yii\web\UploadedFile;
 
 /**

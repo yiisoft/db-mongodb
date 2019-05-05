@@ -2,10 +2,10 @@
 
 namespace Yiisoft\Db\MongoDb\Tests;
 
-use Yiisoft\Arrays\ArrayHelper;
 use yii\helpers\FileHelper;
+use yii\helpers\Yii;
+use Yiisoft\Arrays\ArrayHelper;
 use Yiisoft\Db\MongoDb\Connection;
-use Yii;
 use Yiisoft\Db\MongoDb\Exception;
 
 abstract class TestCase extends \PHPUnit\Framework\TestCase
@@ -27,9 +27,6 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
     protected function setUp()
     {
         parent::setUp();
-        if (!extension_loaded('mongodb')) {
-            $this->markTestSkipped('mongodb extension required.');
-        }
         $config = self::getParam('mongodb');
         if (!empty($config)) {
             $this->mongoDbConfig = $config;
@@ -91,7 +88,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
      */
     protected function destroyApplication()
     {
-        Yii::$app = null;
+       // Yii::$app = null;
     }
 
     /**
