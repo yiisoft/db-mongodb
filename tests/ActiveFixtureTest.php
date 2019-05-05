@@ -30,18 +30,14 @@ class ActiveFixtureTest extends TestCase
     {
         /* @var $fixture ActiveFixture|\PHPUnit_Framework_MockObject_MockObject */
         $fixture = $this->getMockBuilder(ActiveFixture::class)
-            ->setConstructorArgs([
-                [
-                    'db' => $this->getConnection(),
-                    'collectionName' => Customer::collectionName()
-                ]
-            ])
             ->setMethods(['getData'])
             ->getMock();
-        $fixture->expects($this->any())->method('getData')->will($this->returnValue([
+        $fixture->db = $this->getConnection();
+        $fixture->collectionName = Customer::collectionName();
+        $fixture->method('getData')->willReturn([
             ['name' => 'name1'],
             ['name' => 'name2'],
-        ]));
+        ]);
 
         $fixture->load();
 
@@ -53,18 +49,15 @@ class ActiveFixtureTest extends TestCase
     {
         /* @var $fixture ActiveFixture|\PHPUnit_Framework_MockObject_MockObject */
         $fixture = $this->getMockBuilder(ActiveFixture::class)
-            ->setConstructorArgs([
-                [
-                    'db' => $this->getConnection(),
-                    'collectionName' => Customer::collectionName()
-                ]
-            ])
             ->setMethods(['getData'])
             ->getMock();
-        $fixture->expects($this->any())->method('getData')->will($this->returnValue([
+        $fixture->db = $this->getConnection();
+        $fixture->collectionName = Customer::collectionName();
+
+        $fixture->method('getData')->willReturn([
             ['name' => 'name1'],
             ['name' => 'name2'],
-        ]));
+        ]);
 
         $fixture->load();
 
@@ -81,17 +74,14 @@ class ActiveFixtureTest extends TestCase
     {
         /* @var $fixture ActiveFixture|\PHPUnit_Framework_MockObject_MockObject */
         $fixture = $this->getMockBuilder(ActiveFixture::class)
-            ->setConstructorArgs([
-                [
-                    'db' => $this->getConnection(),
-                    'collectionName' => Customer::collectionName()
-                ]
-            ])
             ->setMethods(['getData'])
             ->getMock();
-        $fixture->expects($this->any())->method('getData')->will($this->returnValue([
+        $fixture->db = $this->getConnection();
+        $fixture->collectionName = Customer::collectionName();
+
+        $fixture->method('getData')->willReturn([
             // empty
-        ]));
+        ]);
 
         $fixture->load(); // should be no error
 
@@ -144,21 +134,19 @@ PHP;
 
         /* @var $fixture ActiveFixture */
 
-        $fixture = new $className([
-            'db' => $db,
-            'collectionName' => Customer::collectionName(),
-        ]);
+        $fixture = new $className();
+        $fixture->db = $db;
+        $fixture->collectionName = Customer::collectionName();
         $fixture->load();
         $rows = $this->findAll($this->getConnection()->getCollection(Customer::collectionName()));
         $this->assertCount(2, $rows);
 
-        $fixture = new $className([
-            'db' => $db,
-            'collectionName' => [
-                $db->getDefaultDatabaseName(),
-                Customer::collectionName()
-            ],
-        ]);
+        $fixture = new $className();
+        $fixture->db = $db;
+        $fixture->collectionName = [
+            $db->getDefaultDatabaseName(),
+            Customer::collectionName()
+        ];
         $fixture->load();
         $rows = $this->findAll($this->getConnection()->getCollection(Customer::collectionName()));
         $this->assertCount(3, $rows);

@@ -25,7 +25,7 @@ class CacheTest extends TestCase
     protected function createCache()
     {
         return Yii::createObject([
-            '__class' => \yii\caching\Cache::class,
+            '__class' => \Yiisoft\Cache\Cache::class,
             'handler' => [
                 '__class' => Cache::class,
                 'db' => $this->getConnection(),

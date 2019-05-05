@@ -8,7 +8,7 @@
 namespace Yiisoft\Db\MongoDb;
 
 use yii\base\BaseObject;
-use Yii;
+use yii\helpers\Yii;
 
 /**
  * BatchQueryResult represents a batch query from which you can retrieve data in batches.

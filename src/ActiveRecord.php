@@ -9,11 +9,11 @@ namespace Yiisoft\Db\MongoDb;
 
 use MongoDB\BSON\Binary;
 use MongoDB\BSON\Type;
-use Yii;
 use yii\exceptions\InvalidConfigException;
+use yii\helpers\Yii;
 use Yiisoft\ActiveRecord\BaseActiveRecord;
-use Yiisoft\Db\StaleObjectException;
 use Yiisoft\Arrays\ArrayHelper;
+use Yiisoft\Db\StaleObjectException;
 use Yiisoft\Inflector\InflectorHelper;
 use Yiisoft\Strings\StringHelper;
 
@@ -33,7 +33,7 @@ abstract class ActiveRecord extends BaseActiveRecord
      */
     public static function getDb()
     {
-        return Yii::$app->get('mongodb');
+        return Yii::getApp()->get('mongodb');
     }
 
     /**
@@ -389,7 +389,9 @@ abstract class ActiveRecord extends BaseActiveRecord
                 }
             }
             return $data;
-        } elseif (is_object($data)) {
+        }
+
+        if (is_object($data)) {
             return ArrayHelper::toArray($data);
         }
         return [$data];

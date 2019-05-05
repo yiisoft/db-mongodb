@@ -7,9 +7,7 @@
 
 namespace Yiisoft\Db\MongoDb;
 
-use Yii;
-use yii\base\InvalidConfigException;
-use yii\di\Instance;
+use Yiisoft\Cache\SimpleCache;
 
 /**
  * Cache implements a cache application component by storing cached data in a MongoDB.
@@ -36,7 +34,7 @@ use yii\di\Instance;
  * @author Paul Klimov <klimov.paul@gmail.com>
  * @since 2.0
  */
-class Cache extends \yii\caching\SimpleCache
+class Cache extends SimpleCache
 {
     /**
      * @var Connection|array|string the MongoDB connection object or the application component ID of the MongoDB connection.
@@ -59,21 +57,16 @@ class Cache extends \yii\caching\SimpleCache
     public $gcProbability = 100;
 
 
-    /**
-     * Initializes the Cache component.
-     * This method will initialize the [[db]] property to make sure it refers to a valid MongoDB connection.
-     * @throws InvalidConfigException if [[db]] is invalid.
-     */
-    public function init()
+    public function __construct(Connection $db, $serializer = null)
     {
-        parent::init();
-        $this->db = Instance::ensure($this->db, Connection::class);
+        $this->db = $db;
+        parent::__construct($serializer);
     }
 
     /**
      * {@inheritdoc}
      */
-    public function has($key)
+    public function has($key): bool
     {
         $rowCount = (new Query())
             ->select(['data'])
@@ -124,7 +117,7 @@ class Cache extends \yii\caching\SimpleCache
     /**
      * {@inheritdoc}
      */
-    protected function getValues($keys)
+    protected function getValues($keys): array
     {
         if (empty($keys)) {
             return [];
@@ -157,7 +150,7 @@ class Cache extends \yii\caching\SimpleCache
     /**
      * {@inheritdoc}
      */
-    protected function setValue($key, $value, $ttl)
+    protected function setValue($key, $value, $ttl): bool
     {
         $result = $this->db->getCollection($this->cacheCollection)
             ->update(['id' => $key], [
@@ -209,7 +202,7 @@ class Cache extends \yii\caching\SimpleCache
     /**
      * {@inheritdoc}
      */
-    protected function deleteValue($key)
+    protected function deleteValue($key): bool
     {
         $this->db->getCollection($this->cacheCollection)->remove(['id' => $key]);
         return true;
@@ -231,7 +224,7 @@ class Cache extends \yii\caching\SimpleCache
      */
     public function gc($force = false)
     {
-        if ($force || mt_rand(0, 1000000) < $this->gcProbability) {
+        if ($force || random_int(0, 1000000) < $this->gcProbability) {
             $this->db->getCollection($this->cacheCollection)
                 ->remove([
                     'expire' => [

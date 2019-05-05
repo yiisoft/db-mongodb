@@ -14,6 +14,11 @@ class Animal extends ActiveRecord
 {
     public $does;
 
+    public function __construct()
+    {
+        $this->type = static::class;
+    }
+
     public static function collectionName()
     {
         return 'test_animals';
@@ -24,11 +29,7 @@ class Animal extends ActiveRecord
         return ['_id', 'type'];
     }
 
-    public function init()
-    {
-        parent::init();
-        $this->type = get_called_class();
-    }
+
 
     public function getDoes()
     {

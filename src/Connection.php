@@ -11,6 +11,7 @@ use MongoDB\Driver\Manager;
 use yii\base\Component;
 use yii\exceptions\InvalidConfigException;
 use yii\helpers\Yii;
+use Yiisoft\Db\ConnectionInterface;
 
 /**
  * Connection represents a connection to a MongoDb server.
@@ -77,7 +78,7 @@ use yii\helpers\Yii;
  * @author Paul Klimov <klimov.paul@gmail.com>
  * @since 2.0
  */
-class Connection extends Component
+class Connection extends Component implements ConnectionInterface
 {
     /**
      * @event Event an event that is triggered after a DB connection is established
