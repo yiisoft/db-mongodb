@@ -105,7 +105,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
      */
     protected function destroyApplication()
     {
-       // Yii::$app = null;
+        // Yii::$app = null;
     }
 
     /**
