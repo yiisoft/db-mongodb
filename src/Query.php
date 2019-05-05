@@ -69,7 +69,7 @@ class Query extends Component implements QueryInterface
     public function getCollection($db = null)
     {
         if ($db === null) {
-            $db = Yii::$app->get('mongodb');
+            $db = Yii::getApp()->get('mongodb');
         }
 
         return $db->getCollection($this->from);

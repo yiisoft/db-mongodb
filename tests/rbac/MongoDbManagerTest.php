@@ -2,9 +2,10 @@
 
 namespace Yiisoft\Db\MongoDb\Tests\Rbac;
 
-use Yii;
-use yii\caching\ArrayCache;
-use yii\caching\Cache;
+use yii\helpers\Yii;
+use Yiisoft\Cache\ArrayCache;
+use Yiisoft\Cache\Cache;
+use Yiisoft\Rbac\DIRuleFactory;
 use Yiisoft\Rbac\Item;
 use Yiisoft\Rbac\Permission;
 use Yiisoft\Rbac\Role;
@@ -40,7 +41,7 @@ class MongoDbManagerTest extends TestCase
      */
     protected function createManager()
     {
-        return new MongoDbManager(['db' => $this->getConnection()]);
+        return new MongoDbManager($this->getConnection(), $this->container->get(DIRuleFactory::class), $this->container->get('cache'));
     }
 
     // Tests :
@@ -478,9 +479,9 @@ class MongoDbManagerTest extends TestCase
         $this->assertFalse($auth->checkAccess($userId, 'Reader', ['action' => 'write']));
 
         // using DI
-        \Yii::$container->set('write_rule', ['__class' => \Yiisoft\Db\MongoDb\Tests\Data\Rbac\ActionRule::class, 'action' => 'write']);
-        \Yii::$container->set('delete_rule', ['__class' => \Yiisoft\Db\MongoDb\Tests\Data\Rbac\ActionRule::class, 'action' => 'delete']);
-        \Yii::$container->set('all_rule', ['__class' => \Yiisoft\Db\MongoDb\Tests\Data\Rbac\ActionRule::class, 'action' => 'all']);
+        Yii::getContainer()->set('write_rule', ['__class' => \Yiisoft\Db\MongoDb\Tests\Data\Rbac\ActionRule::class, 'action' => 'write']);
+        Yii::getContainer()->set('delete_rule', ['__class' => \Yiisoft\Db\MongoDb\Tests\Data\Rbac\ActionRule::class, 'action' => 'delete']);
+        Yii::getContainer()->set('all_rule', ['__class' => \Yiisoft\Db\MongoDb\Tests\Data\Rbac\ActionRule::class, 'action' => 'all']);
 
         $role = $auth->createRole('Writer');
         $role->ruleName = 'write_rule';
@@ -513,7 +514,7 @@ class MongoDbManagerTest extends TestCase
     public function testInvalidateCache()
     {
         $auth = $this->auth;
-        $auth->cache = new Cache(['handler' => new ArrayCache()]);
+        $auth->cache = new Cache(new ArrayCache());
         ;
         $this->prepareData();
 

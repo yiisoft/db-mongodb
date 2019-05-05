@@ -2,13 +2,14 @@
 
 namespace Yiisoft\Db\MongoDb\Tests\Console\Controllers;
 
-use Yiisoft\Yii\Console\Controllers\BaseMigrateController;
+use yii\di\AbstractContainer;
 use yii\helpers\FileHelper;
+use yii\helpers\Yii;
 use Yiisoft\Db\MongoDb\Exception;
 use Yiisoft\Db\MongoDb\Migration;
 use Yiisoft\Db\MongoDb\Query;
-use Yii;
 use Yiisoft\Db\MongoDb\Tests\TestCase;
+use Yiisoft\Yii\Console\Controllers\BaseMigrateController;
 
 /**
  * Unit test for [[\Yiisoft\Db\MongoDb\Console\Controllers\MigrateController]].
@@ -49,7 +50,7 @@ class MigrateControllerTest extends TestCase
         $this->setUpMigrationPath();
 
         $this->mockApplication();
-        Yii::$app->setComponents(['mongodb' => $this->getConnection()]);
+        $this->container->set('mongodb', $this->getConnection());
     }
 
     public function tearDown()
@@ -67,7 +68,7 @@ class MigrateControllerTest extends TestCase
 
     public function setUpMigrationPath()
     {
-        $this->migrationPath = Yii::getAlias('@yiiunit/mongodb/runtime/test_migrations');
+        $this->migrationPath = Yii::getAlias('@Yiisoft/Db/MongoDb/runtime/test_migrations');
         FileHelper::createDirectory($this->migrationPath);
         if (!file_exists($this->migrationPath)) {
             $this->markTestIncomplete('Unit tests runtime directory should have writable permissions!');
@@ -87,7 +88,7 @@ class MigrateControllerTest extends TestCase
     protected function createMigrateController(array $config = [])
     {
         $module = $this->getMockBuilder('yii\\base\\Module')
-            ->setConstructorArgs(['console'])
+            ->setConstructorArgs(['console', $this->app])
             ->setMethods(['fake'])
             ->getMock();
 
@@ -100,7 +101,7 @@ class MigrateControllerTest extends TestCase
             $this->markTestSkipped("`migrationNamespaces` not supported by this Yii framework version");
         }
 
-        return Yii::configure($migrateController, $config);
+        return AbstractContainer::configure($migrateController, $config);
     }
 
     /**
@@ -124,7 +125,7 @@ class MigrateControllerTest extends TestCase
         $controller = $this->createMigrateController($config);
         ob_start();
         ob_implicit_flush(false);
-        $controller->run($actionID, $args);
+        $controller->runAction($actionID, $args);
 
         return ob_get_clean();
     }

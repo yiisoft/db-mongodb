@@ -7,10 +7,11 @@
 
 namespace Yiisoft\Db\MongoDb\Rbac;
 
-use Yii;
-use yii\base\InvalidCallException;
-use yii\base\InvalidArgumentException;
-use yii\caching\Cache;
+use Psr\SimpleCache\CacheInterface;
+use yii\helpers\Yii;
+use yii\exceptions\InvalidCallException;
+use yii\exceptions\InvalidArgumentException;
+use Yiisoft\Cache\Cache;
 use yii\di\Instance;
 use Yiisoft\Arrays\ArrayHelper;
 use Yiisoft\Db\MongoDb\Connection;
@@ -19,6 +20,7 @@ use Yiisoft\Rbac\Assignment;
 use Yiisoft\Rbac\BaseManager;
 use Yiisoft\Rbac\Item;
 use Yiisoft\Rbac\Rule;
+use Yiisoft\Rbac\RuleFactoryInterface;
 
 /**
  * MongoDbManager represents an authorization manager that stores authorization information in MongoDB.
@@ -41,13 +43,13 @@ class MongoDbManager extends BaseManager
      * After the MongoDbManager object is created, if you want to change this property, you should only assign it
      * with a MongoDB connection object.
      */
-    public $db = 'mongodb';
+    public $db;
     /**
      * @var Cache|array|string the cache used to improve RBAC performance. This can be one of the following:
      *
      * - an application component ID (e.g. `cache`)
      * - a configuration array
-     * - a [[\yii\caching\Cache]] object
+     * - a [[\Yiisoft\Cache\Cache]] object
      *
      * When this is not set, it means caching is not enabled.
      *
@@ -87,18 +89,15 @@ class MongoDbManager extends BaseManager
      */
     protected $rules;
 
-
     /**
-     * Initializes the application component.
-     * This method overrides the parent implementation by establishing the MongoDB connection.
+     * @param Connection  $db
+     * @param RuleFactoryInterface $ruleFactory
      */
-    public function init()
+    public function __construct(Connection $db, RuleFactoryInterface $ruleFactory, ?CacheInterface $cache)
     {
-        parent::init();
-        $this->db = Instance::ensure($this->db, Connection::class);
-        if ($this->cache !== null) {
-            $this->cache = Instance::ensure($this->cache, Cache::class);
-        }
+        parent::__construct($ruleFactory);
+        $this->db = $db;
+        $this->cache = $cache;
     }
 
     /**

@@ -9,7 +9,7 @@ namespace Yiisoft\Db\MongoDb\Console\Controllers;
 
 use yii\helpers\Yii;
 use Yiisoft\Yii\Console\Controllers\BaseMigrateController;
-use Yiisoft\Yii\Console\Exception;
+use Yiisoft\Yii\Console\Exceptions\Exception;
 use Yiisoft\Db\MongoDb\Connection;
 use Yiisoft\Db\MongoDb\Query;
 use Yiisoft\Arrays\ArrayHelper;
@@ -80,7 +80,7 @@ class MigrateController extends BaseMigrateController
     /**
      * {@inheritdoc}
      */
-    public $templateFile = '@yii/mongodb/views/migration.php';
+    public $templateFile = '@Yiisoft/Db/MongoDb/views/migration.php';
     /**
      * @var Connection|string the DB connection object or the application
      * component ID of the DB connection.
@@ -106,7 +106,7 @@ class MigrateController extends BaseMigrateController
      * @throws Exception if db component isn't configured
      * @return bool whether the action should continue to be executed.
      */
-    public function beforeAction($action)
+    public function beforeAction($action): bool
     {
         if (parent::beforeAction($action)) {
             if ($action->id !== 'create') {

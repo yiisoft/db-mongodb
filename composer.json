@@ -34,7 +34,9 @@
         "yiisoft/di": "^3.0@dev",
         "yiisoft/yii-console": "dev-master",
         "yiisoft/log": "dev-master",
-        "yiisoft/cache": "dev-master"
+        "yiisoft/cache": "dev-master",
+        "yiisoft/view": "^3.0@dev",
+        "yiisoft/rbac": "^3.0@dev"
     },
     "repositories": [
         {
