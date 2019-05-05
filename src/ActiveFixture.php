@@ -8,7 +8,7 @@
 namespace Yiisoft\Db\MongoDb;
 
 use Yii;
-use yii\base\InvalidConfigException;
+use yii\exceptions\InvalidConfigException;
 use yii\test\BaseActiveFixture;
 
 /**
@@ -43,7 +43,7 @@ class ActiveFixture extends BaseActiveFixture
     /**
      * {@inheritdoc}
      */
-    public function init()
+    public function init(): void
     {
         parent::init();
         if (!isset($this->modelClass) && !isset($this->collectionName)) {

@@ -19,9 +19,7 @@ class MongoDbTargetTest extends TestCase
      */
     protected function createLogTarget()
     {
-        return new MongoDbTarget([
-            'db' => $this->getConnection(),
-        ]);
+        return new MongoDbTarget($this->getConnection());
     }
 
     // Tests :

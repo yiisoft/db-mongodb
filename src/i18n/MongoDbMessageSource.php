@@ -7,9 +7,9 @@
 
 namespace Yiisoft\Db\MongoDb\i18n;
 
-use yii\base\InvalidConfigException;
-use yii\caching\Cache;
-use yii\di\Instance;
+use yii\exceptions\InvalidConfigException;
+use Yiisoft\Cache\Cache;
+use yii\helpers\Yii;
 use yii\i18n\MessageSource;
 use Yiisoft\Db\MongoDb\Connection;
 use Yiisoft\Db\MongoDb\Query;
@@ -116,9 +116,9 @@ class MongoDbMessageSource extends MessageSource
     public function init()
     {
         parent::init();
-        $this->db = Instance::ensure($this->db, Connection::class);
+        $this->db = Yii::ensureObject($this->db, Connection::class);
         if ($this->enableCaching) {
-            $this->cache = Instance::ensure($this->cache, Cache::class);
+            $this->cache = Yii::ensureObject($this->cache, Cache::class);
         }
     }
 
@@ -132,7 +132,7 @@ class MongoDbMessageSource extends MessageSource
      * @return array the loaded messages. The keys are original messages, and the values
      * are translated messages.
      */
-    protected function loadMessages($category, $language)
+    protected function loadMessages($category, $language): array
     {
         if ($this->enableCaching) {
             $key = [

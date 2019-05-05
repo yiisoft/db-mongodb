@@ -7,8 +7,6 @@
 
 namespace Yiisoft\Db\MongoDb\Log;
 
-use yii\base\InvalidConfigException;
-use yii\di\Instance;
 use yii\helpers\VarDumper;
 use Yiisoft\Log\Target;
 use Yiisoft\Db\MongoDb\Connection;
@@ -29,30 +27,24 @@ class MongoDbTarget extends Target
      * After the MongoDbTarget object is created, if you want to change this property, you should only assign it
      * with a MongoDB connection object.
      */
-    public $db = 'mongodb';
+    public $db;
     /**
      * @var string|array the name of the MongoDB collection that stores the session data.
      * Please refer to [[Connection::getCollection()]] on how to specify this parameter.
      * This collection is better to be pre-created with fields 'id' and 'expire' indexed.
      */
-    public $logCollection = 'log';
+    public $logCollection;
 
-
-    /**
-     * Initializes the MongoDbTarget component.
-     * This method will initialize the [[db]] property to make sure it refers to a valid MongoDB connection.
-     * @throws InvalidConfigException if [[db]] is invalid.
-     */
-    public function init()
+    public function __construct(Connection $db, $logCollection = 'log')
     {
-        parent::init();
-        $this->db = Instance::ensure($this->db, Connection::class);
+        $this->db = $db;
+        $this->logCollection = $logCollection;
     }
 
     /**
      * Stores log messages to MongoDB collection.
      */
-    public function export()
+    public function export(): void
     {
         $rows = [];
         foreach ($this->messages as $message) {
