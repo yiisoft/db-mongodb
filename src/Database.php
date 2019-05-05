@@ -13,7 +13,7 @@ use yii\helpers\Yii;
 /**
  * Database represents the MongoDB database information.
  *
- * @property file\Collection $fileCollection Mongo GridFS collection. This property is read-only.
+ * @property File\Collection $fileCollection Mongo GridFS collection. This property is read-only.
  *
  * @author Paul Klimov <klimov.paul@gmail.com>
  * @since 2.0
@@ -34,7 +34,7 @@ class Database extends BaseObject
      */
     private $_collections = [];
     /**
-     * @var file\Collection[] list of GridFS collections.
+     * @var File\Collection[] list of GridFS collections.
      */
     private $_fileCollections = [];
 
@@ -58,7 +58,7 @@ class Database extends BaseObject
      * Returns Mongo GridFS collection with given prefix.
      * @param string $prefix collection prefix.
      * @param bool $refresh whether to reload the collection instance even if it is found in the cache.
-     * @return file\Collection Mongo GridFS collection.
+     * @return File\Collection Mongo GridFS collection.
      */
     public function getFileCollection($prefix = 'fs', $refresh = false)
     {
@@ -86,12 +86,12 @@ class Database extends BaseObject
     /**
      * Selects GridFS collection with given prefix.
      * @param string $prefix file collection prefix.
-     * @return file\Collection file collection instance.
+     * @return File\Collection file collection instance.
      */
     protected function selectFileCollection($prefix)
     {
         return Yii::createObject([
-            '__class' => file\Collection::class,
+            '__class' => File\Collection::class,
             'database' => $this,
             'prefix' => $prefix,
         ]);
