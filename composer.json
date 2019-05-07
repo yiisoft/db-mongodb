@@ -24,7 +24,6 @@
     "require-dev": {
         "yiisoft/arrays": "^3.0@dev",
         "yiisoft/strings": "^3.0@dev",
-        "yiisoft/inflector": "^3.0@dev",
         "phpunit/phpunit": "^7.3",
         "yiisoft/di": "dev-master",
         "yiisoft/log": "dev-master",

@@ -14,7 +14,7 @@ use yii\base\InvalidConfigException;
 use Yiisoft\Db\BaseActiveRecord;
 use Yiisoft\Db\StaleObjectException;
 use Yiisoft\Arrays\ArrayHelper;
-use Yiisoft\Inflector\InflectorHelper;
+use Yiisoft\Strings\Inflector;
 use Yiisoft\Strings\StringHelper;
 
 /**
@@ -112,14 +112,14 @@ abstract class ActiveRecord extends BaseActiveRecord
      *  - if array - first element considered as the name of the database, second - as
      *    name of collection inside that database
      *
-     * By default this method returns the class name as the collection name by calling [[InflectorHelper::camel2id()]].
+     * By default this method returns the class name as the collection name by calling [[Inflector::camel2id()]].
      * For example, 'Customer' becomes 'customer', and 'OrderItem' becomes
      * 'order_item'. You may override this method if the collection is not named after this convention.
      * @return string|array the collection name
      */
     public static function collectionName()
     {
-        return InflectorHelper::camel2id(StringHelper::basename(get_called_class()), '_');
+        return Inflector::camel2id(StringHelper::basename(get_called_class()), '_');
     }
 
     /**
