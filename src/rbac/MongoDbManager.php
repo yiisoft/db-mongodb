@@ -12,6 +12,7 @@ use yii\base\InvalidCallException;
 use yii\base\InvalidArgumentException;
 use yii\caching\Cache;
 use yii\di\Instance;
+use Yiisoft\Access\AccessCheckerInterface;
 use Yiisoft\Arrays\ArrayHelper;
 use Yiisoft\Db\MongoDb\Connection;
 use Yiisoft\Db\MongoDb\Query;
@@ -34,7 +35,7 @@ use Yiisoft\Rbac\Rule;
  * @author Paul Klimov <klimov.paul@gmail.com>
  * @since 2.0.5
  */
-class MongoDbManager extends BaseManager
+class MongoDbManager extends BaseManager implements AccessCheckerInterface
 {
     /**
      * @var Connection|array|string the MongoDB connection object or the application component ID of the MongoDB connection.
@@ -101,10 +102,7 @@ class MongoDbManager extends BaseManager
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function checkAccess($userId, $permissionName, $params = [])
+    public function userHasPermission($userId, $permissionName, $params = [])
     {
         $assignments = $this->getAssignments($userId);
         $this->loadFromCache();
@@ -115,7 +113,7 @@ class MongoDbManager extends BaseManager
 
     /**
      * Performs access check for the specified user based on the data loaded from cache.
-     * This method is internally called by [[checkAccess()]] when [[cache]] is enabled.
+     * This method is internally called by [[userHasPermission()]] when [[cache]] is enabled.
      * @param string|int $user the user ID. This should can be either an integer or a string representing
      * the unique identifier of a user. See [[\yii\web\User::id]].
      * @param string $itemName the name of the operation that need access check
@@ -156,7 +154,7 @@ class MongoDbManager extends BaseManager
 
     /**
      * Performs access check for the specified user.
-     * This method is internally called by [[checkAccess()]].
+     * This method is internally called by [[userHasPermission()]].
      * @param string|int $user the user ID. This should can be either an integer or a string representing
      * the unique identifier of a user. See [[\yii\web\User::id]].
      * @param string $itemName the name of the operation that need access check
