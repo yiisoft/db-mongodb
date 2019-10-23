@@ -179,7 +179,7 @@ class MongoDbManagerTest extends TestCase
         $this->assertNull($item);
     }
 
-    public function testHasPermission()
+    public function testCheckAccess()
     {
         $this->prepareData();
 
@@ -211,7 +211,7 @@ class MongoDbManagerTest extends TestCase
 
         foreach ($testSuites as $user => $tests) {
             foreach ($tests as $permission => $result) {
-                $this->assertEquals($result, $this->auth->userHasPermission($user, $permission, $params), "Checking $user can $permission");
+                $this->assertEquals($result, $this->auth->checkAccess($user, $permission, $params), "Checking $user can $permission");
             }
         }
     }
@@ -455,7 +455,7 @@ class MongoDbManagerTest extends TestCase
         $role = $auth->createRole('Admin');
         $auth->add($role);
         $auth->assign($role, $userId);
-        $this->assertTrue($auth->userHasPermission($userId, 'Admin'));
+        $this->assertTrue($auth->checkAccess($userId, 'Admin'));
 
         // with normal register rule
         $auth->removeAll();
@@ -465,8 +465,8 @@ class MongoDbManagerTest extends TestCase
         $role->ruleName = $rule->name;
         $auth->add($role);
         $auth->assign($role, $userId);
-        $this->assertTrue($auth->userHasPermission($userId, 'Reader', ['action' => 'read']));
-        $this->assertFalse($auth->userHasPermission($userId, 'Reader', ['action' => 'write']));
+        $this->assertTrue($auth->checkAccess($userId, 'Reader', ['action' => 'read']));
+        $this->assertFalse($auth->checkAccess($userId, 'Reader', ['action' => 'write']));
 
         // using rule class name
         $auth->removeAll();
@@ -474,8 +474,8 @@ class MongoDbManagerTest extends TestCase
         $role->ruleName = 'Yiisoft\Db\MongoDb\Tests\Data\Rbac\ActionRule';
         $auth->add($role);
         $auth->assign($role, $userId);
-        $this->assertTrue($auth->userHasPermission($userId, 'Reader', ['action' => 'read']));
-        $this->assertFalse($auth->userHasPermission($userId, 'Reader', ['action' => 'write']));
+        $this->assertTrue($auth->checkAccess($userId, 'Reader', ['action' => 'read']));
+        $this->assertFalse($auth->checkAccess($userId, 'Reader', ['action' => 'write']));
 
         // using DI
         \Yii::$container->set('write_rule', ['__class' => \Yiisoft\Db\MongoDb\Tests\Data\Rbac\ActionRule::class, 'action' => 'write']);
@@ -486,28 +486,28 @@ class MongoDbManagerTest extends TestCase
         $role->ruleName = 'write_rule';
         $auth->add($role);
         $auth->assign($role, $userId);
-        $this->assertTrue($auth->userHasPermission($userId, 'Writer', ['action' => 'write']));
-        $this->assertFalse($auth->userHasPermission($userId, 'Writer', ['action' => 'update']));
+        $this->assertTrue($auth->checkAccess($userId, 'Writer', ['action' => 'write']));
+        $this->assertFalse($auth->checkAccess($userId, 'Writer', ['action' => 'update']));
 
         $role = $auth->createRole('Deleter');
         $role->ruleName = 'delete_rule';
         $auth->add($role);
         $auth->assign($role, $userId);
-        $this->assertTrue($auth->userHasPermission($userId, 'Deleter', ['action' => 'delete']));
-        $this->assertFalse($auth->userHasPermission($userId, 'Deleter', ['action' => 'update']));
+        $this->assertTrue($auth->checkAccess($userId, 'Deleter', ['action' => 'delete']));
+        $this->assertFalse($auth->checkAccess($userId, 'Deleter', ['action' => 'update']));
 
         $role = $auth->createRole('Author');
         $role->ruleName = 'all_rule';
         $auth->add($role);
         $auth->assign($role, $userId);
-        $this->assertTrue($auth->userHasPermission($userId, 'Author', ['action' => 'update']));
+        $this->assertTrue($auth->checkAccess($userId, 'Author', ['action' => 'update']));
 
         // update role and rule
         $role = $auth->getRole('Reader');
         $role->name = 'AdminPost';
         $role->ruleName = 'all_rule';
         $auth->update('Reader', $role);
-        $this->assertTrue($auth->userHasPermission($userId, 'AdminPost', ['action' => 'print']));
+        $this->assertTrue($auth->checkAccess($userId, 'AdminPost', ['action' => 'print']));
     }
 
     public function testInvalidateCache()

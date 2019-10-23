@@ -2,7 +2,6 @@
 
 namespace Yiisoft\Db\MongoDb\Tests\Data\Rbac;
 
-use Yiisoft\Rbac\Item;
 use Yiisoft\Rbac\Rule;
 
 /**
@@ -14,8 +13,11 @@ class AuthorRule extends Rule
     public $reallyReally = false;
 
 
-    public function execute(string $userId, Item $item, array $parameters = []): bool
+    /**
+     * {@inheritdoc}
+     */
+    public function execute($user, $item, $params)
     {
-        return $parameters['authorID'] == $parameters;
+        return $params['authorID'] == $user;
     }
 }
