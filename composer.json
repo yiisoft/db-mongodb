@@ -1,7 +1,13 @@
 {
     "name": "yiisoft/db-mongodb",
     "description": "Yii Framework MongoDB extension",
-    "keywords": ["yii", "mongo", "mongodb", "active-record", "gridfs"],
+    "keywords": [
+        "yii",
+        "mongo",
+        "mongodb",
+        "active-record",
+        "gridfs"
+    ],
     "type": "library",
     "license": "BSD-3-Clause",
     "support": {
@@ -37,14 +43,21 @@
         }
     ],
     "autoload": {
-        "psr-4": {"Yiisoft\\Db\\MongoDb\\": "src"}
+        "psr-4": {
+            "Yiisoft\\Db\\MongoDb\\": "src"
+        }
     },
     "autoload-dev": {
-        "psr-4": {"Yiisoft\\Db\\MongoDb\\Tests\\": "tests"}
+        "psr-4": {
+            "Yiisoft\\Db\\MongoDb\\Tests\\": "tests"
+        }
     },
     "extra": {
         "branch-alias": {
             "dev-master": "1.0.x-dev"
         }
+    },
+    "config": {
+        "sort-packages": true
     }
 }
