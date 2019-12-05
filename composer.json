@@ -24,12 +24,13 @@
         }
     ],
     "require": {
-        "ext-mongodb": ">=1.0.0"
+        "ext-mongodb": ">=1.0.0",
+        "php": "^7.4"
     },
     "require-dev": {
         "yiisoft/arrays": "^3.0@dev",
         "yiisoft/strings": "^3.0@dev",
-        "phpunit/phpunit": "^7.3",
+        "phpunit/phpunit": "^8.4",
         "yiisoft/di": "dev-master",
         "yiisoft/factory": "^3.0@dev",
         "yiisoft/log": "dev-master",
