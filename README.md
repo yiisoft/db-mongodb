@@ -14,7 +14,7 @@ Documentation is at [docs/guide/README.md](docs/guide/README.md).
 
 [![Latest Stable Version](https://poser.pugx.org/yiisoft/db-mongodb/v/stable.png)](https://packagist.org/packages/yiisoft/db-mongodb)
 [![Total Downloads](https://poser.pugx.org/yiisoft/db-mongodb/downloads.png)](https://packagist.org/packages/yiisoft/db-mongodb)
-[![Build Status](https://travis-ci.org/yiisoft/db-mongodb.svg?branch=master)](https://travis-ci.org/yiisoft/db-mongodb)
+[![Build Status](https://travis-ci.com/yiisoft/db-mongodb.svg?branch=master)](https://travis-ci.com/yiisoft/db-mongodb)
 
 
 Installation
