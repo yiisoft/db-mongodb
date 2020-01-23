@@ -362,7 +362,7 @@ class StreamWrapper extends BaseObject
 
         return $statistics;
     }
-    
+
     /**
      * Seeks to specific location in a stream.
      * This method is called in response to `fseek()`.
@@ -401,7 +401,7 @@ class StreamWrapper extends BaseObject
         }
         return false;
     }
-    
+
     /**
      * Retrieve the current position of a stream.
      * This method is called in response to `fseek()` to determine the current position.

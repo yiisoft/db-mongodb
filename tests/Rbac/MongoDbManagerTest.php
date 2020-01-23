@@ -218,7 +218,7 @@ class MongoDbManagerTest extends TestCase
 
     protected function prepareData()
     {
-        $rule = new AuthorRule;
+        $rule = new AuthorRule();
         $this->auth->add($rule);
 
         $uniqueTrait = $this->auth->createPermission('Fast Metabolism');
@@ -514,7 +514,7 @@ class MongoDbManagerTest extends TestCase
     {
         $auth = $this->auth;
         $auth->cache = new Cache(['handler' => new ArrayCache()]);
-        ;
+
         $this->prepareData();
 
         $auth->loadFromCache();

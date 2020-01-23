@@ -204,7 +204,7 @@ class MongoDbManager extends BaseManager implements AccessCheckerInterface
             return $this->items[$name];
         }
 
-        $row = (new Query)->from($this->itemCollection)
+        $row = (new Query())->from($this->itemCollection)
             ->where(['name' => $name])
             ->one($this->db);
 
@@ -220,7 +220,7 @@ class MongoDbManager extends BaseManager implements AccessCheckerInterface
      */
     protected function getItems($type)
     {
-        $query = (new Query)
+        $query = (new Query())
             ->from($this->itemCollection)
             ->where(['type' => $type]);
 
@@ -504,7 +504,7 @@ class MongoDbManager extends BaseManager implements AccessCheckerInterface
             return [];
         }
 
-        $query = (new Query)
+        $query = (new Query())
             ->from($this->itemCollection)
             ->where([
                 'type' => Item::TYPE_PERMISSION,
@@ -528,7 +528,7 @@ class MongoDbManager extends BaseManager implements AccessCheckerInterface
 
         $this->getAssignments($userId);
 
-        $rows = (new Query)
+        $rows = (new Query())
             ->select(['item_name'])
             ->from($this->assignmentCollection)
             ->where(['user_id' => (string) $userId])
@@ -548,7 +548,7 @@ class MongoDbManager extends BaseManager implements AccessCheckerInterface
 
         $names = array_merge($names, array_keys($result));
 
-        $query = (new Query)
+        $query = (new Query())
             ->from($this->itemCollection)
             ->where([
                 'type' => Item::TYPE_PERMISSION,
@@ -571,7 +571,7 @@ class MongoDbManager extends BaseManager implements AccessCheckerInterface
             return isset($this->rules[$name]) ? $this->rules[$name] : null;
         }
 
-        $row = (new Query)->select(['data'])
+        $row = (new Query())->select(['data'])
             ->from($this->ruleCollection)
             ->where(['name' => $name])
             ->one($this->db);
@@ -587,7 +587,7 @@ class MongoDbManager extends BaseManager implements AccessCheckerInterface
             return $this->rules;
         }
 
-        $query = (new Query)->from($this->ruleCollection);
+        $query = (new Query())->from($this->ruleCollection);
 
         $rules = [];
         foreach ($query->all($this->db) as $row) {
@@ -699,7 +699,7 @@ class MongoDbManager extends BaseManager implements AccessCheckerInterface
      */
     public function hasChild($parent, $child)
     {
-        return (new Query)
+        return (new Query())
             ->from($this->itemCollection)
             ->where([
                 'name' => $child->name
@@ -717,7 +717,7 @@ class MongoDbManager extends BaseManager implements AccessCheckerInterface
      */
     public function getChildren($name)
     {
-        $query = (new Query)
+        $query = (new Query())
             ->from($this->itemCollection)
             ->where([
                 'parents' => [
@@ -789,7 +789,7 @@ class MongoDbManager extends BaseManager implements AccessCheckerInterface
             return null;
         }
 
-        $row = (new Query)->from($this->assignmentCollection)
+        $row = (new Query())->from($this->assignmentCollection)
             ->where(['user_id' => (string) $userId, 'item_name' => $roleName])
             ->one($this->db);
 
@@ -813,7 +813,7 @@ class MongoDbManager extends BaseManager implements AccessCheckerInterface
             return [];
         }
 
-        $query = (new Query)
+        $query = (new Query())
             ->from($this->assignmentCollection)
             ->where(['user_id' => (string) $userId]);
 
@@ -838,7 +838,7 @@ class MongoDbManager extends BaseManager implements AccessCheckerInterface
             return [];
         }
 
-        $rows = (new Query)->select(['user_id'])
+        $rows = (new Query())->select(['user_id'])
             ->from($this->assignmentCollection)
             ->where(['item_name' => $roleName])
             ->all($this->db);
@@ -937,7 +937,7 @@ class MongoDbManager extends BaseManager implements AccessCheckerInterface
      */
     protected function removeAllItems($type)
     {
-        $rows = (new Query)
+        $rows = (new Query())
             ->select(['name'])
             ->from($this->itemCollection)
             ->where(['type' => $type])
@@ -987,13 +987,13 @@ class MongoDbManager extends BaseManager implements AccessCheckerInterface
             return;
         }
 
-        $query = (new Query)->from($this->itemCollection);
+        $query = (new Query())->from($this->itemCollection);
         $this->items = [];
         foreach ($query->all($this->db) as $row) {
             $this->items[$row['name']] = $this->populateItem($row);
         }
 
-        $query = (new Query)->from($this->ruleCollection);
+        $query = (new Query())->from($this->ruleCollection);
         $this->rules = [];
         foreach ($query->all($this->db) as $row) {
             $this->rules[$row['name']] = unserialize($row['data']);
@@ -1009,7 +1009,7 @@ class MongoDbManager extends BaseManager implements AccessCheckerInterface
      */
     protected function getChildrenList()
     {
-        $query = (new Query)
+        $query = (new Query())
             ->select(['name', 'parents'])
             ->from($this->itemCollection);
         $children = [];

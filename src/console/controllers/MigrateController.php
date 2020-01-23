@@ -206,7 +206,7 @@ class MigrateController extends BaseMigrateController
     protected function ensureBaseMigrationHistory()
     {
         if (!$this->baseMigrationEnsured) {
-            $query = new Query;
+            $query = new Query();
             $row = $query->select(['version'])
                 ->from($this->migrationCollection)
                 ->andWhere(['version' => self::BASE_MIGRATION])
