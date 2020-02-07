@@ -30,7 +30,7 @@
     "require-dev": {
         "yiisoft/arrays": "^3.0@dev",
         "yiisoft/strings": "^3.0@dev",
-        "phpunit/phpunit": "^8.4 || ^9.0",
+        "phpunit/phpunit": "^9.0",
         "yiisoft/di": "dev-master",
         "yiisoft/factory": "^3.0@dev",
         "yiisoft/log": "dev-master",
