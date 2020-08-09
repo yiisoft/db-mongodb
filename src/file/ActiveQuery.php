@@ -43,7 +43,7 @@ class ActiveQuery extends Query implements ActiveQueryInterface
     /**
      * @event Event an event that is triggered when the query is initialized via [[init()]].
      */
-    const EVENT_INIT = 'init';
+    public const EVENT_INIT = 'init';
 
 
     /**
