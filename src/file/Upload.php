@@ -132,13 +132,13 @@ class Upload extends BaseObject
         $freeBufferLength = $this->chunkSize - StringHelper::byteLength($this->_buffer);
         $contentLength = StringHelper::byteLength($content);
         if ($contentLength > $freeBufferLength) {
-            $this->_buffer .= StringHelper::byteSubstr($content, 0, $freeBufferLength);
+            $this->_buffer .= StringHelper::byteSubstring($content, 0, $freeBufferLength);
             $this->flushBuffer(true);
-            return $this->addContent(StringHelper::byteSubstr($content, $freeBufferLength));
-        } else {
-            $this->_buffer .= $content;
-            $this->flushBuffer();
+            return $this->addContent(StringHelper::byteSubstring($content, $freeBufferLength));
         }
+
+        $this->_buffer .= $content;
+        $this->flushBuffer();
 
         return $this;
     }

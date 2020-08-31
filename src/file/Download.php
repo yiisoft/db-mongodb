@@ -268,7 +268,7 @@ class Download extends BaseObject
 
                 $readLength = min($chunkSize - $chunkDataOffset, $length);
 
-                $result .= StringHelper::byteSubstr($data, $chunkDataOffset, $readLength);
+                $result .= StringHelper::byteSubstring($data, $chunkDataOffset, $readLength);
 
                 $length -= $readLength;
                 if ($length <= 0) {

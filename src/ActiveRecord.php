@@ -119,7 +119,7 @@ abstract class ActiveRecord extends BaseActiveRecord
      */
     public static function collectionName()
     {
-        return Inflector::camel2id(StringHelper::basename(get_called_class()), '_');
+        return Inflector::pascalCaseToId(StringHelper::baseName(get_called_class()), '_');
     }
 
     /**
