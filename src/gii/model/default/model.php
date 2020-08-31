@@ -21,7 +21,7 @@ use Yii;
 /**
  * This is the model class for collection "<?= $collectionName ?>".
  *
-<?php foreach ($attributes as $attribute): ?>
+<?php foreach ($attributes as $attribute) : ?>
  * @property <?= $attribute == '_id' ? '\MongoDB\BSON\ObjectID|string' : 'mixed' ?> <?= "\${$attribute}\n" ?>
 <?php endforeach; ?>
  */
@@ -32,13 +32,13 @@ class <?= $className ?> extends <?= '\\' . ltrim($generator->baseClass, '\\') . 
      */
     public static function collectionName()
     {
-<?php if (empty($generator->databaseName)): ?>
+<?php if (empty($generator->databaseName)) : ?>
         return '<?= $collectionName ?>';
-<?php else: ?>
+<?php else : ?>
         return ['<?= $generator->databaseName ?>', '<?= $collectionName ?>'];
 <?php endif; ?>
     }
-<?php if ($generator->db !== 'mongodb'): ?>
+<?php if ($generator->db !== 'mongodb') : ?>
 
     /**
      * @return \Yiisoft\Db\MongoDb\Connection the MongoDB connection used by this AR class.
@@ -55,7 +55,7 @@ class <?= $className ?> extends <?= '\\' . ltrim($generator->baseClass, '\\') . 
     public function attributes()
     {
         return [
-<?php foreach ($attributes as $attribute): ?>
+<?php foreach ($attributes as $attribute) : ?>
             <?= "'$attribute',\n" ?>
 <?php endforeach; ?>
         ];
@@ -75,7 +75,7 @@ class <?= $className ?> extends <?= '\\' . ltrim($generator->baseClass, '\\') . 
     public function attributeLabels()
     {
         return [
-<?php foreach ($labels as $name => $label): ?>
+<?php foreach ($labels as $name => $label) : ?>
             <?= "'$name' => " . $generator->generateString($label) . ",\n" ?>
 <?php endforeach; ?>
         ];
