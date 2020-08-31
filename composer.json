@@ -29,7 +29,7 @@
     },
     "require-dev": {
         "yiisoft/arrays": "^3.0@dev",
-        "yiisoft/strings": "^3.0@dev",
+        "yiisoft/strings": "^1.0",
         "phpunit/phpunit": "^9.3",
         "yiisoft/di": "dev-master",
         "yiisoft/factory": "^3.0@dev",
