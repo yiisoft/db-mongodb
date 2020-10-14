@@ -123,7 +123,7 @@ class MigrateControllerTest extends TestCase
     {
         $controller = $this->createMigrateController($config);
         ob_start();
-        ob_implicit_flush(false);
+        PHP_VERSION_ID >= 80000 ? ob_implicit_flush(false) : ob_implicit_flush(0);
         $controller->run($actionID, $args);
 
         return ob_get_clean();
