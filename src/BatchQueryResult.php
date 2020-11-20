@@ -1,14 +1,17 @@
 <?php
+
+declare(strict_types=1);
 /**
  * @link http://www.yiiframework.com/
+ *
  * @copyright Copyright (c) 2008 Yii Software LLC
  * @license http://www.yiiframework.com/license/
  */
 
 namespace Yiisoft\Db\MongoDb;
 
-use yii\base\BaseObject;
 use Yii;
+use yii\base\BaseObject;
 
 /**
  * BatchQueryResult represents a batch query from which you can retrieve data in batches.
@@ -27,6 +30,7 @@ use Yii;
  * ```
  *
  * @author Paul Klimov <klimov.paul@gmail.com>
+ *
  * @since 2.1
  */
 class BatchQueryResult extends BaseObject implements \Iterator
@@ -60,14 +64,13 @@ class BatchQueryResult extends BaseObject implements \Iterator
      */
     private $_value;
     /**
-     * @var string|int the key for the current iteration
+     * @var int|string the key for the current iteration
      */
     private $_key;
     /**
      * @var \Iterator
      */
     private $_iterator;
-
 
     /**
      * Resets the batch query.
@@ -119,6 +122,7 @@ class BatchQueryResult extends BaseObject implements \Iterator
 
     /**
      * Fetches the next batch of data.
+     *
      * @return array the data fetched
      */
     protected function fetchData()
@@ -160,6 +164,7 @@ class BatchQueryResult extends BaseObject implements \Iterator
     /**
      * Returns the index of the current dataset.
      * This method is required by the interface Iterator.
+     *
      * @return int the index of the current row.
      */
     public function key()
@@ -170,6 +175,7 @@ class BatchQueryResult extends BaseObject implements \Iterator
     /**
      * Returns the current dataset.
      * This method is required by the interface Iterator.
+     *
      * @return mixed the current dataset.
      */
     public function current()
@@ -180,6 +186,7 @@ class BatchQueryResult extends BaseObject implements \Iterator
     /**
      * Returns whether there is a valid dataset at the current position.
      * This method is required by the interface Iterator.
+     *
      * @return bool whether there is a valid dataset at the current position.
      */
     public function valid()

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Yiisoft\Db\MongoDb\Tests;
 
 use Yii;
@@ -33,15 +35,15 @@ class ActiveFixtureTest extends TestCase
             ->setConstructorArgs([
                 [
                     'db' => $this->getConnection(),
-                    'collectionName' => Customer::collectionName()
-                ]
+                    'collectionName' => Customer::collectionName(),
+                ],
             ])
             ->setMethods(['getData'])
             ->getMock();
-        $fixture->expects($this->any())->method('getData')->will($this->returnValue([
+        $fixture->expects($this->any())->method('getData')->willReturn([
             ['name' => 'name1'],
             ['name' => 'name2'],
-        ]));
+        ]);
 
         $fixture->load();
 
@@ -56,15 +58,15 @@ class ActiveFixtureTest extends TestCase
             ->setConstructorArgs([
                 [
                     'db' => $this->getConnection(),
-                    'collectionName' => Customer::collectionName()
-                ]
+                    'collectionName' => Customer::collectionName(),
+                ],
             ])
             ->setMethods(['getData'])
             ->getMock();
-        $fixture->expects($this->any())->method('getData')->will($this->returnValue([
+        $fixture->expects($this->any())->method('getData')->willReturn([
             ['name' => 'name1'],
             ['name' => 'name2'],
-        ]));
+        ]);
 
         $fixture->load();
 
@@ -84,14 +86,14 @@ class ActiveFixtureTest extends TestCase
             ->setConstructorArgs([
                 [
                     'db' => $this->getConnection(),
-                    'collectionName' => Customer::collectionName()
-                ]
+                    'collectionName' => Customer::collectionName(),
+                ],
             ])
             ->setMethods(['getData'])
             ->getMock();
-        $fixture->expects($this->any())->method('getData')->will($this->returnValue([
+        $fixture->expects($this->any())->method('getData')->willReturn([
             // empty
-        ]));
+        ]);
 
         $fixture->load(); // should be no error
 
@@ -112,7 +114,7 @@ class ActiveFixtureTest extends TestCase
         $fixtureDataPath = $fixturePath . DIRECTORY_SEPARATOR . 'data';
         FileHelper::createDirectory($fixtureDataPath);
 
-        $className = 'TestFixture_' . sha1(get_class($this));
+        $className = 'TestFixture_' . sha1(static::class);
         $classDefinition = <<<PHP
 <?php
 
@@ -156,7 +158,7 @@ PHP;
             'db' => $db,
             'collectionName' => [
                 $db->getDefaultDatabaseName(),
-                Customer::collectionName()
+                Customer::collectionName(),
             ],
         ]);
         $fixture->load();

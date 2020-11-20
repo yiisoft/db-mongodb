@@ -1,6 +1,9 @@
 <?php
+
+declare(strict_types=1);
 /**
  * @link http://www.yiiframework.com/
+ *
  * @copyright Copyright (c) 2008 Yii Software LLC
  * @license http://www.yiiframework.com/license/
  */
@@ -8,8 +11,8 @@
 namespace Yiisoft\Db\MongoDb\Rbac;
 
 use Yii;
-use yii\base\InvalidCallException;
 use yii\base\InvalidArgumentException;
+use yii\base\InvalidCallException;
 use yii\caching\Cache;
 use yii\di\Instance;
 use Yiisoft\Access\AccessCheckerInterface;
@@ -33,18 +36,19 @@ use Yiisoft\Rbac\Rule;
  * These collection are better to be pre-created with search fields indexed.
  *
  * @author Paul Klimov <klimov.paul@gmail.com>
+ *
  * @since 2.0.5
  */
 class MongoDbManager extends BaseManager implements AccessCheckerInterface
 {
     /**
-     * @var Connection|array|string the MongoDB connection object or the application component ID of the MongoDB connection.
+     * @var array|Connection|string the MongoDB connection object or the application component ID of the MongoDB connection.
      * After the MongoDbManager object is created, if you want to change this property, you should only assign it
      * with a MongoDB connection object.
      */
     public $db = 'mongodb';
     /**
-     * @var Cache|array|string the cache used to improve RBAC performance. This can be one of the following:
+     * @var array|Cache|string the cache used to improve RBAC performance. This can be one of the following:
      *
      * - an application component ID (e.g. `cache`)
      * - a configuration array
@@ -63,19 +67,20 @@ class MongoDbManager extends BaseManager implements AccessCheckerInterface
     public $cache;
     /**
      * @var string the key used to store RBAC data in cache
+     *
      * @see cache
      */
     public $cacheKey = 'rbac';
     /**
-     * @var string|array the name of the collection storing authorization items. Defaults to "auth_item".
+     * @var array|string the name of the collection storing authorization items. Defaults to "auth_item".
      */
     public $itemCollection = 'auth_item';
     /**
-     * @var string|array the name of the collection storing authorization item assignments. Defaults to "auth_assignment".
+     * @var array|string the name of the collection storing authorization item assignments. Defaults to "auth_assignment".
      */
     public $assignmentCollection = 'auth_assignment';
     /**
-     * @var string|array the name of the collection storing rules. Defaults to "auth_rule".
+     * @var array|string the name of the collection storing rules. Defaults to "auth_rule".
      */
     public $ruleCollection = 'auth_rule';
 
@@ -87,7 +92,6 @@ class MongoDbManager extends BaseManager implements AccessCheckerInterface
      * @var Rule[] all auth rules (name => Rule)
      */
     protected $rules;
-
 
     /**
      * Initializes the application component.
@@ -114,13 +118,15 @@ class MongoDbManager extends BaseManager implements AccessCheckerInterface
     /**
      * Performs access check for the specified user based on the data loaded from cache.
      * This method is internally called by [[userHasPermission()]] when [[cache]] is enabled.
-     * @param string|int $user the user ID. This should can be either an integer or a string representing
+     *
+     * @param int|string $user the user ID. This should can be either an integer or a string representing
      * the unique identifier of a user. See [[\yii\web\User::id]].
      * @param string $itemName the name of the operation that need access check
      * @param array $params name-value pairs that would be passed to rules associated
      * with the tasks and roles assigned to the user. A param with name 'user' is added to this array,
      * which holds the value of `$userId`.
      * @param Assignment[] $assignments the assignments to the specified user
+     *
      * @return bool whether the operations can be performed by the user.
      */
     protected function checkAccessFromCache($user, $itemName, $params, $assignments)
@@ -155,13 +161,15 @@ class MongoDbManager extends BaseManager implements AccessCheckerInterface
     /**
      * Performs access check for the specified user.
      * This method is internally called by [[userHasPermission()]].
-     * @param string|int $user the user ID. This should can be either an integer or a string representing
+     *
+     * @param int|string $user the user ID. This should can be either an integer or a string representing
      * the unique identifier of a user. See [[\yii\web\User::id]].
      * @param string $itemName the name of the operation that need access check
      * @param array $params name-value pairs that would be passed to rules associated
      * with the tasks and roles assigned to the user. A param with name 'user' is added to this array,
      * which holds the value of `$userId`.
      * @param Assignment[] $assignments the assignments to the specified user
+     *
      * @return bool whether the operations can be performed by the user.
      */
     protected function checkAccessRecursive($user, $itemName, $params, $assignments)
@@ -301,18 +309,18 @@ class MongoDbManager extends BaseManager implements AccessCheckerInterface
             ->update(
                 [
                     'parents' => [
-                        '$in' => [$item->name]
+                        '$in' => [$item->name],
                     ],
                 ],
                 [
                     '$pull' => [
                         'parents' => [
                             '$in' => [$item->name],
-                        ]
-                    ]
+                        ],
+                    ],
                 ],
                 [
-                    'multi' => true
+                    'multi' => true,
                 ]
             );
 
@@ -350,18 +358,18 @@ class MongoDbManager extends BaseManager implements AccessCheckerInterface
                 ->update(
                     [
                         'parents' => [
-                            '$in' => [$item->name]
+                            '$in' => [$item->name],
                         ],
                     ],
                     [
                         '$pull' => [
                             'parents' => [
                                 '$in' => [$item->name],
-                            ]
+                            ],
                         ],
                     ],
                     [
-                        'multi' => true
+                        'multi' => true,
                     ]
                 );
 
@@ -369,16 +377,16 @@ class MongoDbManager extends BaseManager implements AccessCheckerInterface
                 ->update(
                     [
                         'parents' => [
-                            '$in' => [$item->name]
+                            '$in' => [$item->name],
                         ],
                     ],
                     [
                         '$push' => [
-                            'parents' => $name
-                        ]
+                            'parents' => $name,
+                        ],
                     ],
                     [
-                        'multi' => true
+                        'multi' => true,
                     ]
                 );
         }
@@ -470,13 +478,14 @@ class MongoDbManager extends BaseManager implements AccessCheckerInterface
 
     /**
      * {@inheritdoc}
+     *
      * @since 2.1.2
      */
     public function getChildRoles($roleName)
     {
         $role = $this->getRole($roleName);
 
-        if (is_null($role)) {
+        if (null === $role) {
             throw new InvalidArgumentException("Role '{$roleName}' not found.");
         }
 
@@ -568,7 +577,7 @@ class MongoDbManager extends BaseManager implements AccessCheckerInterface
     public function getRule($name)
     {
         if ($this->rules !== null) {
-            return isset($this->rules[$name]) ? $this->rules[$name] : null;
+            return $this->rules[$name] ?? null;
         }
 
         $row = (new Query())->select(['data'])
@@ -629,11 +638,11 @@ class MongoDbManager extends BaseManager implements AccessCheckerInterface
                 ],
                 [
                     '$push' => [
-                        'parents' => $parent->name
-                    ]
+                        'parents' => $parent->name,
+                    ],
                 ],
                 [
-                    'multi' => false
+                    'multi' => false,
                 ]
             ) > 0;
 
@@ -655,12 +664,12 @@ class MongoDbManager extends BaseManager implements AccessCheckerInterface
                 [
                     '$pull' => [
                         'parents' => [
-                            '$in' => [$parent->name]
-                        ]
-                    ]
+                            '$in' => [$parent->name],
+                        ],
+                    ],
                 ],
                 [
-                    'multi' => false
+                    'multi' => false,
                 ]
             ) > 0;
 
@@ -680,12 +689,12 @@ class MongoDbManager extends BaseManager implements AccessCheckerInterface
                 [
                     '$pull' => [
                         'parents' => [
-                            '$in' => [$parent->name]
-                        ]
-                    ]
+                            '$in' => [$parent->name],
+                        ],
+                    ],
                 ],
                 [
-                    'multi' => true
+                    'multi' => true,
                 ]
             ) > 0;
 
@@ -702,12 +711,12 @@ class MongoDbManager extends BaseManager implements AccessCheckerInterface
         return (new Query())
             ->from($this->itemCollection)
             ->where([
-                'name' => $child->name
+                'name' => $child->name,
             ])
             ->andWhere([
                 'parents' => [
-                    '$in' => [$parent->name]
-                ]
+                    '$in' => [$parent->name],
+                ],
             ])
             ->one($this->db) !== false;
     }
@@ -721,8 +730,8 @@ class MongoDbManager extends BaseManager implements AccessCheckerInterface
             ->from($this->itemCollection)
             ->where([
                 'parents' => [
-                    '$in' => [$name]
-                ]
+                    '$in' => [$name],
+                ],
             ]);
 
         $children = [];
@@ -908,7 +917,9 @@ class MongoDbManager extends BaseManager implements AccessCheckerInterface
 
     /**
      * Populates an auth item with the data fetched from collection
+     *
      * @param array $row the data from the auth item collection
+     *
      * @return Item the populated auth item instance (either Role or Permission)
      */
     protected function populateItem($row)
@@ -927,12 +938,13 @@ class MongoDbManager extends BaseManager implements AccessCheckerInterface
             'data' => $data,
             'createdAt' => $row['created_at'],
             'updatedAt' => $row['updated_at'],
-            'parents' => isset($row['parents']) ? $row['parents'] : null,
+            'parents' => $row['parents'] ?? null,
         ]);
     }
 
     /**
      * Removes all auth items of the specified type.
+     *
      * @param int $type the auth item type (either Item::TYPE_PERMISSION or Item::TYPE_ROLE)
      */
     protected function removeAllItems($type)
@@ -961,11 +973,11 @@ class MongoDbManager extends BaseManager implements AccessCheckerInterface
                     '$pull' => [
                         'parents' => [
                             '$in' => $names,
-                        ]
+                        ],
                     ],
                 ],
                 [
-                    'multi' => true
+                    'multi' => true,
                 ]
             );
 
@@ -983,7 +995,7 @@ class MongoDbManager extends BaseManager implements AccessCheckerInterface
 
         $data = $this->cache->get($this->cacheKey);
         if (is_array($data) && isset($data[0], $data[1])) {
-            list($this->items, $this->rules) = $data;
+            [$this->items, $this->rules] = $data;
             return;
         }
 
@@ -1004,6 +1016,7 @@ class MongoDbManager extends BaseManager implements AccessCheckerInterface
 
     /**
      * Returns the children for every parent.
+     *
      * @return array the children list. Each array key is a parent item name,
      * and the corresponding array value is a list of child item names.
      */
@@ -1025,6 +1038,7 @@ class MongoDbManager extends BaseManager implements AccessCheckerInterface
 
     /**
      * Recursively finds all children and grand children of the specified item.
+     *
      * @param string $name the name of the item whose children are to be looked for.
      * @param array $childrenList the child list built via [[getChildrenList()]]
      * @param array $result the children and grand children (in array keys)
@@ -1041,8 +1055,10 @@ class MongoDbManager extends BaseManager implements AccessCheckerInterface
 
     /**
      * Checks whether there is a loop in the authorization item hierarchy.
+     *
      * @param Item $parent the parent item
      * @param Item $child the child item to be added to the hierarchy
+     *
      * @return bool whether a loop exists
      */
     protected function detectLoop($parent, $child)
@@ -1060,7 +1076,9 @@ class MongoDbManager extends BaseManager implements AccessCheckerInterface
 
     /**
      * Returns defaultRoles as array of Role objects
+     *
      * @since 2.1.3
+     *
      * @return Role[] default roles. The array is indexed by the role names
      */
     private function instantiateDefaultRoles()

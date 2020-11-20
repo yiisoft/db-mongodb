@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Yiisoft\Db\MongoDb\Tests;
 
 use MongoDB\BSON\ObjectID;
@@ -61,7 +63,7 @@ class CommandTest extends TestCase
         $command->createIndexes('customer', [
             [
                 'key' => ['name' => +1],
-                'name' => 'asc_index'
+                'name' => 'asc_index',
             ],
         ]);
 
@@ -79,11 +81,11 @@ class CommandTest extends TestCase
         $command->createIndexes('customer', [
             [
                 'key' => ['name' => +1],
-                'name' => 'asc_index'
+                'name' => 'asc_index',
             ],
             [
                 'key' => ['name' => -1],
-                'name' => 'desc_index'
+                'name' => 'desc_index',
             ],
         ]);
 
@@ -205,7 +207,7 @@ class CommandTest extends TestCase
         // Full update document
         $data = [
             'name' => 'customer 3',
-            'city' => 'Minsk'
+            'city' => 'Minsk',
         ];
         $result = $connection->createCommand()->findAndModify(
             'customer',
@@ -245,16 +247,16 @@ class CommandTest extends TestCase
 
         $pipelines = [
             [
-                '$match' => ['status' => 1]
+                '$match' => ['status' => 1],
             ],
             [
                 '$group' => [
                     '_id' => '1',
                     'total' => [
-                        '$sum' => '$amount'
+                        '$sum' => '$amount',
                     ],
-                ]
-            ]
+                ],
+            ],
         ];
         $result = $connection->createCommand()->aggregate('customer', $pipelines);
 
@@ -296,16 +298,16 @@ class CommandTest extends TestCase
 
         $pipelines = [
             [
-                '$match' => ['status' => 1]
+                '$match' => ['status' => 1],
             ],
             [
                 '$group' => [
                     '_id' => '1',
                     'total' => [
-                        '$sum' => '$amount'
+                        '$sum' => '$amount',
                     ],
-                ]
-            ]
+                ],
+            ],
         ];
         $result = $connection->createCommand()->aggregate('customer', $pipelines, ['cursor' => ['batchSize' => 2]]);
         $this->assertTrue($result instanceof Cursor);
@@ -324,7 +326,7 @@ class CommandTest extends TestCase
 
         $result = $connection->createCommand()->explain('customer', [
             'filter' => [
-                'name' => 'John'
+                'name' => 'John',
             ],
         ]);
 

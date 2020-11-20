@@ -1,6 +1,9 @@
 <?php
+
+declare(strict_types=1);
 /**
  * @link http://www.yiiframework.com/
+ *
  * @copyright Copyright (c) 2008 Yii Software LLC
  * @license http://www.yiiframework.com/license/
  */
@@ -8,8 +11,8 @@
 namespace Yiisoft\Db\MongoDb;
 
 use MongoDB\BSON\ObjectID;
-use yii\base\BaseObject;
 use Yii;
+use yii\base\BaseObject;
 
 /**
  * Collection represents the Mongo collection information.
@@ -32,6 +35,7 @@ use Yii;
  * read-only.
  *
  * @author Paul Klimov <klimov.paul@gmail.com>
+ *
  * @since 2.0
  */
 class Collection extends BaseObject
@@ -45,7 +49,6 @@ class Collection extends BaseObject
      */
     public $name;
 
-
     /**
      * @return string full name of this collection, including database name.
      */
@@ -56,7 +59,9 @@ class Collection extends BaseObject
 
     /**
      * Drops this collection.
+     *
      * @throws Exception on failure.
+     *
      * @return bool whether the operation successful.
      */
     public function drop()
@@ -66,8 +71,11 @@ class Collection extends BaseObject
 
     /**
      * Returns the list of defined indexes.
-     * @return array list of indexes info.
+     *
      * @param array $options list of options in format: optionName => optionValue.
+     *
+     * @return array list of indexes info.
+     *
      * @since 2.1
      */
     public function listIndexes($options = [])
@@ -107,7 +115,9 @@ class Collection extends BaseObject
      *
      * See [[https://docs.mongodb.com/manual/reference/method/db.collection.createIndex/#options-for-all-index-types]]
      * for the full list of options.
+     *
      * @return bool whether operation was successful.
+     *
      * @since 2.1
      */
     public function createIndexes($indexes)
@@ -117,8 +127,10 @@ class Collection extends BaseObject
 
     /**
      * Drops collection indexes by name.
+     *
      * @param string $indexes wildcard for name of the indexes to be dropped.
      * You can use `*` to drop all indexes.
+     *
      * @return int count of dropped indexes.
      */
     public function dropIndexes($indexes)
@@ -129,6 +141,7 @@ class Collection extends BaseObject
 
     /**
      * Creates an index on the collection and the specified fields.
+     *
      * @param array|string $columns column name or list of column names.
      * If array is given, each element in the array has as key the field name, and as
      * value either 1 for ascending sort, or -1 for descending sort.
@@ -142,9 +155,10 @@ class Collection extends BaseObject
      *     'status' => -1,
      * ]
      * ```
-     *
      * @param array $options list of options in format: optionName => optionValue.
+     *
      * @throws Exception on failure.
+     *
      * @return bool whether the operation successful.
      */
     public function createIndex($columns, $options = [])
@@ -155,7 +169,8 @@ class Collection extends BaseObject
 
     /**
      * Drop indexes for specified column(s).
-     * @param string|array $columns column name or list of column names.
+     *
+     * @param array|string $columns column name or list of column names.
      * If array is given, each element in the array has as key the field name, and as
      * value either 1 for ascending sort, or -1 for descending sort.
      * Use value 'text' to specify text index.
@@ -172,6 +187,7 @@ class Collection extends BaseObject
      * ```
      *
      * @throws Exception on failure.
+     *
      * @return bool whether the operation successful.
      */
     public function dropIndex($columns)
@@ -200,7 +216,9 @@ class Collection extends BaseObject
 
     /**
      * Drops all indexes for this collection.
+     *
      * @throws Exception on failure.
+     *
      * @return int count of dropped indexes.
      */
     public function dropAllIndexes()
@@ -212,10 +230,13 @@ class Collection extends BaseObject
     /**
      * Returns a cursor for the search results.
      * In order to perform "find" queries use [[Query]] class.
+     *
      * @param array $condition query condition
      * @param array $fields fields to be selected
      * @param array $options query options (available since 2.1).
+     *
      * @return \MongoDB\Driver\Cursor cursor for the search results
+     *
      * @see Query
      */
     public function find($condition = [], $fields = [], $options = [])
@@ -228,9 +249,11 @@ class Collection extends BaseObject
 
     /**
      * Returns a single document.
+     *
      * @param array $condition query condition
      * @param array $fields fields to be selected
      * @param array $options query options (available since 2.1).
+     *
      * @return array|null the single document. Null is returned if the query results in nothing.
      */
     public function findOne($condition = [], $fields = [], $options = [])
@@ -243,11 +266,14 @@ class Collection extends BaseObject
 
     /**
      * Updates a document and returns it.
+     *
      * @param array $condition query condition
      * @param array $update update criteria
      * @param array $options list of options in format: optionName => optionValue.
-     * @return array|null the original document, or the modified document when $options['new'] is set.
+     *
      * @throws Exception on failure.
+     *
+     * @return array|null the original document, or the modified document when $options['new'] is set.
      */
     public function findAndModify($condition, $update, $options = [])
     {
@@ -256,10 +282,13 @@ class Collection extends BaseObject
 
     /**
      * Inserts new data into collection.
+     *
      * @param array|object $data data to be inserted.
      * @param array $options list of options in format: optionName => optionValue.
-     * @return \MongoDB\BSON\ObjectID new record ID instance.
+     *
      * @throws Exception on failure.
+     *
+     * @return \MongoDB\BSON\ObjectID new record ID instance.
      */
     public function insert($data, $options = [])
     {
@@ -268,10 +297,13 @@ class Collection extends BaseObject
 
     /**
      * Inserts several new rows into collection.
+     *
      * @param array $rows array of arrays or objects to be inserted.
      * @param array $options list of options in format: optionName => optionValue.
-     * @return array inserted data, each row will have "_id" key assigned to it.
+     *
      * @throws Exception on failure.
+     *
+     * @return array inserted data, each row will have "_id" key assigned to it.
      */
     public function batchInsert($rows, $options = [])
     {
@@ -286,11 +318,14 @@ class Collection extends BaseObject
      * Updates the rows, which matches given criteria by given data.
      * Note: for "multi" mode Mongo requires explicit strategy "$set" or "$inc"
      * to be specified for the "newData". If no strategy is passed "$set" will be used.
+     *
      * @param array $condition description of the objects to update.
      * @param array $newData the object with which to update the matching records.
      * @param array $options list of options in format: optionName => optionValue.
-     * @return int|bool number of updated documents or whether operation was successful.
+     *
      * @throws Exception on failure.
+     *
+     * @return bool|int number of updated documents or whether operation was successful.
      */
     public function update($condition, $newData, $options = [])
     {
@@ -300,10 +335,13 @@ class Collection extends BaseObject
 
     /**
      * Update the existing database data, otherwise insert this data
+     *
      * @param array|object $data data to be updated/inserted.
      * @param array $options list of options in format: optionName => optionValue.
-     * @return \MongoId updated/new record id instance.
+     *
      * @throws Exception on failure.
+     *
+     * @return \MongoId updated/new record id instance.
      */
     public function save($data, $options = [])
     {
@@ -319,10 +357,13 @@ class Collection extends BaseObject
 
     /**
      * Removes data from the collection.
+     *
      * @param array $condition description of records to remove.
      * @param array $options list of options in format: optionName => optionValue.
-     * @return int|bool number of updated documents or whether operation was successful.
+     *
      * @throws Exception on failure.
+     *
+     * @return bool|int number of updated documents or whether operation was successful.
      */
     public function remove($condition = [], $options = [])
     {
@@ -333,9 +374,12 @@ class Collection extends BaseObject
 
     /**
      * Counts records in this collection.
+     *
      * @param array $condition query condition
      * @param array $options list of options in format: optionName => optionValue.
+     *
      * @return int records count.
+     *
      * @since 2.1
      */
     public function count($condition = [], $options = [])
@@ -345,11 +389,14 @@ class Collection extends BaseObject
 
     /**
      * Returns a list of distinct values for the given column across a collection.
+     *
      * @param string $column column to use.
      * @param array $condition query parameters.
      * @param array $options list of options in format: optionName => optionValue.
-     * @return array|bool array of distinct values, or "false" on failure.
+     *
      * @throws Exception on failure.
+     *
+     * @return array|bool array of distinct values, or "false" on failure.
      */
     public function distinct($column, $condition = [], $options = [])
     {
@@ -360,10 +407,13 @@ class Collection extends BaseObject
      * Performs aggregation using Mongo Aggregation Framework.
      * In case 'cursor' option is specified [[\MongoDB\Driver\Cursor]] instance is returned,
      * otherwise - an array of aggregation results.
+     *
      * @param array $pipelines list of pipeline operators.
      * @param array $options optional parameters.
-     * @return array|\MongoDB\Driver\Cursor the result of the aggregation.
+     *
      * @throws Exception on failure.
+     *
+     * @return array|\MongoDB\Driver\Cursor the result of the aggregation.
      */
     public function aggregate($pipelines, $options = [])
     {
@@ -372,6 +422,7 @@ class Collection extends BaseObject
 
     /**
      * Performs aggregation using Mongo "group" command.
+     *
      * @param mixed $keys fields to group by. If an array or non-code object is passed,
      * it will be the key used to group results. If instance of [[\MongoDB\BSON\Javascript]] passed,
      * it will be treated as a function that returns the key to group by.
@@ -382,8 +433,10 @@ class Collection extends BaseObject
      * @param array $options optional parameters to the group command. Valid options include:
      *  - condition - criteria for including a document in the aggregation.
      *  - finalize - function called once per unique key that takes the final output of the reduce function.
-     * @return array the result of the aggregation.
+     *
      * @throws Exception on failure.
+     *
+     * @return array the result of the aggregation.
      */
     public function group($keys, $initial, $reduce, $options = [])
     {
@@ -413,7 +466,7 @@ class Collection extends BaseObject
      * @param \MongoDB\BSON\Javascript|string $reduce function that takes two arguments (the map key
      * and the map values) and does the aggregation.
      * Argument will be automatically cast to [[\MongoDB\BSON\Javascript]].
-     * @param string|array $out output collection name. It could be a string for simple output
+     * @param array|string $out output collection name. It could be a string for simple output
      * ('outputCollection'), or an array for parametrized output (['merge' => 'outputCollection']).
      * You can pass ['inline' => true] to fetch the result at once without temporary collection usage.
      * @param array $condition criteria for including a document in the aggregation.
@@ -426,8 +479,9 @@ class Collection extends BaseObject
      * - jsMode: bool, specifies whether to convert intermediate data into BSON format between the execution of the map and reduce functions.
      * - verbose: bool, specifies whether to include the timing information in the result information.
      *
-     * @return string|array the map reduce output collection name or output results.
      * @throws Exception on failure.
+     *
+     * @return array|string the map reduce output collection name or output results.
      */
     public function mapReduce($map, $reduce, $out, $condition = [], $options = [])
     {

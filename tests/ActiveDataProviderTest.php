@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Yiisoft\Db\MongoDb\Tests;
 
 use MongoDB\BSON\ObjectID;
@@ -54,17 +56,17 @@ class ActiveDataProviderTest extends TestCase
             'db' => $this->getConnection(),
         ]);
         $models = $provider->getModels();
-        $this->assertEquals(10, count($models));
+        $this->assertCount(10, $models);
 
         $provider = new ActiveDataProvider([
             'query' => $query,
             'db' => $this->getConnection(),
             'pagination' => [
                 'pageSize' => 5,
-            ]
+            ],
         ]);
         $models = $provider->getModels();
-        $this->assertEquals(5, count($models));
+        $this->assertCount(5, $models);
     }
 
     public function testActiveQuery()
@@ -73,7 +75,7 @@ class ActiveDataProviderTest extends TestCase
             'query' => Customer::find()->orderBy('id ASC'),
         ]);
         $models = $provider->getModels();
-        $this->assertEquals(10, count($models));
+        $this->assertCount(10, $models);
         $this->assertTrue($models[0] instanceof Customer);
         $keys = $provider->getKeys();
         $this->assertTrue($keys[0] instanceof ObjectID);
@@ -82,9 +84,9 @@ class ActiveDataProviderTest extends TestCase
             'query' => Customer::find(),
             'pagination' => [
                 'pageSize' => 5,
-            ]
+            ],
         ]);
         $models = $provider->getModels();
-        $this->assertEquals(5, count($models));
+        $this->assertCount(5, $models);
     }
 }

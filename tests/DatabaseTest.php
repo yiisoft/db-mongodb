@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Yiisoft\Db\MongoDb\Tests;
 
 use Yiisoft\Db\MongoDb\Collection;

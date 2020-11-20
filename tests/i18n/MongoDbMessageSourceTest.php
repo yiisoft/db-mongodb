@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Yiisoft\Db\MongoDb\Tests\i18n;
 
 use yii\i18n\I18N;
@@ -12,7 +14,6 @@ class MongoDbMessageSourceTest extends TestCase
      * @var I18N
      */
     public $i18n;
-
 
     protected function setUp()
     {
@@ -40,7 +41,7 @@ class MongoDbMessageSourceTest extends TestCase
                 'language' => 'de',
                 'category' => 'test',
                 'messages' => [
-                    'Hello world!' => 'Hallo Welt!'
+                    'Hello world!' => 'Hallo Welt!',
                 ],
             ],
             [
@@ -49,15 +50,15 @@ class MongoDbMessageSourceTest extends TestCase
                 'messages' => [
                     [
                         'message' => 'The dog runs fast.',
-                        'translation' => 'Der Hund rennt schnell.'
+                        'translation' => 'Der Hund rennt schnell.',
                     ],
                     [
                         'message' => 'His speed is about {n} km/h.',
-                        'translation' => 'Seine Geschwindigkeit beträgt {n} km/h.'
+                        'translation' => 'Seine Geschwindigkeit beträgt {n} km/h.',
                     ],
                     [
                         'message' => 'His name is {name} and his speed is about {n, number} km/h.',
-                        'translation' => 'Er heißt {name} und ist {n, number} km/h schnell.'
+                        'translation' => 'Er heißt {name} und ist {n, number} km/h schnell.',
                     ],
                 ],
             ],
@@ -67,15 +68,15 @@ class MongoDbMessageSourceTest extends TestCase
                 'messages' => [
                     [
                         'message' => 'The dog runs fast.',
-                        'translation' => 'The dog runs fast (en-US).'
-                    ]
+                        'translation' => 'The dog runs fast (en-US).',
+                    ],
                 ],
             ],
             [
                 'language' => 'ru-RU',
                 'category' => 'test',
                 'messages' => [
-                    'Hello world!' => 'Здравствуй Мир! (ru-RU)'
+                    'Hello world!' => 'Здравствуй Мир! (ru-RU)',
                 ],
             ],
             [
@@ -89,7 +90,7 @@ class MongoDbMessageSourceTest extends TestCase
                     ],
                     [
                         'message' => 'There {n, plural, =0{no cats} =1{one cat} other{are # cats}} on lying on the sofa!',
-                        'translation' => 'На диване {n, plural, =0{нет кошек} =1{лежит одна кошка} one{лежит # кошка} few{лежит # кошки} many{лежит # кошек} other{лежит # кошки}}!'
+                        'translation' => 'На диване {n, plural, =0{нет кошек} =1{лежит одна кошка} one{лежит # кошка} few{лежит # кошки} many{лежит # кошек} other{лежит # кошки}}!',
                     ],
                 ],
             ],
@@ -106,8 +107,8 @@ class MongoDbMessageSourceTest extends TestCase
                 '*' => new MongoDbMessageSource([
                     'db' => $this->getConnection(),
                     'sourceLanguage' => 'en-US',
-                ])
-            ]
+                ]),
+            ],
         ]);
     }
 

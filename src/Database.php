@@ -1,14 +1,17 @@
 <?php
+
+declare(strict_types=1);
 /**
  * @link http://www.yiiframework.com/
+ *
  * @copyright Copyright (c) 2008 Yii Software LLC
  * @license http://www.yiiframework.com/license/
  */
 
 namespace Yiisoft\Db\MongoDb;
 
-use yii\base\BaseObject;
 use Yii;
+use yii\base\BaseObject;
 
 /**
  * Database represents the MongoDB database information.
@@ -16,6 +19,7 @@ use Yii;
  * @property file\Collection $fileCollection Mongo GridFS collection. This property is read-only.
  *
  * @author Paul Klimov <klimov.paul@gmail.com>
+ *
  * @since 2.0
  */
 class Database extends BaseObject
@@ -38,11 +42,12 @@ class Database extends BaseObject
      */
     private $_fileCollections = [];
 
-
     /**
      * Returns the Mongo collection with the given name.
+     *
      * @param string $name collection name
      * @param bool $refresh whether to reload the collection instance even if it is found in the cache.
+     *
      * @return Collection Mongo collection instance.
      */
     public function getCollection($name, $refresh = false)
@@ -56,8 +61,10 @@ class Database extends BaseObject
 
     /**
      * Returns Mongo GridFS collection with given prefix.
+     *
      * @param string $prefix collection prefix.
      * @param bool $refresh whether to reload the collection instance even if it is found in the cache.
+     *
      * @return file\Collection Mongo GridFS collection.
      */
     public function getFileCollection($prefix = 'fs', $refresh = false)
@@ -71,7 +78,9 @@ class Database extends BaseObject
 
     /**
      * Selects collection with given name.
+     *
      * @param string $name collection name.
+     *
      * @return Collection collection instance.
      */
     protected function selectCollection($name)
@@ -85,7 +94,9 @@ class Database extends BaseObject
 
     /**
      * Selects GridFS collection with given prefix.
+     *
      * @param string $prefix file collection prefix.
+     *
      * @return file\Collection file collection instance.
      */
     protected function selectFileCollection($prefix)
@@ -99,8 +110,11 @@ class Database extends BaseObject
 
     /**
      * Creates MongoDB command associated with this database.
+     *
      * @param array $document command document contents.
+     *
      * @return Command command instance.
+     *
      * @since 2.1
      */
     public function createCommand($document = [])
@@ -113,10 +127,13 @@ class Database extends BaseObject
      * Note: Mongo creates new collections automatically on the first demand,
      * this method makes sense only for the migration script or for the case
      * you need to create collection with the specific options.
+     *
      * @param string $name name of the collection
      * @param array $options collection options in format: "name" => "value"
-     * @return bool whether operation was successful.
+     *
      * @throws Exception on failure.
+     *
+     * @return bool whether operation was successful.
      */
     public function createCollection($name, $options = [])
     {
@@ -125,8 +142,11 @@ class Database extends BaseObject
 
     /**
      * Drops specified collection.
+     *
      * @param string $name name of the collection
+     *
      * @return bool whether operation was successful.
+     *
      * @since 2.1
      */
     public function dropCollection($name)
@@ -136,9 +156,12 @@ class Database extends BaseObject
 
     /**
      * Returns the list of available collections in this database.
+     *
      * @param array $condition filter condition.
      * @param array $options options list.
+     *
      * @return array collections information.
+     *
      * @since 2.1.1
      */
     public function listCollections($condition = [], $options = [])

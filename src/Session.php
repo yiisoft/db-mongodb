@@ -1,6 +1,9 @@
 <?php
+
+declare(strict_types=1);
 /**
  * @link http://www.yiiframework.com/
+ *
  * @copyright Copyright (c) 2008 Yii Software LLC
  * @license http://www.yiiframework.com/license/
  */
@@ -38,28 +41,29 @@ use yii\web\MultiFieldSession;
  * collection for performance saving, in this case you should set [[Session::gCProbability]] to `0`.
  *
  * @author Paul Klimov <klimov.paul@gmail.com>
+ *
  * @since 2.0
  */
 class Session extends MultiFieldSession
 {
     /**
-     * @var Connection|array|string the MongoDB connection object or the application component ID of the MongoDB connection.
+     * @var array|Connection|string the MongoDB connection object or the application component ID of the MongoDB connection.
      * After the Session object is created, if you want to change this property, you should only assign it
      * with a MongoDB connection object.
      * Starting from version 2.0.2, this can also be a configuration array for creating the object.
      */
     public $db = 'mongodb';
     /**
-     * @var string|array the name of the MongoDB collection that stores the session data.
+     * @var array|string the name of the MongoDB collection that stores the session data.
      * Please refer to [[Connection::getCollection()]] on how to specify this parameter.
      * This collection is better to be pre-created with fields 'id' and 'expire' indexed.
      */
     public $sessionCollection = 'session';
 
-
     /**
      * Initializes the Session component.
      * This method will initialize the [[db]] property to make sure it refers to a valid MongoDB connection.
+     *
      * @throws InvalidConfigException if [[db]] is invalid.
      */
     public function init()
@@ -71,6 +75,7 @@ class Session extends MultiFieldSession
     /**
      * Updates the current session ID with a newly generated one.
      * Please refer to <http://php.net/session_regenerate_id> for more details.
+     *
      * @param bool $deleteOldSession Whether to delete the old associated session file or not.
      */
     public function regenerateID($deleteOldSession = false)
@@ -104,7 +109,9 @@ class Session extends MultiFieldSession
     /**
      * Session read handler.
      * Do not call this method directly.
+     *
      * @param string $id session ID
+     *
      * @return string the session data
      */
     public function readSession($id)
@@ -124,14 +131,16 @@ class Session extends MultiFieldSession
             $condition,
             ['data' => 1, '_id' => 0]
         );
-        return isset($doc['data']) ? $doc['data'] : '';
+        return $doc['data'] ?? '';
     }
 
     /**
      * Session write handler.
      * Do not call this method directly.
+     *
      * @param string $id session ID
      * @param string $data session data
+     *
      * @return bool whether session write is successful
      */
     public function writeSession($id, $data)
@@ -159,7 +168,9 @@ class Session extends MultiFieldSession
     /**
      * Session destroy handler.
      * Do not call this method directly.
+     *
      * @param string $id session ID
+     *
      * @return bool whether session is destroyed successfully
      */
     public function destroySession($id)
@@ -175,7 +186,9 @@ class Session extends MultiFieldSession
     /**
      * Session GC (garbage collection) handler.
      * Do not call this method directly.
+     *
      * @param int $maxLifetime the number of seconds after which data will be seen as 'garbage' and cleaned up.
+     *
      * @return bool whether session is GCed successfully
      */
     public function gcSession($maxLifetime)

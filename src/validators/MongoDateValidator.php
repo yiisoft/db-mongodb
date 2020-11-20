@@ -1,6 +1,9 @@
 <?php
+
+declare(strict_types=1);
 /**
  * @link http://www.yiiframework.com/
+ *
  * @copyright Copyright (c) 2008 Yii Software LLC
  * @license http://www.yiiframework.com/license/
  */
@@ -31,6 +34,7 @@ use yii\validators\DateValidator;
  * @see DateValidator
  *
  * @author Paul Klimov <klimov.paul@gmail.com>
+ *
  * @since 2.0.4
  */
 class MongoDateValidator extends DateValidator
@@ -44,7 +48,6 @@ class MongoDateValidator extends DateValidator
      * the original value will be overwritten with the value after successful validation.
      */
     public $mongoDateAttribute;
-
 
     /**
      * {@inheritdoc}

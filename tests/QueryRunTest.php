@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Yiisoft\Db\MongoDb\Tests;
 
 use MongoDB\BSON\ObjectID;
@@ -49,7 +51,7 @@ class QueryRunTest extends TestCase
         $connection = $this->getConnection();
         $query = new Query();
         $rows = $query->from('customer')->all($connection);
-        $this->assertEquals(10, count($rows));
+        $this->assertCount(10, $rows);
     }
 
     public function testDirectMatch()
@@ -59,7 +61,7 @@ class QueryRunTest extends TestCase
         $rows = $query->from('customer')
             ->where(['name' => 'name1'])
             ->all($connection);
-        $this->assertEquals(1, count($rows));
+        $this->assertCount(1, $rows);
         $this->assertEquals('name1', $rows[0]['name']);
     }
 
@@ -70,7 +72,7 @@ class QueryRunTest extends TestCase
         $rows = $query->from('customer')
             ->indexBy('name')
             ->all($connection);
-        $this->assertEquals(10, count($rows));
+        $this->assertCount(10, $rows);
         $this->assertNotEmpty($rows['name1']);
     }
 
@@ -80,10 +82,10 @@ class QueryRunTest extends TestCase
         $query = new Query();
         $rows = $query->from('customer')
             ->where([
-                'name' => ['name1', 'name5']
+                'name' => ['name1', 'name5'],
             ])
             ->all($connection);
-        $this->assertEquals(2, count($rows));
+        $this->assertCount(2, $rows);
         $this->assertEquals('name1', $rows[0]['name']);
         $this->assertEquals('name5', $rows[1]['name']);
     }
@@ -96,13 +98,13 @@ class QueryRunTest extends TestCase
         $rows = $query->from('customer')
             ->where(['not in', 'name', ['name1', 'name5']])
             ->all($connection);
-        $this->assertEquals(8, count($rows));
+        $this->assertCount(8, $rows);
 
         $query = new Query();
         $rows = $query->from('customer')
             ->where(['not in', 'name', ['name1']])
             ->all($connection);
-        $this->assertEquals(9, count($rows));
+        $this->assertCount(9, $rows);
     }
 
     /**
@@ -120,10 +122,10 @@ class QueryRunTest extends TestCase
                     ['status' => 1, 'name' => 'name1'],
                     ['status' => 3, 'name' => 'name3'],
                     ['status' => 5, 'name' => 'name7'],
-                ]
+                ],
             ])
             ->all($connection);
-        $this->assertEquals(2, count($rows));
+        $this->assertCount(2, $rows);
         $this->assertEquals('name1', $rows[0]['name']);
         $this->assertEquals('name3', $rows[1]['name']);
     }
@@ -136,7 +138,7 @@ class QueryRunTest extends TestCase
             ->where(['name' => 'name1'])
             ->orWhere(['address' => 'address5'])
             ->all($connection);
-        $this->assertEquals(2, count($rows));
+        $this->assertCount(2, $rows);
         $this->assertEquals('name1', $rows[0]['name']);
         $this->assertEquals('address5', $rows[1]['address']);
     }
@@ -147,11 +149,11 @@ class QueryRunTest extends TestCase
         $query = new Query();
         $rows = $query->from('customer')
             ->where([
-                'name' => ['name1', 'name5']
+                'name' => ['name1', 'name5'],
             ])
             ->andWhere(['name' => 'name1'])
             ->all($connection);
-        $this->assertEquals(1, count($rows));
+        $this->assertCount(1, $rows);
         $this->assertEquals('name1', $rows[0]['name']);
     }
 
@@ -161,12 +163,12 @@ class QueryRunTest extends TestCase
         $query = new Query();
         $rows = $query->from('customer')
             ->where([
-                'name' => ['name1', 'name5', 'name10']
+                'name' => ['name1', 'name5', 'name10'],
             ])
             ->andWhere(['LIKE', 'name', 'me1'])
             ->andWhere(['name' => 'name10'])
             ->all($connection);
-        $this->assertEquals(1, count($rows));
+        $this->assertCount(1, $rows);
         $this->assertEquals('name10', $rows[0]['name']);
     }
 
@@ -178,15 +180,15 @@ class QueryRunTest extends TestCase
             ->where([
                 'and',
                 ['name' => ['name1', 'name2', 'name3']],
-                ['name' => 'name1']
+                ['name' => 'name1'],
             ])
             ->orWhere([
                 'and',
                 ['name' => ['name4', 'name5', 'name6']],
-                ['name' => 'name6']
+                ['name' => 'name6'],
             ])
             ->all($connection);
-        $this->assertEquals(2, count($rows));
+        $this->assertCount(2, $rows);
         $this->assertEquals('name1', $rows[0]['name']);
         $this->assertEquals('name6', $rows[1]['name']);
     }
@@ -217,7 +219,7 @@ class QueryRunTest extends TestCase
         $rows = $query->from('customer')
             ->where(['_id' => $row['_id']->__toString()])
             ->all($connection);
-        $this->assertEquals(1, count($rows));
+        $this->assertCount(1, $rows);
     }
 
     public function testRegex()
@@ -227,7 +229,7 @@ class QueryRunTest extends TestCase
         $rows = $query->from('customer')
             ->where(['REGEX', 'name', '/me1/'])
             ->all($connection);
-        $this->assertEquals(2, count($rows));
+        $this->assertCount(2, $rows);
         $this->assertEquals('name1', $rows[0]['name']);
         $this->assertEquals('name10', $rows[1]['name']);
     }
@@ -240,7 +242,7 @@ class QueryRunTest extends TestCase
         $rows = $query->from('customer')
             ->where(['LIKE', 'name', 'me1'])
             ->all($connection);
-        $this->assertEquals(2, count($rows));
+        $this->assertCount(2, $rows);
         $this->assertEquals('name1', $rows[0]['name']);
         $this->assertEquals('name10', $rows[1]['name']);
 
@@ -259,19 +261,19 @@ class QueryRunTest extends TestCase
         $rows = $query->from('customer')
             ->where(['$gt', 'status', 8])
             ->all($connection);
-        $this->assertEquals(2, count($rows));
+        $this->assertCount(2, $rows);
 
         $query = new Query();
         $rows = $query->from('customer')
             ->where(['>', 'status', 8])
             ->all($connection);
-        $this->assertEquals(2, count($rows));
+        $this->assertCount(2, $rows);
 
         $query = new Query();
         $rows = $query->from('customer')
             ->where(['<=', 'status', 3])
             ->all($connection);
-        $this->assertEquals(3, count($rows));
+        $this->assertCount(3, $rows);
     }
 
     public function testNot()
@@ -282,19 +284,19 @@ class QueryRunTest extends TestCase
         $rows = $query->from('customer')
             ->where(['not', 'status', ['$gte' => 10]])
             ->all($connection);
-        $this->assertEquals(9, count($rows));
+        $this->assertCount(9, $rows);
 
         $query = new Query();
         $rows = $query->from('customer')
             ->where(['not', 'name', 'name1'])
             ->all($connection);
-        $this->assertEquals(9, count($rows));
+        $this->assertCount(9, $rows);
 
         $query = new Query();
         $rows = $query->from('customer')
             ->where(['not', 'name', null])
             ->all($connection);
-        $this->assertEquals(10, count($rows));
+        $this->assertCount(10, $rows);
     }
 
     public function testExists()
@@ -359,10 +361,10 @@ class QueryRunTest extends TestCase
             ])*/
             ->where(['in', 'name', [
                 10 => 'name1',
-                15 => 'name5'
+                15 => 'name5',
             ]])
             ->all($connection);
-        $this->assertEquals(2, count($rows));
+        $this->assertCount(2, $rows);
         $this->assertEquals('name1', $rows[0]['name']);
         $this->assertEquals('name5', $rows[1]['name']);
 
@@ -371,10 +373,10 @@ class QueryRunTest extends TestCase
         $rows = $query->from('customer')
             ->where(['_id' => [
                 10 => $rows[0]['_id'],
-                15 => $rows[1]['_id']
+                15 => $rows[1]['_id'],
             ]])
             ->all($connection);
-        $this->assertEquals(2, count($rows));
+        $this->assertCount(2, $rows);
     }
 
     /**

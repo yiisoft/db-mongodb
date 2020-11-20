@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Yiisoft\Db\MongoDb\Tests;
 
 use Yii;
@@ -20,6 +22,7 @@ class CacheTest extends TestCase
 
     /**
      * Creates test cache instance.
+     *
      * @return Cache cache instance.
      */
     protected function createCache()

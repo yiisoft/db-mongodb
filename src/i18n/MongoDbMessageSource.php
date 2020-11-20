@@ -1,6 +1,9 @@
 <?php
+
+declare(strict_types=1);
 /**
  * @link http://www.yiiframework.com/
+ *
  * @copyright Copyright (c) 2008 Yii Software LLC
  * @license http://www.yiiframework.com/license/
  */
@@ -64,12 +67,13 @@ use Yiisoft\Db\MongoDb\Query;
  * However such approach is not recommended as BSON keys can not contain symbols like `.` or `$`.
  *
  * @author Paul Klimov <klimov.paul@gmail.com>
+ *
  * @since 2.0.5
  */
 class MongoDbMessageSource extends MessageSource
 {
     /**
-     * @var Connection|array|string the MongoDB connection object or the application component ID of the MongoDB connection.
+     * @var array|Connection|string the MongoDB connection object or the application component ID of the MongoDB connection.
      *
      * After the MongoDbMessageSource object is created, if you want to change this property, you should only assign
      * it with a MongoDB connection object.
@@ -78,7 +82,7 @@ class MongoDbMessageSource extends MessageSource
      */
     public $db = 'mongodb';
     /**
-     * @var Cache|array|string the cache object or the application component ID of the cache object.
+     * @var array|Cache|string the cache object or the application component ID of the cache object.
      * The messages data will be cached using this cache object.
      * Note, that to enable caching you have to set [[enableCaching]] to `true`, otherwise setting this property has no effect.
      *
@@ -86,18 +90,20 @@ class MongoDbMessageSource extends MessageSource
      * it with a cache object.
      *
      * This can also be a configuration array for creating the object.
+     *
      * @see cachingDuration
      * @see enableCaching
      */
     public $cache = 'cache';
     /**
-     * @var string|array the name of the MongoDB collection, which stores translated messages.
+     * @var array|string the name of the MongoDB collection, which stores translated messages.
      * This collection is better to be pre-created with fields 'category' and 'language' indexed.
      */
     public $collection = 'message';
     /**
      * @var int the time in seconds that the messages can remain valid in cache.
      * Use 0 to indicate that the cached data will never expire.
+     *
      * @see enableCaching
      */
     public $cachingDuration = 0;
@@ -106,11 +112,11 @@ class MongoDbMessageSource extends MessageSource
      */
     public $enableCaching = false;
 
-
     /**
      * Initializes the DbMessageSource component.
      * This method will initialize the [[db]] property to make sure it refers to a valid DB connection.
      * Configured [[cache]] component would also be initialized.
+     *
      * @throws InvalidConfigException if [[db]] is invalid or [[cache]] is invalid.
      */
     public function init()
@@ -129,6 +135,7 @@ class MongoDbMessageSource extends MessageSource
      *
      * @param string $category the message category
      * @param string $language the target language
+     *
      * @return array the loaded messages. The keys are original messages, and the values
      * are translated messages.
      */
@@ -155,8 +162,10 @@ class MongoDbMessageSource extends MessageSource
     /**
      * Loads the messages from MongoDB.
      * You may override this method to customize the message storage in the MongoDB.
+     *
      * @param string $category the message category.
      * @param string $language the target language.
+     *
      * @return array the messages loaded from database.
      */
     protected function loadMessagesFromDb($category, $language)
@@ -167,7 +176,7 @@ class MongoDbMessageSource extends MessageSource
         $languages = [
             $language,
             $fallbackLanguage,
-            $fallbackSourceLanguage
+            $fallbackSourceLanguage,
         ];
 
         $rows = (new Query())
@@ -179,7 +188,7 @@ class MongoDbMessageSource extends MessageSource
 
         if (count($rows) > 1) {
             $languagePriorities = [
-                $language => 1
+                $language => 1,
             ];
             $languagePriorities[$fallbackLanguage] = 2; // language key may be already taken
             $languagePriorities[$fallbackSourceLanguage] = 3; // language key may be already taken

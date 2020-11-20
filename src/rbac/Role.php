@@ -1,6 +1,9 @@
 <?php
+
+declare(strict_types=1);
 /**
  * @link http://www.yiiframework.com/
+ *
  * @copyright Copyright (c) 2008 Yii Software LLC
  * @license http://www.yiiframework.com/license/
  */
@@ -11,6 +14,7 @@ namespace Yiisoft\Db\MongoDb\Rbac;
  * Role is a special version of [[\Yiisoft\Rbac\Role]] dedicated to MongoDB RBAC implementation.
  *
  * @author Paul Klimov <klimov.paul@gmail.com>
+ *
  * @since 2.0.5
  */
 class Role extends \Yiisoft\Rbac\Role

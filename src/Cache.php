@@ -1,6 +1,9 @@
 <?php
+
+declare(strict_types=1);
 /**
  * @link http://www.yiiframework.com/
+ *
  * @copyright Copyright (c) 2008 Yii Software LLC
  * @license http://www.yiiframework.com/license/
  */
@@ -34,19 +37,20 @@ use yii\di\Instance;
  * ```
  *
  * @author Paul Klimov <klimov.paul@gmail.com>
+ *
  * @since 2.0
  */
 class Cache extends \yii\caching\SimpleCache
 {
     /**
-     * @var Connection|array|string the MongoDB connection object or the application component ID of the MongoDB connection.
+     * @var array|Connection|string the MongoDB connection object or the application component ID of the MongoDB connection.
      * After the Cache object is created, if you want to change this property, you should only assign it
      * with a MongoDB connection object.
      * Starting from version 2.0.2, this can also be a configuration array for creating the object.
      */
     public $db = 'mongodb';
     /**
-     * @var string|array the name of the MongoDB collection that stores the cache data.
+     * @var array|string the name of the MongoDB collection that stores the cache data.
      * Please refer to [[Connection::getCollection()]] on how to specify this parameter.
      * This collection is better to be pre-created with fields 'id' and 'expire' indexed.
      */
@@ -58,10 +62,10 @@ class Cache extends \yii\caching\SimpleCache
      */
     public $gcProbability = 100;
 
-
     /**
      * Initializes the Cache component.
      * This method will initialize the [[db]] property to make sure it refers to a valid MongoDB connection.
+     *
      * @throws InvalidConfigException if [[db]] is invalid.
      */
     public function init()
@@ -82,10 +86,10 @@ class Cache extends \yii\caching\SimpleCache
                 'id' => $key,
                 '$or' => [
                     [
-                        'expire' => 0
+                        'expire' => 0,
                     ],
                     [
-                        'expire' => ['$gt' => time()]
+                        'expire' => ['$gt' => time()],
                     ],
                 ],
             ])
@@ -106,10 +110,10 @@ class Cache extends \yii\caching\SimpleCache
                 'id' => $key,
                 '$or' => [
                     [
-                        'expire' => 0
+                        'expire' => 0,
                     ],
                     [
-                        'expire' => ['$gt' => time()]
+                        'expire' => ['$gt' => time()],
                     ],
                 ],
             ])
@@ -137,10 +141,10 @@ class Cache extends \yii\caching\SimpleCache
                 'id' => $keys,
                 '$or' => [
                     [
-                        'expire' => 0
+                        'expire' => 0,
                     ],
                     [
-                        'expire' => ['$gt' => time()]
+                        'expire' => ['$gt' => time()],
                     ],
                 ],
             ])
@@ -177,9 +181,11 @@ class Cache extends \yii\caching\SimpleCache
      * Stores a value identified by a key into cache if the cache does not contain this key.
      * This method should be implemented by child classes to store the data
      * in specific cache storage.
+     *
      * @param string $key the key identifying the value to be cached
      * @param string $value the value to be cached
      * @param int $expire the number of seconds in which the cached value will expire. 0 means never expire.
+     *
      * @return bool true if the value is successfully stored into cache, false otherwise
      */
     protected function addValue($key, $value, $expire)
@@ -226,6 +232,7 @@ class Cache extends \yii\caching\SimpleCache
 
     /**
      * Removes the expired data values.
+     *
      * @param bool $force whether to enforce the garbage collection regardless of [[gcProbability]].
      * Defaults to false, meaning the actual deletion happens with the probability as specified by [[gcProbability]].
      */
@@ -237,7 +244,7 @@ class Cache extends \yii\caching\SimpleCache
                     'expire' => [
                         '$gt' => 0,
                         '$lt' => time(),
-                    ]
+                    ],
                 ]);
         }
     }

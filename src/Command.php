@@ -1,6 +1,9 @@
 <?php
+
+declare(strict_types=1);
 /**
  * @link http://www.yiiframework.com/
+ *
  * @copyright Copyright (c) 2008 Yii Software LLC
  * @license http://www.yiiframework.com/license/
  */
@@ -15,8 +18,8 @@ use MongoDB\Driver\ReadPreference;
 use MongoDB\Driver\WriteConcern;
 use MongoDB\Driver\WriteResult;
 use Yii;
-use yii\base\InvalidConfigException;
 use yii\base\BaseObject;
+use yii\base\InvalidConfigException;
 
 /**
  * Command represents MongoDB statement such as command or query.
@@ -56,6 +59,7 @@ use yii\base\BaseObject;
  * this property differs in getter and setter. See [[getWriteConcern()]] and [[setWriteConcern()]] for details.
  *
  * @author Paul Klimov <klimov.paul@gmail.com>
+ *
  * @since 2.1
  */
 class Command extends BaseObject
@@ -74,11 +78,11 @@ class Command extends BaseObject
     public $document = [];
 
     /**
-     * @var ReadPreference|int|string|null command read preference.
+     * @var int|ReadPreference|string|null command read preference.
      */
     private $_readPreference;
     /**
-     * @var WriteConcern|int|string|null write concern to be used by this command.
+     * @var int|string|WriteConcern|null write concern to be used by this command.
      */
     private $_writeConcern;
     /**
@@ -86,9 +90,9 @@ class Command extends BaseObject
      */
     private $_readConcern;
 
-
     /**
      * Returns read preference for this command.
+     *
      * @return ReadPreference read preference.
      */
     public function getReadPreference()
@@ -105,8 +109,10 @@ class Command extends BaseObject
 
     /**
      * Sets read preference for this command.
-     * @param ReadPreference|int|string|null $readPreference read reference, it can be specified as
+     *
+     * @param int|ReadPreference|string|null $readPreference read reference, it can be specified as
      * instance of [[ReadPreference]] or scalar mode value, for example: `ReadPreference::RP_PRIMARY`.
+     *
      * @return $this self reference.
      */
     public function setReadPreference($readPreference)
@@ -117,6 +123,7 @@ class Command extends BaseObject
 
     /**
      * Returns write concern for this command.
+     *
      * @return WriteConcern|null write concern to be used in this command.
      */
     public function getWriteConcern()
@@ -131,8 +138,10 @@ class Command extends BaseObject
 
     /**
      * Sets write concern for this command.
-     * @param WriteConcern|int|string|null $writeConcern write concern, it can be an instance of [[WriteConcern]]
+     *
+     * @param int|string|WriteConcern|null $writeConcern write concern, it can be an instance of [[WriteConcern]]
      * or its scalar mode value, for example: `majority`.
+     *
      * @return $this self reference
      */
     public function setWriteConcern($writeConcern)
@@ -143,6 +152,7 @@ class Command extends BaseObject
 
     /**
      * Retuns read concern for this command.
+     *
      * @return ReadConcern|string read concern to be used in this command.
      */
     public function getReadConcern()
@@ -157,8 +167,10 @@ class Command extends BaseObject
 
     /**
      * Sets read concern for this command.
+     *
      * @param ReadConcern|string $readConcern read concern, it can be an instance of [[ReadConcern]] or
      * scalar level value, for example: 'local'.
+     *
      * @return $this self reference
      */
     public function setReadConcern($readConcern)
@@ -169,8 +181,10 @@ class Command extends BaseObject
 
     /**
      * Executes this command.
-     * @return \MongoDB\Driver\Cursor result cursor.
+     *
      * @throws Exception on failure.
+     *
+     * @return \MongoDB\Driver\Cursor result cursor.
      */
     public function execute()
     {
@@ -197,15 +211,17 @@ class Command extends BaseObject
 
     /**
      * Execute commands batch (bulk).
+     *
      * @param string $collectionName collection name.
      * @param array $options batch options.
+     *
+     * @throws Exception on failure.
+     * @throws InvalidConfigException on invalid [[document]] format.
+     *
      * @return array array of 2 elements:
      *
      * - 'insertedIds' - contains inserted IDs.
      * - 'result' - [[\MongoDB\Driver\WriteResult]] instance.
-     *
-     * @throws Exception on failure.
-     * @throws InvalidConfigException on invalid [[document]] format.
      */
     public function executeBatch($collectionName, $options = [])
     {
@@ -228,7 +244,7 @@ class Command extends BaseObject
                         $batch->update($operation['condition'], $operation['document'], $operation['options']);
                         break;
                     case 'delete':
-                        $batch->delete($operation['condition'], isset($operation['options']) ? $operation['options'] : []);
+                        $batch->delete($operation['condition'], $operation['options'] ?? []);
                         break;
                     default:
                         throw new InvalidConfigException("Unsupported batch operation type '{$operation['type']}'");
@@ -252,10 +268,13 @@ class Command extends BaseObject
 
     /**
      * Executes this command as a mongo query
+     *
      * @param string $collectionName collection name
      * @param array $options query options.
-     * @return \MongoDB\Driver\Cursor result cursor.
+     *
      * @throws Exception on failure
+     *
+     * @return \MongoDB\Driver\Cursor result cursor.
      */
     public function query($collectionName, $options = [])
     {
@@ -297,6 +316,7 @@ class Command extends BaseObject
 
     /**
      * Drops database associated with this command.
+     *
      * @return bool whether operation was successful.
      */
     public function dropDatabase()
@@ -309,8 +329,10 @@ class Command extends BaseObject
 
     /**
      * Creates new collection in database associated with this command.s
+     *
      * @param string $collectionName collection name
      * @param array $options collection options in format: "name" => "value"
+     *
      * @return bool whether operation was successful.
      */
     public function createCollection($collectionName, array $options = [])
@@ -323,7 +345,9 @@ class Command extends BaseObject
 
     /**
      * Drops specified collection.
+     *
      * @param string $collectionName name of the collection to be dropped.
+     *
      * @return bool whether operation was successful.
      */
     public function dropCollection($collectionName)
@@ -336,6 +360,7 @@ class Command extends BaseObject
 
     /**
      * Creates indexes in the collection.
+     *
      * @param string $collectionName collection name.
      * @param array[] $indexes indexes specification. Each specification should be an array in format: optionName => value
      * The main options are:
@@ -348,6 +373,7 @@ class Command extends BaseObject
      *
      * See [[https://docs.mongodb.com/manual/reference/method/db.collection.createIndex/#options-for-all-index-types]]
      * for the full list of options.
+     *
      * @return bool whether operation was successful.
      */
     public function createIndexes($collectionName, $indexes)
@@ -360,8 +386,10 @@ class Command extends BaseObject
 
     /**
      * Drops collection indexes by name.
+     *
      * @param string $collectionName collection name.
      * @param string $indexes wildcard for name of the indexes to be dropped.
+     *
      * @return array result data.
      */
     public function dropIndexes($collectionName, $indexes)
@@ -373,10 +401,13 @@ class Command extends BaseObject
 
     /**
      * Returns information about current collection indexes.
+     *
      * @param string $collectionName collection name
      * @param array $options list of options in format: optionName => optionValue.
-     * @return array list of indexes info.
+     *
      * @throws Exception on failure.
+     *
+     * @return array list of indexes info.
      */
     public function listIndexes($collectionName, $options = [])
     {
@@ -388,7 +419,7 @@ class Command extends BaseObject
             // The server may return an error if the collection does not exist.
             $notFoundCodes = [
                 26, // namespace not found
-                60 // database not found
+                60, // database not found
             ];
             if (in_array($e->getCode(), $notFoundCodes, true)) {
                 return [];
@@ -402,9 +433,11 @@ class Command extends BaseObject
 
     /**
      * Counts records in specified collection.
+     *
      * @param string $collectionName collection name
      * @param array $condition filter condition
      * @param array $options list of options in format: optionName => optionValue.
+     *
      * @return int records count
      */
     public function count($collectionName, $condition = [], $options = [])
@@ -417,8 +450,11 @@ class Command extends BaseObject
 
     /**
      * Adds the insert operation to the batch command.
+     *
      * @param array $document document to be inserted
+     *
      * @return $this self reference.
+     *
      * @see executeBatch()
      */
     public function addInsert($document)
@@ -432,10 +468,13 @@ class Command extends BaseObject
 
     /**
      * Adds the update operation to the batch command.
+     *
      * @param array $condition filter condition
      * @param array $document data to be updated
      * @param array $options update options.
+     *
      * @return $this self reference.
+     *
      * @see executeBatch()
      */
     public function addUpdate($condition, $document, $options = [])
@@ -466,9 +505,12 @@ class Command extends BaseObject
 
     /**
      * Adds the delete operation to the batch command.
+     *
      * @param array $condition filter condition.
      * @param array $options delete options.
+     *
      * @return $this self reference.
+     *
      * @see executeBatch()
      */
     public function addDelete($condition, $options = [])
@@ -483,10 +525,12 @@ class Command extends BaseObject
 
     /**
      * Inserts new document into collection.
+     *
      * @param string $collectionName collection name
      * @param array $document document content
      * @param array $options list of options in format: optionName => optionValue.
-     * @return ObjectID|bool inserted record ID, `false` - on failure.
+     *
+     * @return bool|ObjectID inserted record ID, `false` - on failure.
      */
     public function insert($collectionName, $document, $options = [])
     {
@@ -503,9 +547,11 @@ class Command extends BaseObject
 
     /**
      * Inserts batch of new documents into collection.
+     *
      * @param string $collectionName collection name
      * @param array[] $documents documents list
      * @param array $options list of options in format: optionName => optionValue.
+     *
      * @return array|false list of inserted IDs, `false` on failure.
      */
     public function batchInsert($collectionName, $documents, $options = [])
@@ -514,7 +560,7 @@ class Command extends BaseObject
         foreach ($documents as $key => $document) {
             $this->document[$key] = [
                 'type' => 'insert',
-                'document' => $document
+                'document' => $document,
             ];
         }
 
@@ -529,10 +575,12 @@ class Command extends BaseObject
 
     /**
      * Update existing documents in the collection.
+     *
      * @param string $collectionName collection name
      * @param array $condition filter condition
      * @param array $document data to be updated.
      * @param array $options update options.
+     *
      * @return WriteResult write result.
      */
     public function update($collectionName, $condition, $document, $options = [])
@@ -554,9 +602,11 @@ class Command extends BaseObject
 
     /**
      * Removes documents from the collection.
+     *
      * @param string $collectionName collection name.
      * @param array $condition filter condition.
      * @param array $options delete options.
+     *
      * @return WriteResult write result.
      */
     public function delete($collectionName, $condition, $options = [])
@@ -578,9 +628,11 @@ class Command extends BaseObject
 
     /**
      * Performs find query.
+     *
      * @param string $collectionName collection name
      * @param array $condition filter condition
      * @param array $options query options.
+     *
      * @return \MongoDB\Driver\Cursor result cursor.
      */
     public function find($collectionName, $condition, $options = [])
@@ -617,10 +669,12 @@ class Command extends BaseObject
 
     /**
      * Updates a document and returns it.
+     *
      * @param $collectionName
      * @param array $condition query condition
      * @param array $update update criteria
      * @param array $options list of options in format: optionName => optionValue.
+     *
      * @return array|null the original document, or the modified document when $options['new'] is set.
      */
     public function findAndModify($collectionName, $condition = [], $update = [], $options = [])
@@ -639,10 +693,12 @@ class Command extends BaseObject
 
     /**
      * Returns a list of distinct values for the given column across a collection.
+     *
      * @param string $collectionName collection name.
      * @param string $fieldName field name to use.
      * @param array $condition query parameters.
      * @param array $options list of options in format: optionName => optionValue.
+     *
      * @return array array of distinct values, or "false" on failure.
      */
     public function distinct($collectionName, $fieldName, $condition = [], $options = [])
@@ -661,6 +717,7 @@ class Command extends BaseObject
 
     /**
      * Performs aggregation using MongoDB "group" command.
+     *
      * @param string $collectionName collection name.
      * @param mixed $keys fields to group by. If an array or non-code object is passed,
      * it will be the key used to group results. If instance of [[\MongoDB\BSON\Javascript]] passed,
@@ -672,6 +729,7 @@ class Command extends BaseObject
      * @param array $options optional parameters to the group command. Valid options include:
      *  - condition - criteria for including a document in the aggregation.
      *  - finalize - function called once per unique key that takes the final output of the reduce function.
+     *
      * @return array the result of the aggregation.
      */
     public function group($collectionName, $keys, $initial, $reduce, $options = [])
@@ -686,13 +744,14 @@ class Command extends BaseObject
 
     /**
      * Performs MongoDB "map-reduce" command.
+     *
      * @param string $collectionName collection name.
      * @param \MongoDB\BSON\Javascript|string $map function, which emits map data from collection.
      * Argument will be automatically cast to [[\MongoDB\BSON\Javascript]].
      * @param \MongoDB\BSON\Javascript|string $reduce function that takes two arguments (the map key
      * and the map values) and does the aggregation.
      * Argument will be automatically cast to [[\MongoDB\BSON\Javascript]].
-     * @param string|array $out output collection name. It could be a string for simple output
+     * @param array|string $out output collection name. It could be a string for simple output
      * ('outputCollection'), or an array for parametrized output (['merge' => 'outputCollection']).
      * You can pass ['inline' => true] to fetch the result at once without temporary collection usage.
      * @param array $condition filter condition for including a document in the aggregation.
@@ -705,7 +764,7 @@ class Command extends BaseObject
      *  - jsMode: bool, specifies whether to convert intermediate data into BSON format between the execution of the map and reduce functions.
      *  - verbose: bool, specifies whether to include the timing information in the result information.
      *
-     * @return string|array the map reduce output collection name or output results.
+     * @return array|string the map reduce output collection name or output results.
      */
     public function mapReduce($collectionName, $map, $reduce, $out, $condition = [], $options = [])
     {
@@ -721,9 +780,11 @@ class Command extends BaseObject
      * Performs aggregation using MongoDB Aggregation Framework.
      * In case 'cursor' option is specified [[\MongoDB\Driver\Cursor]] instance is returned,
      * otherwise - an array of aggregation results.
+     *
      * @param string $collectionName collection name
      * @param array $pipelines list of pipeline operators.
      * @param array $options optional parameters.
+     *
      * @return array|\MongoDB\Driver\Cursor aggregation result.
      */
     public function aggregate($collectionName, $pipelines, $options = [])
@@ -747,8 +808,10 @@ class Command extends BaseObject
 
     /**
      * Return an explanation of the query, often useful for optimization and debugging.
+     *
      * @param string $collectionName collection name
      * @param array $query query document.
+     *
      * @return array explanation of the query.
      */
     public function explain($collectionName, $query)
@@ -761,8 +824,10 @@ class Command extends BaseObject
 
     /**
      * Returns the list of available databases.
+     *
      * @param array $condition filter condition.
      * @param array $options options list.
+     *
      * @return array database information
      */
     public function listDatabases($condition = [], $options = [])
@@ -783,8 +848,10 @@ class Command extends BaseObject
 
     /**
      * Returns the list of available collections.
+     *
      * @param array $condition filter condition.
      * @param array $options options list.
+     *
      * @return array collections information.
      */
     public function listCollections($condition = [], $options = [])
@@ -799,10 +866,12 @@ class Command extends BaseObject
 
     /**
      * Logs the command data if logging is enabled at [[db]].
+     *
      * @param array|string $namespace command namespace.
      * @param array $data command data.
      * @param string $category log category
-     * @return string|false log token, `false` if log is not enabled.
+     *
+     * @return false|string log token, `false` if log is not enabled.
      */
     protected function log($namespace, $data, $category)
     {
@@ -816,8 +885,10 @@ class Command extends BaseObject
 
     /**
      * Marks the beginning of a code block for profiling.
+     *
      * @param string $token token for the code block
      * @param string $category the category of this log message
+     *
      * @see endProfile()
      */
     protected function beginProfile($token, $category)
@@ -829,8 +900,10 @@ class Command extends BaseObject
 
     /**
      * Marks the end of a code block for profiling.
+     *
      * @param string $token token for the code block
      * @param string $category the category of this log message
+     *
      * @see beginProfile()
      */
     protected function endProfile($token, $category)

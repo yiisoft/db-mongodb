@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Yiisoft\Db\MongoDb\Tests;
 
 use Yiisoft\Db\MongoDb\Collection;
 use Yiisoft\Db\MongoDb\Command;
-use Yiisoft\Db\MongoDb\File\Collection as FileCollection;
 use Yiisoft\Db\MongoDb\Connection;
 use Yiisoft\Db\MongoDb\Database;
+use Yiisoft\Db\MongoDb\File\Collection as FileCollection;
 use Yiisoft\Db\MongoDb\QueryBuilder;
 
 class ConnectionTest extends TestCase
@@ -32,7 +34,7 @@ class ConnectionTest extends TestCase
 
         $connection->open();
         $this->assertTrue($connection->isActive);
-        $this->assertTrue(is_object($connection->manager));
+        $this->assertIsObject($connection->manager);
 
         $connection->close();
         $this->assertFalse($connection->isActive);
@@ -62,6 +64,7 @@ class ConnectionTest extends TestCase
 
     /**
      * Data provider for [[testFetchDefaultDatabaseName()]]
+     *
      * @return array test data
      */
     public function dataProviderFetchDefaultDatabaseName()

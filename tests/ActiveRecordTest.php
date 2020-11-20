@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Yiisoft\Db\MongoDb\Tests;
 
 use MongoDB\BSON\Binary;
@@ -7,10 +9,10 @@ use MongoDB\BSON\ObjectID;
 use MongoDB\BSON\Regex;
 use Yiisoft\Db\MongoDb\ActiveQuery;
 use Yiisoft\Db\MongoDb\Tests\Data\ActiveRecord\ActiveRecord;
-use Yiisoft\Db\MongoDb\Tests\Data\ActiveRecord\Customer;
 use Yiisoft\Db\MongoDb\Tests\Data\ActiveRecord\Animal;
-use Yiisoft\Db\MongoDb\Tests\Data\ActiveRecord\Dog;
 use Yiisoft\Db\MongoDb\Tests\Data\ActiveRecord\Cat;
+use Yiisoft\Db\MongoDb\Tests\Data\ActiveRecord\Customer;
+use Yiisoft\Db\MongoDb\Tests\Data\ActiveRecord\Dog;
 
 class ActiveRecordTest extends TestCase
 {
@@ -62,7 +64,7 @@ class ActiveRecordTest extends TestCase
 
         // find all
         $customers = Customer::find()->all();
-        $this->assertEquals(10, count($customers));
+        $this->assertCount(10, $customers);
         $this->assertTrue($customers[0] instanceof Customer);
         $this->assertTrue($customers[1] instanceof Customer);
 
@@ -194,7 +196,7 @@ class ActiveRecordTest extends TestCase
         $ret = Customer::deleteAll(['name' => 'new name']);
         $this->assertEquals(1, $ret);
         $records = Customer::find()->where(['name' => 'new name'])->all();
-        $this->assertEquals(0, count($records));
+        $this->assertCount(0, $records);
     }
 
     public function testUpdateAllCounters()
@@ -239,7 +241,7 @@ class ActiveRecordTest extends TestCase
         // save
         $record = Customer::findOne($record->_id);
         $newAddress = [
-            'city' => 'AnotherCity'
+            'city' => 'AnotherCity',
         ];
         $record->address = $newAddress;
         $record->save();
@@ -410,7 +412,7 @@ class ActiveRecordTest extends TestCase
         $this->assertEquals($record->attributes, $record->toArray([], [], false));
 
         $array = $record->toArray([], [], true);
-        $this->assertTrue(is_string($array['_id']));
+        $this->assertIsString($array['_id']);
         $this->assertEquals('/[a-z]@[a-z]/i', $array['email']);
         $this->assertEquals('abcdef', $array['address']);
         $this->assertEquals('Test Binary', $array['file_id']);

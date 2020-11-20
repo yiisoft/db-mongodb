@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Yiisoft\Db\MongoDb\Tests;
 
 use Yiisoft\Db\MongoDb\Tests\Data\ActiveRecord\ActiveRecord;
@@ -85,7 +87,7 @@ class ActiveRelationTest extends TestCase
         $this->assertTrue($order->isRelationPopulated('customer'));
         $this->assertTrue($customer instanceof Customer);
         $this->assertEquals((string) $customer->_id, (string) $order->customer_id);
-        $this->assertEquals(1, count($order->relatedRecords));
+        $this->assertCount(1, $order->relatedRecords);
 
         /* @var $customer Customer */
         $customer = Customer::findOne(['status' => 2]);

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Yiisoft\Db\MongoDb\Tests;
 
 use Yiisoft\Db\MongoDb\Query;
@@ -44,7 +46,7 @@ class QueryTest extends TestCase
             [
                 'and',
                 ['name' => 'name1'],
-                ['address' => 'address1']
+                ['address' => 'address1'],
             ],
             $query->where
         );
@@ -56,10 +58,9 @@ class QueryTest extends TestCase
                 [
                     'and',
                     ['name' => 'name1'],
-                    ['address' => 'address1']
+                    ['address' => 'address1'],
                 ],
-                ['name' => 'name2']
-
+                ['name' => 'name2'],
             ],
             $query->where
         );

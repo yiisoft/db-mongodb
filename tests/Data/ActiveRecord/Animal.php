@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Yiisoft\Db\MongoDb\Tests\Data\ActiveRecord;
 
 /**
@@ -27,7 +29,7 @@ class Animal extends ActiveRecord
     public function init()
     {
         parent::init();
-        $this->type = get_called_class();
+        $this->type = static::class;
     }
 
     public function getDoes()
@@ -37,6 +39,7 @@ class Animal extends ActiveRecord
 
     /**
      * @param array $row
+     *
      * @return Animal
      */
     public static function instantiate($row)

@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Yiisoft\Db\MongoDb\Tests;
 
-use Yiisoft\Arrays\ArrayHelper;
-use yii\helpers\FileHelper;
-use Yiisoft\Db\MongoDb\Connection;
 use Yii;
+use yii\helpers\FileHelper;
+use Yiisoft\Arrays\ArrayHelper;
+use Yiisoft\Db\MongoDb\Connection;
 use Yiisoft\Db\MongoDb\Exception;
 
 abstract class TestCase extends \PHPUnit\Framework\TestCase
@@ -48,8 +50,10 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 
     /**
      * Returns a test configuration param from /data/config.php
+     *
      * @param  string $name params name
      * @param  mixed $default default value to use when param is not set.
+     *
      * @return mixed  the value of the configuration param
      */
     public static function getParam($name, $default = null)
@@ -58,12 +62,13 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
             static::$params = require(__DIR__ . '/data/config.php');
         }
 
-        return isset(static::$params[$name]) ? static::$params[$name] : $default;
+        return static::$params[$name] ?? $default;
     }
 
     /**
      * Populates Yii::$app with a new application
      * The application will be destroyed on tearDown() automatically.
+     *
      * @param array $config The application configuration, if needed
      * @param string $appClass name of the application class to create
      */
@@ -79,9 +84,9 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 
     protected function getVendorPath()
     {
-        $vendor = dirname(dirname(__DIR__)) . '/vendor';
+        $vendor = dirname(__DIR__, 2) . '/vendor';
         if (!is_dir($vendor)) {
-            $vendor = dirname(dirname(dirname(dirname(__DIR__))));
+            $vendor = dirname(__DIR__, 4);
         }
         return $vendor;
     }
@@ -97,6 +102,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
     /**
      * @param  bool $reset whether to clean up the test database
      * @param  bool $open  whether to open test database
+     *
      * @return \Yiisoft\Db\MongoDb\Connection
      */
     public function getConnection($reset = false, $open = true)
@@ -124,6 +130,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 
     /**
      * Drops the specified collection.
+     *
      * @param string $name collection name.
      */
     protected function dropCollection($name)
@@ -139,6 +146,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 
     /**
      * Drops the specified file collection.
+     *
      * @param string $name file collection name.
      */
     protected function dropFileCollection($name = 'fs')
@@ -154,9 +162,11 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 
     /**
      * Finds all records in collection.
+     *
      * @param  \Yiisoft\Db\MongoDb\Collection $collection
      * @param  array                   $condition
      * @param  array                   $fields
+     *
      * @return array                   rows
      */
     protected function findAll($collection, $condition = [], $fields = [])
@@ -180,6 +190,7 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 
     /**
      * Ensures test file path exists.
+     *
      * @return string test file path
      */
     protected function ensureTestFilePath()
@@ -200,10 +211,13 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
 
     /**
      * Invokes a inaccessible method
+     *
      * @param object $object
      * @param string $method
      * @param array $args
+     *
      * @return mixed
+     *
      * @since 2.1.3
      */
     protected function invokeMethod($object, $method, $args = [])

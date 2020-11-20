@@ -1,6 +1,9 @@
 <?php
+
+declare(strict_types=1);
 /**
  * @link http://www.yiiframework.com/
+ *
  * @copyright Copyright (c) 2008 Yii Software LLC
  * @license http://www.yiiframework.com/license/
  */
@@ -18,6 +21,7 @@ use Yiisoft\Log\Logger;
  * @property array $profileLogs This property is read-only.
  *
  * @author Klimov Paul <klimov@zfort.com>
+ *
  * @since 2.0.1
  */
 class MongoDbPanel extends DbPanel
@@ -26,7 +30,6 @@ class MongoDbPanel extends DbPanel
      * {@inheritdoc}
      */
     public $db = 'mongodb';
-
 
     /**
      * {@inheritdoc}
@@ -78,6 +81,7 @@ class MongoDbPanel extends DbPanel
 
     /**
      * Returns all profile logs of the current request for this panel.
+     *
      * @return array
      */
     public function getProfileLogs()

@@ -1,14 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Yiisoft\Db\MongoDb\File;
 
 use MongoDB\BSON\ObjectID;
 use Yii;
 use yii\helpers\FileHelper;
-use Yiisoft\Db\MongoDb\Tests\TestCase;
-use Yiisoft\Db\MongoDb\File\ActiveQuery;
 use Yiisoft\Db\MongoDb\Tests\Data\ActiveRecord\file\ActiveRecord;
 use Yiisoft\Db\MongoDb\Tests\Data\ActiveRecord\file\CustomerFile;
+use Yiisoft\Db\MongoDb\Tests\TestCase;
 
 /**
  * @group file
@@ -47,7 +48,7 @@ class ActiveRecordTest extends TestCase
      */
     protected function getTestFilePath()
     {
-        return Yii::getAlias('@yiiunit/mongodb/runtime') . DIRECTORY_SEPARATOR . basename(get_class($this)) . '_' . getmypid();
+        return Yii::getAlias('@yiiunit/mongodb/runtime') . DIRECTORY_SEPARATOR . basename(static::class) . '_' . getmypid();
     }
 
     /**

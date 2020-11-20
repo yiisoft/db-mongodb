@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Yiisoft\Db\MongoDb\Tests\Data\ActiveRecord\file;
 
 class CustomerFile extends ActiveRecord
@@ -28,10 +30,11 @@ class CustomerFile extends ActiveRecord
 
     /**
      * {@inheritdoc}
+     *
      * @return CustomerFileQuery
      */
     public static function find()
     {
-        return new CustomerFileQuery(get_called_class());
+        return new CustomerFileQuery(static::class);
     }
 }

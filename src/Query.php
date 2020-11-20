@@ -1,17 +1,20 @@
 <?php
+
+declare(strict_types=1);
 /**
  * @link http://www.yiiframework.com/
+ *
  * @copyright Copyright (c) 2008 Yii Software LLC
  * @license http://www.yiiframework.com/license/
  */
 
 namespace Yiisoft\Db\MongoDb;
 
+use Yii;
 use yii\base\Component;
+use Yiisoft\Arrays\ArrayHelper;
 use Yiisoft\Db\QueryInterface;
 use Yiisoft\Db\QueryTrait;
-use Yii;
-use Yiisoft\Arrays\ArrayHelper;
 
 /**
  * Query represents Mongo "find" operation.
@@ -34,6 +37,7 @@ use Yiisoft\Arrays\ArrayHelper;
  * @property Collection $collection Collection instance. This property is read-only.
  *
  * @author Paul Klimov <klimov.paul@gmail.com>
+ *
  * @since 2.0
  */
 class Query extends Component implements QueryInterface
@@ -43,27 +47,31 @@ class Query extends Component implements QueryInterface
     /**
      * @var array the fields of the results to return. For example: `['name', 'group_id']`, `['name' => true, '_id' => false]`.
      * Unless directly excluded, the "_id" field is always returned. If not set, it means selecting all columns.
+     *
      * @see select()
      */
     public $select = [];
     /**
-     * @var string|array the collection to be selected from. If string considered as the name of the collection
+     * @var array|string the collection to be selected from. If string considered as the name of the collection
      * inside the default database. If array - first element considered as the name of the database,
      * second - as name of collection inside that database
+     *
      * @see from()
      */
     public $from;
     /**
      * @var array cursor options in format: optionKey => optionValue
+     *
      * @see \MongoDB\Driver\Cursor::addOption()
      * @see options()
      */
     public $options = [];
 
-
     /**
      * Returns the Mongo collection for this query.
+     *
      * @param Connection $db Mongo connection.
+     *
      * @return Collection collection instance.
      */
     public function getCollection($db = null)
@@ -77,7 +85,9 @@ class Query extends Component implements QueryInterface
 
     /**
      * Sets the list of fields of the results to return.
+     *
      * @param array $fields fields of the results to return.
+     *
      * @return $this the query object itself.
      */
     public function select(array $fields)
@@ -89,9 +99,11 @@ class Query extends Component implements QueryInterface
 
     /**
      * Sets the collection to be selected from.
-     * @param string|array the collection to be selected from. If string considered as the name of the collection
+     *
+     * @param array|string the collection to be selected from. If string considered as the name of the collection
      * inside the default database. If array - first element considered as the name of the database,
      * second - as name of collection inside that database
+     *
      * @return $this the query object itself.
      */
     public function from($collection)
@@ -103,8 +115,11 @@ class Query extends Component implements QueryInterface
 
     /**
      * Sets the cursor options.
+     *
      * @param array $options cursor options in format: optionName => optionValue
+     *
      * @return $this the query object itself
+     *
      * @see addOptions()
      */
     public function options($options)
@@ -116,8 +131,11 @@ class Query extends Component implements QueryInterface
 
     /**
      * Adds additional cursor options.
+     *
      * @param array $options cursor options in format: optionName => optionValue
+     *
      * @return $this the query object itself
+     *
      * @see options()
      */
     public function addOptions($options)
@@ -151,8 +169,11 @@ class Query extends Component implements QueryInterface
      * @param string $value column value
      * @param string $defaultOperator Defaults to =, performing an exact match.
      * For example: use 'LIKE' or 'REGEX' for partial cq regex matching
+     *
      * @see Collection::buildCondition()
+     *
      * @return $this the query object itself.
+     *
      * @since 2.0.5
      */
     public function andFilterCompare($name, $value, $defaultOperator = '=')
@@ -172,7 +193,9 @@ class Query extends Component implements QueryInterface
      * Prepares for query building.
      * This method is called before actual query composition, e.g. building cursor, count etc.
      * You may override this method to do some final preparation work before query execution.
+     *
      * @return $this a prepared query instance.
+     *
      * @since 2.1.3
      */
     public function prepare()
@@ -182,7 +205,9 @@ class Query extends Component implements QueryInterface
 
     /**
      * Builds the MongoDB cursor for this query.
+     *
      * @param Connection $db the MongoDB connection used to execute the query.
+     *
      * @return \MongoDB\Driver\Cursor mongo cursor instance.
      */
     public function buildCursor($db = null)
@@ -196,18 +221,19 @@ class Query extends Component implements QueryInterface
         $options['limit'] = $this->limit;
         $options['skip'] = $this->offset;
 
-        $cursor = $this->getCollection($db)->find($this->composeCondition(), $this->select, $options);
-
-        return $cursor;
+        return $this->getCollection($db)->find($this->composeCondition(), $this->select, $options);
     }
 
     /**
      * Fetches rows from the given Mongo cursor.
+     *
      * @param \MongoDB\Driver\Cursor $cursor Mongo cursor instance to fetch data from.
      * @param bool $all whether to fetch all rows or only first one.
-     * @param string|callable $indexBy the column name or PHP callback,
+     * @param callable|string $indexBy the column name or PHP callback,
      * by which the query results should be indexed by.
+     *
      * @throws Exception on failure.
+     *
      * @return array|bool result.
      */
     protected function fetchRows($cursor, $all = true, $indexBy = null)
@@ -229,7 +255,9 @@ class Query extends Component implements QueryInterface
     /**
      * @param \MongoDB\Driver\Cursor $cursor Mongo cursor instance to fetch data from.
      * @param bool $all whether to fetch all rows or only first one.
+     *
      * @return array|bool result.
+     *
      * @see Query::fetchRows()
      */
     protected function fetchRowsInternal($cursor, $all)
@@ -268,8 +296,10 @@ class Query extends Component implements QueryInterface
      *
      * @param int $batchSize the number of records to be fetched in each batch.
      * @param Connection $db the MongoDB connection. If not set, the "mongodb" application component will be used.
+     *
      * @return BatchQueryResult the batch query result. It implements the `Iterator` interface
      * and can be traversed to retrieve the data in batches.
+     *
      * @since 2.1
      */
     public function batch($batchSize = 100, $db = null)
@@ -296,8 +326,10 @@ class Query extends Component implements QueryInterface
      *
      * @param int $batchSize the number of records to be fetched in each batch.
      * @param Connection $db the MongoDB connection. If not set, the "mongodb" application component will be used.
+     *
      * @return BatchQueryResult the batch query result. It implements the `Iterator` interface
      * and can be traversed to retrieve the data in batches.
+     *
      * @since 2.1
      */
     public function each($batchSize = 100, $db = null)
@@ -313,8 +345,10 @@ class Query extends Component implements QueryInterface
 
     /**
      * Executes the query and returns all results as an array.
+     *
      * @param Connection $db the Mongo connection used to execute the query.
      * If this parameter is not given, the `mongodb` application component will be used.
+     *
      * @return array the query results. If the query results in nothing, an empty array will be returned.
      */
     public function all($db = null)
@@ -331,7 +365,9 @@ class Query extends Component implements QueryInterface
      * Converts the raw query results into the format as specified by this query.
      * This method is internally used to convert the data fetched from database
      * into the format as required by this query.
+     *
      * @param array $rows the raw query result from database
+     *
      * @return array the converted query result
      */
     public function populate($rows)
@@ -348,8 +384,10 @@ class Query extends Component implements QueryInterface
 
     /**
      * Executes the query and returns a single row of result.
+     *
      * @param Connection $db the Mongo connection used to execute the query.
      * If this parameter is not given, the `mongodb` application component will be used.
+     *
      * @return array|false the first row (in terms of an array) of the query result. `false` is returned if the query
      * results in nothing.
      */
@@ -367,10 +405,13 @@ class Query extends Component implements QueryInterface
      * The value returned will be the first column in the first row of the query results.
      * Column `_id` will be automatically excluded from select fields, if [[select]] is not empty and
      * `_id` is not selected explicitly.
+     *
      * @param Connection $db the MongoDB connection used to generate the query.
      * If this parameter is not given, the `mongodb` application component will be used.
-     * @return string|null|false the value of the first column in the first row of the query result.
+     *
+     * @return false|string|null the value of the first column in the first row of the query result.
      * `false` is returned if the query result is empty.
+     *
      * @since 2.1.2
      */
     public function scalar($db = null)
@@ -398,9 +439,12 @@ class Query extends Component implements QueryInterface
      * Executes the query and returns the first column of the result.
      * Column `_id` will be automatically excluded from select fields, if [[select]] is not empty and
      * `_id` is not selected explicitly.
+     *
      * @param Connection $db the MongoDB connection used to generate the query.
      * If this parameter is not given, the `mongodb` application component will be used.
+     *
      * @return array the first column of the query result. An empty array is returned if the query results in nothing.
+     *
      * @since 2.1.2
      */
     public function column($db = null)
@@ -432,7 +476,7 @@ class Query extends Component implements QueryInterface
                 $results[] = $value;
             } else {
                 if ($this->indexBy instanceof \Closure) {
-                    $results[call_user_func($this->indexBy, $row)] = $value;
+                    $results[($this->indexBy)($row)] = $value;
                 } else {
                     $results[$row[$this->indexBy]] = $value;
                 }
@@ -444,9 +488,11 @@ class Query extends Component implements QueryInterface
 
     /**
      * Performs 'findAndModify' query and returns a single row of result.
+     *
      * @param array $update update criteria
      * @param array $options list of options in format: optionName => optionValue.
      * @param Connection $db the Mongo connection used to execute the query.
+     *
      * @return array|null the original document, or the modified document when $options['new'] is set.
      */
     public function modify($update, $options = [], $db = null)
@@ -468,11 +514,14 @@ class Query extends Component implements QueryInterface
 
     /**
      * Returns the number of records.
+     *
      * @param string $q kept to match [[QueryInterface]], its value is ignored.
      * @param Connection $db the Mongo connection used to execute the query.
      * If this parameter is not given, the `mongodb` application component will be used.
-     * @return int number of records
+     *
      * @throws Exception on failure.
+     *
+     * @return int number of records
      */
     public function count($q = '*', $db = null)
     {
@@ -486,8 +535,10 @@ class Query extends Component implements QueryInterface
 
     /**
      * Returns a value indicating whether the query result contains any row of data.
+     *
      * @param Connection $db the Mongo connection used to execute the query.
      * If this parameter is not given, the `mongodb` application component will be used.
+     *
      * @return bool whether the query result contains any row of data.
      */
     public function exists($db = null)
@@ -504,10 +555,12 @@ class Query extends Component implements QueryInterface
 
     /**
      * Returns the sum of the specified column values.
+     *
      * @param string $q the column name.
      * Make sure you properly quote column names in the expression.
      * @param Connection $db the Mongo connection used to execute the query.
      * If this parameter is not given, the `mongodb` application component will be used.
+     *
      * @return int the sum of the specified column values
      */
     public function sum($q, $db = null)
@@ -520,10 +573,12 @@ class Query extends Component implements QueryInterface
 
     /**
      * Returns the average of the specified column values.
+     *
      * @param string $q the column name.
      * Make sure you properly quote column names in the expression.
      * @param Connection $db the Mongo connection used to execute the query.
      * If this parameter is not given, the `mongodb` application component will be used.
+     *
      * @return int the average of the specified column values.
      */
     public function average($q, $db = null)
@@ -536,10 +591,12 @@ class Query extends Component implements QueryInterface
 
     /**
      * Returns the minimum of the specified column values.
+     *
      * @param string $q the column name.
      * Make sure you properly quote column names in the expression.
      * @param Connection $db the MongoDB connection used to execute the query.
      * If this parameter is not given, the `db` application component will be used.
+     *
      * @return int the minimum of the specified column values.
      */
     public function min($q, $db = null)
@@ -549,10 +606,12 @@ class Query extends Component implements QueryInterface
 
     /**
      * Returns the maximum of the specified column values.
+     *
      * @param string $q the column name.
      * Make sure you properly quote column names in the expression.
      * @param Connection $db the MongoDB connection used to execute the query.
      * If this parameter is not given, the `mongodb` application component will be used.
+     *
      * @return int the maximum of the specified column values.
      */
     public function max($q, $db = null)
@@ -562,9 +621,11 @@ class Query extends Component implements QueryInterface
 
     /**
      * Performs the aggregation for the given column.
+     *
      * @param string $column column name.
      * @param string $operator aggregation operator.
      * @param Connection $db the database connection used to execute the query.
+     *
      * @return int aggregation result.
      */
     protected function aggregate($column, $operator, $db)
@@ -583,9 +644,9 @@ class Query extends Component implements QueryInterface
             '$group' => [
                 '_id' => '1',
                 'total' => [
-                    '$' . $operator => '$' . $column
+                    '$' . $operator => '$' . $column,
                 ],
-            ]
+            ],
         ];
         $result = $collection->aggregate($pipelines);
         if (array_key_exists(0, $result)) {
@@ -596,9 +657,11 @@ class Query extends Component implements QueryInterface
 
     /**
      * Returns a list of distinct values for the given column across a collection.
+     *
      * @param string $q column to use.
      * @param Connection $db the MongoDB connection used to execute the query.
      * If this parameter is not given, the `mongodb` application component will be used.
+     *
      * @return array array of distinct values
      */
     public function distinct($q, $db = null)
@@ -623,6 +686,7 @@ class Query extends Component implements QueryInterface
 
     /**
      * Composes condition from raw [[where]] value.
+     *
      * @return array conditions.
      */
     private function composeCondition()
