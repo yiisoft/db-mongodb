@@ -1,6 +1,9 @@
 <?php
+
+declare(strict_types=1);
 /**
  * @link http://www.yiiframework.com/
+ *
  * @copyright Copyright (c) 2008 Yii Software LLC
  * @license http://www.yiiframework.com/license/
  */
@@ -11,13 +14,14 @@ use Yii;
 use Yiisoft\Arrays\ArrayHelper;
 use Yiisoft\Db\MongoDb\ActiveRecord;
 use Yiisoft\Db\MongoDb\Connection;
-use Yiisoft\Yii\Gii\CodeFile;
 use Yiisoft\Strings\Inflector;
+use Yiisoft\Yii\Gii\CodeFile;
 
 /**
  * This generator will generate ActiveRecord class for the specified MongoDB collection.
  *
  * @author Paul Klimov <klimov.paul@gmail.com>
+ *
  * @since 2.0
  */
 class Generator extends \Yiisoft\Yii\Gii\Generator
@@ -29,7 +33,6 @@ class Generator extends \Yiisoft\Yii\Gii\Generator
     public $attributeList;
     public $modelClass;
     public $baseClass = 'Yiisoft\Db\MongoDb\ActiveRecord';
-
 
     /**
      * {@inheritdoc}
@@ -175,7 +178,9 @@ class Generator extends \Yiisoft\Yii\Gii\Generator
 
     /**
      * Generates the attribute labels for the specified attributes list.
+     *
      * @param array $attributes the list of attributes
+     *
      * @return array the generated attribute labels (name => label)
      */
     public function generateLabels($attributes)
@@ -198,7 +203,9 @@ class Generator extends \Yiisoft\Yii\Gii\Generator
 
     /**
      * Generates validation rules for the specified collection.
+     *
      * @param array $attributes the list of attributes
+     *
      * @return array the generated validation rules
      */
     public function generateRules($attributes)
@@ -266,7 +273,9 @@ class Generator extends \Yiisoft\Yii\Gii\Generator
 
     /**
      * Generates a class name from the specified collection name.
+     *
      * @param string $collectionName the collection name (which may contain schema prefix)
+     *
      * @return string the generated class name
      */
     protected function generateClassName($collectionName)

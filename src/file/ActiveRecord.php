@@ -1,6 +1,9 @@
 <?php
+
+declare(strict_types=1);
 /**
  * @link http://www.yiiframework.com/
+ *
  * @copyright Copyright (c) 2008 Yii Software LLC
  * @license http://www.yiiframework.com/license/
  */
@@ -9,8 +12,8 @@ namespace Yiisoft\Db\MongoDb\File;
 
 use Yii;
 use yii\base\InvalidArgumentException;
-use Yiisoft\Db\StaleObjectException;
 use yii\web\UploadedFile;
+use Yiisoft\Db\StaleObjectException;
 
 /**
  * ActiveRecord is the base class for classes representing Mongo GridFS files in terms of objects.
@@ -37,25 +40,28 @@ use yii\web\UploadedFile;
  *
  * Note: [[newFileContent]] always takes precedence over [[file]].
  *
- * @property null|string $fileContent File content. This property is read-only.
+ * @property string|null $fileContent File content. This property is read-only.
  * @property resource $fileResource File stream resource. This property is read-only.
  *
  * @author Paul Klimov <klimov.paul@gmail.com>
+ *
  * @since 2.0
  */
 abstract class ActiveRecord extends \Yiisoft\Db\MongoDb\ActiveRecord
 {
     /**
      * {@inheritdoc}
+     *
      * @return ActiveQuery the newly created [[ActiveQuery]] instance.
      */
     public static function find()
     {
-        return Yii::createObject(ActiveQuery::class, [get_called_class()]);
+        return Yii::createObject(ActiveQuery::class, [static::class]);
     }
 
     /**
      * Return the Mongo GridFS collection instance for this AR class.
+     *
      * @return Collection collection instance.
      */
     public static function getCollection()
@@ -92,7 +98,7 @@ abstract class ActiveRecord extends \Yiisoft\Db\MongoDb\ActiveRecord
             'chunkSize',
             'md5',
             'file',
-            'newFileContent'
+            'newFileContent',
         ];
     }
 
@@ -108,7 +114,7 @@ abstract class ActiveRecord extends \Yiisoft\Db\MongoDb\ActiveRecord
         if (empty($values)) {
             $currentAttributes = $this->getAttributes();
             foreach ($this->primaryKey() as $key) {
-                $values[$key] = isset($currentAttributes[$key]) ? $currentAttributes[$key] : null;
+                $values[$key] = $currentAttributes[$key] ?? null;
             }
         }
         $collection = static::getCollection();
@@ -142,6 +148,7 @@ abstract class ActiveRecord extends \Yiisoft\Db\MongoDb\ActiveRecord
 
     /**
      * @see ActiveRecord::update()
+     *
      * @throws StaleObjectException
      */
     protected function updateInternal($attributes = null)
@@ -172,7 +179,7 @@ abstract class ActiveRecord extends \Yiisoft\Db\MongoDb\ActiveRecord
                 'chunkSize',
                 'md5',
                 'file',
-                'newFileContent'
+                'newFileContent',
             ];
             $values = array_merge($this->getAttributes(null, $fileAssociatedAttributeNames), $values);
             $rows = $this->deleteInternal();
@@ -215,15 +222,19 @@ abstract class ActiveRecord extends \Yiisoft\Db\MongoDb\ActiveRecord
 
     /**
      * Extracts filename from given raw file value.
+     *
      * @param mixed $file raw file value.
-     * @return string file name.
+     *
      * @throws \yii\base\InvalidArgumentException on invalid file value.
+     *
+     * @return string file name.
      */
     protected function extractFileName($file)
     {
         if ($file instanceof UploadedFile) {
             return $file->tempName;
-        } elseif (is_string($file)) {
+        }
+        if (is_string($file)) {
             if (file_exists($file)) {
                 return $file;
             }
@@ -235,6 +246,7 @@ abstract class ActiveRecord extends \Yiisoft\Db\MongoDb\ActiveRecord
 
     /**
      * Refreshes the [[file]] attribute from file collection, using current primary key.
+     *
      * @return \MongoGridFSFile|null refreshed file value.
      */
     public function refreshFile()
@@ -247,8 +259,10 @@ abstract class ActiveRecord extends \Yiisoft\Db\MongoDb\ActiveRecord
 
     /**
      * Returns the associated file content.
-     * @return null|string file content.
+     *
      * @throws \yii\base\InvalidArgumentException on invalid file attribute value.
+     *
+     * @return string|null file content.
      */
     public function getFileContent()
     {
@@ -259,12 +273,15 @@ abstract class ActiveRecord extends \Yiisoft\Db\MongoDb\ActiveRecord
 
         if (empty($file)) {
             return null;
-        } elseif ($file instanceof Download) {
+        }
+        if ($file instanceof Download) {
             $fileSize = $file->getSize();
             return empty($fileSize) ? null : $file->toString();
-        } elseif ($file instanceof UploadedFile) {
+        }
+        if ($file instanceof UploadedFile) {
             return file_get_contents($file->tempName);
-        } elseif (is_string($file)) {
+        }
+        if (is_string($file)) {
             if (file_exists($file)) {
                 return file_get_contents($file);
             }
@@ -276,9 +293,12 @@ abstract class ActiveRecord extends \Yiisoft\Db\MongoDb\ActiveRecord
 
     /**
      * Writes the the internal file content into the given filename.
+     *
      * @param string $filename full filename to be written.
-     * @return bool whether the operation was successful.
+     *
      * @throws \yii\base\InvalidArgumentException on invalid file attribute value.
+     *
+     * @return bool whether the operation was successful.
      */
     public function writeFile($filename)
     {
@@ -289,11 +309,14 @@ abstract class ActiveRecord extends \Yiisoft\Db\MongoDb\ActiveRecord
 
         if (empty($file)) {
             throw new InvalidArgumentException('There is no file associated with this object.');
-        } elseif ($file instanceof Download) {
-            return ($file->toFile($filename) == $file->getSize());
-        } elseif ($file instanceof UploadedFile) {
+        }
+        if ($file instanceof Download) {
+            return $file->toFile($filename) == $file->getSize();
+        }
+        if ($file instanceof UploadedFile) {
             return copy($file->tempName, $filename);
-        } elseif (is_string($file)) {
+        }
+        if (is_string($file)) {
             if (file_exists($file)) {
                 return copy($file, $filename);
             }
@@ -307,8 +330,10 @@ abstract class ActiveRecord extends \Yiisoft\Db\MongoDb\ActiveRecord
      * This method returns a stream resource that can be used with all file functions in PHP,
      * which deal with reading files. The contents of the file are pulled out of MongoDB on the fly,
      * so that the whole file does not have to be loaded into memory first.
-     * @return resource file stream resource.
+     *
      * @throws \yii\base\InvalidArgumentException on invalid file attribute value.
+     *
+     * @return resource file stream resource.
      */
     public function getFileResource()
     {
@@ -319,11 +344,14 @@ abstract class ActiveRecord extends \Yiisoft\Db\MongoDb\ActiveRecord
 
         if (empty($file)) {
             throw new InvalidArgumentException('There is no file associated with this object.');
-        } elseif ($file instanceof Download) {
+        }
+        if ($file instanceof Download) {
             return $file->getResource();
-        } elseif ($file instanceof UploadedFile) {
+        }
+        if ($file instanceof UploadedFile) {
             return fopen($file->tempName, 'r');
-        } elseif (is_string($file)) {
+        }
+        if (is_string($file)) {
             if (file_exists($file)) {
                 return fopen($file, 'r');
             }

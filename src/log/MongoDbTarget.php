@@ -1,6 +1,9 @@
 <?php
+
+declare(strict_types=1);
 /**
  * @link http://www.yiiframework.com/
+ *
  * @copyright Copyright (c) 2008 Yii Software LLC
  * @license http://www.yiiframework.com/license/
  */
@@ -10,8 +13,8 @@ namespace Yiisoft\Db\MongoDb\Log;
 use yii\base\InvalidConfigException;
 use yii\di\Instance;
 use yii\helpers\VarDumper;
-use Yiisoft\Log\Target;
 use Yiisoft\Db\MongoDb\Connection;
+use Yiisoft\Log\Target;
 
 /**
  * MongoDbTarget stores log messages in a MongoDB collection.
@@ -20,6 +23,7 @@ use Yiisoft\Db\MongoDb\Connection;
  * The collection can be changed by setting the [[logCollection]] property.
  *
  * @author Paul Klimov <klimov.paul@gmail.com>
+ *
  * @since 2.0
  */
 class MongoDbTarget extends Target
@@ -31,16 +35,16 @@ class MongoDbTarget extends Target
      */
     public $db = 'mongodb';
     /**
-     * @var string|array the name of the MongoDB collection that stores the session data.
+     * @var array|string the name of the MongoDB collection that stores the session data.
      * Please refer to [[Connection::getCollection()]] on how to specify this parameter.
      * This collection is better to be pre-created with fields 'id' and 'expire' indexed.
      */
     public $logCollection = 'log';
 
-
     /**
      * Initializes the MongoDbTarget component.
      * This method will initialize the [[db]] property to make sure it refers to a valid MongoDB connection.
+     *
      * @throws InvalidConfigException if [[db]] is invalid.
      */
     public function init()

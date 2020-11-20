@@ -1,6 +1,9 @@
 <?php
+
+declare(strict_types=1);
 /**
  * @link http://www.yiiframework.com/
+ *
  * @copyright Copyright (c) 2008 Yii Software LLC
  * @license http://www.yiiframework.com/license/
  */
@@ -8,9 +11,9 @@
 namespace Yiisoft\Db\MongoDb\Gii\Validators;
 
 use MongoDB\BSON\ObjectID;
+use Yii;
 use yii\base\InvalidConfigException;
 use yii\validators\Validator;
-use Yii;
 
 /**
  * MongoIdValidator verifies if the attribute is a valid Mongo ID.
@@ -35,6 +38,7 @@ use Yii;
  * or to [[\MongoId]] instance. You can enable this feature via [[forceFormat]].
  *
  * @author Paul Klimov <klimov.paul@gmail.com>
+ *
  * @since 2.0.4
  */
 class MongoIdValidator extends Validator
@@ -48,7 +52,6 @@ class MongoIdValidator extends Validator
      *   If not set - no conversion will be performed, leaving attribute value intact.
      */
     public $forceFormat;
-
 
     /**
      * {@inheritdoc}
@@ -71,17 +74,16 @@ class MongoIdValidator extends Validator
         if (is_object($mongoId)) {
             if ($this->forceFormat !== null) {
                 switch ($this->forceFormat) {
-                    case 'string': {
+                    case 'string':
                         $model->$attribute = $mongoId->__toString();
                         break;
-                    }
-                    case 'object': {
+
+                    case 'object':
                         $model->$attribute = $mongoId;
                         break;
-                    }
-                    default: {
+
+                    default:
                         throw new InvalidConfigException("Unrecognized format '{$this->forceFormat}'");
-                    }
                 }
             }
         } else {
@@ -99,6 +101,7 @@ class MongoIdValidator extends Validator
 
     /**
      * @param mixed $value
+     *
      * @return ObjectID|null
      */
     private function parseMongoId($value)

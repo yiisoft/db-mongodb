@@ -1,6 +1,9 @@
 <?php
+
+declare(strict_types=1);
 /**
  * @link http://www.yiiframework.com/
+ *
  * @copyright Copyright (c) 2008 Yii Software LLC
  * @license http://www.yiiframework.com/license/
  */
@@ -19,13 +22,16 @@ use Yii;
  * @property Collection $collection Collection instance. This property is read-only.
  *
  * @author Paul Klimov <klimov.paul@gmail.com>
+ *
  * @since 2.0
  */
 class Query extends \Yiisoft\Db\MongoDb\Query
 {
     /**
      * Returns the Mongo collection for this query.
+     *
      * @param \Yiisoft\Db\MongoDb\Connection $db Mongo connection.
+     *
      * @return Collection collection instance.
      */
     public function getCollection($db = null)

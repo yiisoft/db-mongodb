@@ -1,6 +1,9 @@
 <?php
+
+declare(strict_types=1);
 /**
  * @link http://www.yiiframework.com/
+ *
  * @copyright Copyright (c) 2008 Yii Software LLC
  * @license http://www.yiiframework.com/license/
  */
@@ -14,6 +17,7 @@ namespace Yiisoft\Db\MongoDb\File;
  * @method \MongoDB\Driver\Cursor getInnerIterator()
  *
  * @author Paul Klimov <klimov.paul@gmail.com>
+ *
  * @since 2.1
  */
 class Cursor extends \IteratorIterator implements \Countable
@@ -23,9 +27,9 @@ class Cursor extends \IteratorIterator implements \Countable
      */
     public $collection;
 
-
     /**
      * Constructor.
+     *
      * @param Collection $collection
      * @param \MongoDB\Driver\Cursor $cursor
      */
@@ -38,6 +42,7 @@ class Cursor extends \IteratorIterator implements \Countable
     /**
      * Return the current element
      * This method is required by the interface [[\Iterator]].
+     *
      * @return mixed current row
      */
     public function current()
@@ -52,6 +57,7 @@ class Cursor extends \IteratorIterator implements \Countable
     /**
      * Count elements of this cursor.
      * This method is required by the interface [[\Countable]].
+     *
      * @return int elements count.
      */
     public function count()
@@ -63,6 +69,7 @@ class Cursor extends \IteratorIterator implements \Countable
 
     /**
      * Returns an array containing all results for this cursor
+     *
      * @return array containing all results for this cursor.
      */
     public function toArray()
@@ -76,6 +83,7 @@ class Cursor extends \IteratorIterator implements \Countable
 
     /**
      * Returns the ID for this cursor.
+     *
      * @return \MongoDB\Driver\CursorId cursor ID.
      */
     public function getId()
@@ -85,6 +93,7 @@ class Cursor extends \IteratorIterator implements \Countable
 
     /**
      * Sets a type map to use for BSON unserialization.
+     *
      * @param array $typemap type map.
      */
     public function setTypeMap($typemap)
@@ -95,8 +104,10 @@ class Cursor extends \IteratorIterator implements \Countable
     /**
      * PHP magic method, which is invoked on attempt of invocation not existing method.
      * It redirects method call to inner iterator.
+     *
      * @param string $name method name.
      * @param array $arguments method arguments
+     *
      * @return mixed method result.
      */
     public function __call($name, $arguments)
@@ -107,6 +118,7 @@ class Cursor extends \IteratorIterator implements \Countable
     /**
      * PHP magic method, which is invoked on attempt of setting not existing property.
      * It passes value to the inner iterator.
+     *
      * @param string $name field name.
      * @param mixed $value field value.
      */
@@ -118,7 +130,9 @@ class Cursor extends \IteratorIterator implements \Countable
     /**
      * PHP magic method, which is invoked on attempt of getting not existing property.
      * It returns value from the inner iterator.
+     *
      * @param string $name field name.
+     *
      * @return mixed field value.
      */
     public function __get($name)
@@ -128,7 +142,9 @@ class Cursor extends \IteratorIterator implements \Countable
 
     /**
      * PHP magic method, which is invoked on attempt of checking if a property is set.
+     *
      * @param string $name field name.
+     *
      * @return bool whether field exists or not.
      */
     public function __isset($name)
@@ -139,6 +155,7 @@ class Cursor extends \IteratorIterator implements \Countable
 
     /**
      * PHP magic method, which is invoked on attempt of unsetting of property.
+     *
      * @param string $name field name.
      */
     public function __unset($name)

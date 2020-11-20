@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * This is the template for generating the model class of a specified collection.
  */
@@ -14,40 +14,40 @@
 echo "<?php\n";
 ?>
 
-namespace <?= $generator->ns ?>;
+namespace <?php echo $generator->ns ?>;
 
 use Yii;
 
 /**
- * This is the model class for collection "<?= $collectionName ?>".
+ * This is the model class for collection "<?php echo $collectionName ?>".
  *
-<?php foreach ($attributes as $attribute) : ?>
- * @property <?= $attribute == '_id' ? '\MongoDB\BSON\ObjectID|string' : 'mixed' ?> <?= "\${$attribute}\n" ?>
-<?php endforeach; ?>
+<?php foreach ($attributes as $attribute) { ?>
+ * @property <?php echo $attribute == '_id' ? '\MongoDB\BSON\ObjectID|string' : 'mixed' ?> <?php echo "\${$attribute}\n" ?>
+<?php } ?>
  */
-class <?= $className ?> extends <?= '\\' . ltrim($generator->baseClass, '\\') . "\n" ?>
+class <?php echo $className ?> extends <?php echo '\\' . ltrim($generator->baseClass, '\\') . "\n" ?>
 {
     /**
      * {@inheritdoc}
      */
     public static function collectionName()
     {
-<?php if (empty($generator->databaseName)) : ?>
-        return '<?= $collectionName ?>';
-<?php else : ?>
-        return ['<?= $generator->databaseName ?>', '<?= $collectionName ?>'];
-<?php endif; ?>
+<?php if (empty($generator->databaseName)) { ?>
+        return '<?php echo $collectionName ?>';
+<?php } else { ?>
+        return ['<?php echo $generator->databaseName ?>', '<?php echo $collectionName ?>'];
+<?php } ?>
     }
-<?php if ($generator->db !== 'mongodb') : ?>
+<?php if ($generator->db !== 'mongodb') { ?>
 
     /**
      * @return \Yiisoft\Db\MongoDb\Connection the MongoDB connection used by this AR class.
      */
     public static function getDb()
     {
-        return Yii::$app->get('<?= $generator->db ?>');
+        return Yii::$app->get('<?php echo $generator->db ?>');
     }
-<?php endif; ?>
+<?php } ?>
 
     /**
      * {@inheritdoc}
@@ -55,9 +55,9 @@ class <?= $className ?> extends <?= '\\' . ltrim($generator->baseClass, '\\') . 
     public function attributes()
     {
         return [
-<?php foreach ($attributes as $attribute) : ?>
-            <?= "'$attribute',\n" ?>
-<?php endforeach; ?>
+<?php foreach ($attributes as $attribute) { ?>
+            <?php echo "'$attribute',\n" ?>
+<?php } ?>
         ];
     }
 
@@ -66,7 +66,7 @@ class <?= $className ?> extends <?= '\\' . ltrim($generator->baseClass, '\\') . 
      */
     public function rules()
     {
-        return [<?= "\n            " . implode(",\n            ", $rules) . "\n        " ?>];
+        return [<?php echo "\n            " . implode(",\n            ", $rules) . "\n        " ?>];
     }
 
     /**
@@ -75,9 +75,9 @@ class <?= $className ?> extends <?= '\\' . ltrim($generator->baseClass, '\\') . 
     public function attributeLabels()
     {
         return [
-<?php foreach ($labels as $name => $label) : ?>
-            <?= "'$name' => " . $generator->generateString($label) . ",\n" ?>
-<?php endforeach; ?>
+<?php foreach ($labels as $name => $label) { ?>
+            <?php echo "'$name' => " . $generator->generateString($label) . ",\n" ?>
+<?php } ?>
         ];
     }
 }

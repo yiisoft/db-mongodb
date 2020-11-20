@@ -1,13 +1,15 @@
 <?php
+
+declare(strict_types=1);
 /**
  * @link http://www.yiiframework.com/
+ *
  * @copyright Copyright (c) 2008 Yii Software LLC
  * @license http://www.yiiframework.com/license/
  */
 
 namespace Yiisoft\Db\MongoDb;
 
-use Yii;
 use yii\base\InvalidConfigException;
 use yii\test\BaseActiveFixture;
 
@@ -24,6 +26,7 @@ use yii\test\BaseActiveFixture;
  * you will also be able to retrieve an instance of [[modelClass]] with the populated data via [[getModel()]].
  *
  * @author Paul Klimov <klimov.paul@gmail.com>
+ *
  * @since 2.0
  */
 class ActiveFixture extends BaseActiveFixture
@@ -33,12 +36,12 @@ class ActiveFixture extends BaseActiveFixture
      */
     public $db = 'mongodb';
     /**
-     * @var string|array the collection name that this fixture is about. If this property is not set,
+     * @var array|string the collection name that this fixture is about. If this property is not set,
      * the collection name will be determined via [[modelClass]].
+     *
      * @see Connection::getCollection()
      */
     public $collectionName;
-
 
     /**
      * {@inheritdoc}
@@ -72,6 +75,7 @@ class ActiveFixture extends BaseActiveFixture
 
     /**
      * Returns collection used by this fixture.
+     *
      * @return Collection related collection.
      */
     protected function getCollection()
@@ -81,6 +85,7 @@ class ActiveFixture extends BaseActiveFixture
 
     /**
      * Returns collection name used by this fixture.
+     *
      * @return array|string related collection name
      */
     protected function getCollectionName()

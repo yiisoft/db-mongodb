@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Yiisoft\Db\MongoDb\Tests;
 
 use MongoDB\BSON\ObjectID;
@@ -81,7 +83,7 @@ class CollectionTest extends TestCase
         foreach ($cursor as $row) {
             $rows[] = $row;
         }
-        $this->assertEquals(1, count($rows));
+        $this->assertCount(1, $rows);
         $this->assertEquals($id, $rows[0]['_id']);
     }
 
@@ -156,7 +158,7 @@ class CollectionTest extends TestCase
         $this->assertEquals(1, $count);
 
         $rows = $this->findAll($collection);
-        $this->assertEquals(0, count($rows));
+        $this->assertCount(0, $rows);
     }
 
     /**
@@ -185,7 +187,7 @@ class CollectionTest extends TestCase
         $this->assertEquals(2, $count);
 
         $rows = $this->findAll($collection);
-        $this->assertEquals(1, count($rows));
+        $this->assertCount(1, $rows);
     }
 
     /**
@@ -201,7 +203,7 @@ class CollectionTest extends TestCase
         $id = $collection->insert($data);
 
         $newData = [
-            'name' => 'new name'
+            'name' => 'new name',
         ];
         $count = $collection->update(['_id' => $id], $newData);
         $this->assertEquals(1, $count);
@@ -230,9 +232,9 @@ class CollectionTest extends TestCase
 
         $keys = ['address' => 1];
         $initial = ['items' => []];
-        $reduce = "function (obj, prev) { prev.items.push(obj.name); }";
+        $reduce = 'function (obj, prev) { prev.items.push(obj.name); }';
         $result = $collection->group($keys, $initial, $reduce);
-        $this->assertEquals(2, count($result));
+        $this->assertCount(2, $result);
         $this->assertNotEmpty($result[0]['address']);
         $this->assertNotEmpty($result[0]['items']);
     }
@@ -273,7 +275,7 @@ class CollectionTest extends TestCase
         // Full update document
         $data = [
             'name' => 'customer 3',
-            'city' => 'Minsk'
+            'city' => 'Minsk',
         ];
         $result = $collection->findAndModify(
             ['name' => 'customer 2'],
@@ -396,11 +398,11 @@ class CollectionTest extends TestCase
         $collection = $this->getConnection()->getCollection('customer');
         $columns = [
             'name',
-            'status' => SORT_DESC
+            'status' => SORT_DESC,
         ];
         $this->assertTrue($collection->createIndex($columns));
         $indexInfo = $collection->listIndexes();
-        $this->assertEquals(2, count($indexInfo));
+        $this->assertCount(2, $indexInfo);
     }
 
     /**
@@ -413,7 +415,7 @@ class CollectionTest extends TestCase
         $collection->createIndex('name');
         $this->assertTrue($collection->dropIndex('name'));
         $indexInfo = $collection->listIndexes();
-        $this->assertEquals(1, count($indexInfo));
+        $this->assertCount(1, $indexInfo);
 
         $this->expectException('\Yiisoft\Db\MongoDb\Exception');
         $collection->dropIndex('name');
@@ -421,6 +423,7 @@ class CollectionTest extends TestCase
 
     /**
      * @depends testDropIndex
+     *
      * @see https://github.com/yiisoft/yii2-mongodb/issues/247
      */
     public function testDropIndexWithPlugin()
@@ -428,13 +431,13 @@ class CollectionTest extends TestCase
         $collection = $this->getConnection()->getCollection('customer');
 
         $columns = [
-            'name' => 'text'
+            'name' => 'text',
         ];
         $collection->createIndex($columns);
 
         $this->assertTrue($collection->dropIndex($columns));
         $indexInfo = $collection->listIndexes();
-        $this->assertEquals(1, count($indexInfo));
+        $this->assertCount(1, $indexInfo);
     }
 
     /**
@@ -446,7 +449,7 @@ class CollectionTest extends TestCase
         $collection->createIndex('name');
         $this->assertEquals(2, $collection->dropAllIndexes());
         $indexInfo = $collection->listIndexes();
-        $this->assertEquals(1, count($indexInfo));
+        $this->assertCount(1, $indexInfo);
     }
 
     public function testCreateIndexes()
@@ -454,11 +457,11 @@ class CollectionTest extends TestCase
         $collection = $this->getConnection()->getCollection('customer');
         $columns = [
             ['key' => ['name']],
-            ['key' => ['status' => SORT_DESC]]
+            ['key' => ['status' => SORT_DESC]],
         ];
         $this->assertTrue($collection->createIndexes($columns));
         $indexInfo = $collection->listIndexes();
-        $this->assertEquals(3, count($indexInfo));
+        $this->assertCount(3, $indexInfo);
     }
 
     /**
@@ -470,11 +473,11 @@ class CollectionTest extends TestCase
         $columns = [
             [
                 'key' => ['name'],
-                'name' => 'test_index'
+                'name' => 'test_index',
             ],
             [
                 'key' => ['status'],
-                'name' => 'to_be_dropped'
+                'name' => 'to_be_dropped',
             ],
         ];
         $collection->createIndexes($columns);
@@ -482,7 +485,7 @@ class CollectionTest extends TestCase
         $collection->dropIndexes('to_be_dropped');
 
         $indexInfo = $collection->listIndexes();
-        $this->assertEquals(2, count($indexInfo));
+        $this->assertCount(2, $indexInfo);
     }
 
     /**

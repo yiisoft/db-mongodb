@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Yiisoft\Db\MongoDb\Tests;
 
 use MongoDB\BSON\Javascript;
@@ -9,6 +11,7 @@ class LogBuilderTest extends TestCase
 {
     /**
      * Data provider for [[testEncodeData]].
+     *
      * @return array test data
      */
     public function dataProviderEncodeData()
@@ -24,7 +27,7 @@ class LogBuilderTest extends TestCase
             ],
             [
                 new Javascript('function () {return 0;}'),
-                '"MongoDB\\\\BSON\\\\Javascript(function () {return 0;})"'
+                '"MongoDB\\\\BSON\\\\Javascript(function () {return 0;})"',
             ],
         ];
     }

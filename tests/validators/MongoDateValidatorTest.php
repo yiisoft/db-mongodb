@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Yiisoft\Db\MongoDb\Tests\Validators;
 
 use MongoDB\BSON\UTCDateTime;
@@ -56,7 +58,7 @@ class MongoDateTestModel extends Model
     public function rules()
     {
         return [
-            ['date', MongoDateValidator::class, 'format' => 'MM/dd/yyyy', 'mongoDateAttribute' => 'mongoDate']
+            ['date', MongoDateValidator::class, 'format' => 'MM/dd/yyyy', 'mongoDateAttribute' => 'mongoDate'],
         ];
     }
 }

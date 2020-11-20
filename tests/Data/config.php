@@ -1,4 +1,6 @@
 <?php
+
+declare(strict_types=1);
 /**
  * This is the configuration file for the 'yii2-mongodb' unit tests.
  * You can override configuration values by creating a `config.local.php` file
@@ -10,7 +12,7 @@ $config = [
         'dsn' => 'mongodb://travis:test@localhost:27017/yii2test',
         'options' => [],
         'driverOptions' => [],
-    ]
+    ],
 ];
 
 if (is_file(__DIR__ . '/config.local.php')) {

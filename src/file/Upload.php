@@ -1,6 +1,9 @@
 <?php
+
+declare(strict_types=1);
 /**
  * @link http://www.yiiframework.com/
+ *
  * @copyright Copyright (c) 2008 Yii Software LLC
  * @license http://www.yiiframework.com/license/
  */
@@ -10,8 +13,8 @@ namespace Yiisoft\Db\MongoDb\File;
 use MongoDB\BSON\Binary;
 use MongoDB\BSON\ObjectID;
 use MongoDB\BSON\UTCDatetime;
-use yii\base\InvalidArgumentException;
 use yii\base\BaseObject;
+use yii\base\InvalidArgumentException;
 use Yiisoft\Strings\StringHelper;
 
 /**
@@ -33,6 +36,7 @@ use Yiisoft\Strings\StringHelper;
  * ```
  *
  * @author Paul Klimov <klimov.paul@gmail.com>
+ *
  * @since 2.1
  */
 class Upload extends BaseObject
@@ -84,7 +88,6 @@ class Upload extends BaseObject
      */
     private $_isComplete = false;
 
-
     /**
      * Destructor.
      * Makes sure abandoned upload is cancelled.
@@ -124,7 +127,9 @@ class Upload extends BaseObject
     /**
      * Adds string content to the upload.
      * This method can invoked several times before [[complete()]] is called.
+     *
      * @param string $content binary content.
+     *
      * @return $this self reference.
      */
     public function addContent($content)
@@ -146,7 +151,9 @@ class Upload extends BaseObject
     /**
      * Adds stream content to the upload.
      * This method can invoked several times before [[complete()]] is called.
+     *
      * @param resource $stream data source stream.
+     *
      * @return $this self reference.
      */
     public function addStream($stream)
@@ -168,7 +175,9 @@ class Upload extends BaseObject
     /**
      * Adds a file content to the upload.
      * This method can invoked several times before [[complete()]] is called.
+     *
      * @param string $filename source file name.
+     *
      * @return $this self reference.
      */
     public function addFile($filename)
@@ -186,6 +195,7 @@ class Upload extends BaseObject
 
     /**
      * Completes upload.
+     *
      * @return array saved document.
      */
     public function complete()
@@ -214,6 +224,7 @@ class Upload extends BaseObject
 
     /**
      * Flushes [[buffer]] to the chunk if it is full.
+     *
      * @param bool $force whether to enforce flushing.
      */
     private function flushBuffer($force = false)
@@ -230,6 +241,7 @@ class Upload extends BaseObject
 
     /**
      * Inserts file chunk.
+     *
      * @param string $data chunk binary content.
      */
     private function insertChunk($data)
@@ -249,6 +261,7 @@ class Upload extends BaseObject
 
     /**
      * Inserts [[document]] into file collection.
+     *
      * @return array inserted file document data.
      */
     private function insertFile()

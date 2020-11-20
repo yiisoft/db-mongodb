@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Yiisoft\Db\MongoDb\File;
 
 use Yiisoft\Db\MongoDb\Tests\TestCase;
@@ -29,7 +31,7 @@ class StreamWrapperTest extends TestCase
 
         $document = $collection->findOne(['_id' => $document['_id']]);
         $resource = $document['file']->toResource();
-        $this->assertTrue(is_resource($resource));
+        $this->assertIsResource($resource);
 
         $this->assertEquals('test content', stream_get_contents($resource));
     }
@@ -39,7 +41,7 @@ class StreamWrapperTest extends TestCase
         $connection = $this->getConnection();
         $this->mockApplication([
             'components' => [
-                'mongodb' => $connection
+                'mongodb' => $connection,
             ],
         ]);
 
@@ -64,7 +66,7 @@ class StreamWrapperTest extends TestCase
         $connection = $this->getConnection();
         $this->mockApplication([
             'components' => [
-                'mongodb' => $connection
+                'mongodb' => $connection,
             ],
         ]);
 
@@ -86,7 +88,7 @@ class StreamWrapperTest extends TestCase
         $connection = $this->getConnection();
         $this->mockApplication([
             'components' => [
-                'mongodb' => $connection
+                'mongodb' => $connection,
             ],
         ]);
 

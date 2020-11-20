@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Yiisoft\Db\MongoDb\Tests\Log;
 
 use Psr\Log\LogLevel;
@@ -38,7 +40,7 @@ class MongoDbTargetTest extends TestCase
                     'category' => 'test',
                     'time' => time() - 1,
                     'trace' => [],
-                ]
+                ],
             ],
             [
                 LogLevel::INFO,
@@ -48,7 +50,7 @@ class MongoDbTargetTest extends TestCase
                     'time' => time(),
                     'trace' => [],
                 ],
-            ]
+            ],
         ];
 
         $target->export();

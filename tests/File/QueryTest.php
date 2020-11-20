@@ -1,9 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Yiisoft\Db\MongoDb\File;
 
-use Yiisoft\Db\MongoDb\File\Download;
-use Yiisoft\Db\MongoDb\File\Query;
 use Yiisoft\Db\MongoDb\Tests\TestCase;
 
 /**
@@ -44,7 +44,7 @@ class QueryTest extends TestCase
         $connection = $this->getConnection();
         $query = new Query();
         $rows = $query->from('fs')->all($connection);
-        $this->assertEquals(10, count($rows));
+        $this->assertCount(10, $rows);
     }
 
     public function testOne()
@@ -52,7 +52,7 @@ class QueryTest extends TestCase
         $connection = $this->getConnection();
         $query = new Query();
         $row = $query->from('fs')->one($connection);
-        $this->assertTrue(is_array($row));
+        $this->assertIsArray($row);
         $this->assertTrue($row['file'] instanceof Download);
     }
 
@@ -63,7 +63,7 @@ class QueryTest extends TestCase
         $rows = $query->from('fs')
             ->where(['file_index' => 5])
             ->all($connection);
-        $this->assertEquals(1, count($rows));
+        $this->assertCount(1, $rows);
 
         $file = $rows[0];
         $this->assertEquals('name5', $file['filename']);

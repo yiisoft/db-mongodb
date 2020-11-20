@@ -1,6 +1,9 @@
 <?php
+
+declare(strict_types=1);
 /**
  * @link http://www.yiiframework.com/
+ *
  * @copyright Copyright (c) 2008 Yii Software LLC
  * @license http://www.yiiframework.com/license/
  */
@@ -8,9 +11,9 @@
 namespace Yiisoft\Db\MongoDb\File;
 
 use MongoDB\BSON\ObjectID;
-use Yiisoft\Db\MongoDb\Exception;
 use Yii;
 use yii\web\UploadedFile;
+use Yiisoft\Db\MongoDb\Exception;
 
 /**
  * Collection represents the Mongo GridFS collection information.
@@ -24,6 +27,7 @@ use yii\web\UploadedFile;
  * @property string $prefix Prefix of this file collection.
  *
  * @author Paul Klimov <klimov.paul@gmail.com>
+ *
  * @since 2.0
  */
 class Collection extends \Yiisoft\Db\MongoDb\Collection
@@ -50,7 +54,6 @@ class Collection extends \Yiisoft\Db\MongoDb\Collection
      */
     private $indexesEnsured = false;
 
-
     /**
      * @return string prefix of this file collection.
      */
@@ -70,8 +73,11 @@ class Collection extends \Yiisoft\Db\MongoDb\Collection
 
     /**
      * Creates upload command.
+     *
      * @param array $options upload options.
+     *
      * @return Upload file upload instance.
+     *
      * @since 2.1
      */
     public function createUpload($options = [])
@@ -83,8 +89,11 @@ class Collection extends \Yiisoft\Db\MongoDb\Collection
 
     /**
      * Creates download command.
+     *
      * @param array|ObjectID $document file document ot be downloaded.
+     *
      * @return Download file download instance.
+     *
      * @since 2.1
      */
     public function createDownload($document)
@@ -97,7 +106,9 @@ class Collection extends \Yiisoft\Db\MongoDb\Collection
 
     /**
      * Returns the MongoDB collection for the file chunks.
+     *
      * @param bool $refresh whether to reload the collection instance even if it is found in the cache.
+     *
      * @return \Yiisoft\Db\MongoDb\Collection mongo collection instance.
      */
     public function getChunkCollection($refresh = false)
@@ -106,7 +117,7 @@ class Collection extends \Yiisoft\Db\MongoDb\Collection
             $this->_chunkCollection = Yii::createObject([
                 '__class' => \Yiisoft\Db\MongoDb\Collection::class,
                 'database' => $this->database,
-                'name' => $this->getPrefix() . '.chunks'
+                'name' => $this->getPrefix() . '.chunks',
             ]);
         }
 
@@ -115,8 +126,11 @@ class Collection extends \Yiisoft\Db\MongoDb\Collection
 
     /**
      * Returns the MongoDB collection for the files.
+     *
      * @param bool $refresh whether to reload the collection instance even if it is found in the cache.
+     *
      * @return \Yiisoft\Db\MongoDb\Collection mongo collection instance.
+     *
      * @since 2.1
      */
     public function getFileCollection($refresh = false)
@@ -125,7 +139,7 @@ class Collection extends \Yiisoft\Db\MongoDb\Collection
             $this->_fileCollection = Yii::createObject([
                 '__class' => \Yiisoft\Db\MongoDb\Collection::class,
                 'database' => $this->database,
-                'name' => $this->name
+                'name' => $this->name,
             ]);
         }
 
@@ -142,6 +156,7 @@ class Collection extends \Yiisoft\Db\MongoDb\Collection
 
     /**
      * {@inheritdoc}
+     *
      * @return Cursor cursor for the search results
      */
     public function find($condition = [], $fields = [], $options = [])
@@ -196,12 +211,15 @@ class Collection extends \Yiisoft\Db\MongoDb\Collection
     /**
      * Creates new file in GridFS collection from given local filesystem file.
      * Additional attributes can be added file document using $metadata.
+     *
      * @param string $filename name of the file to store.
      * @param array $metadata other metadata fields to include in the file document.
      * @param array $options list of options in format: optionName => optionValue
+     *
+     * @throws Exception on failure.
+     *
      * @return mixed the "_id" of the saved file document. This will be a generated [[\MongoId]]
      * unless an "_id" was explicitly specified in the metadata.
-     * @throws Exception on failure.
      */
     public function insertFile($filename, $metadata = [], $options = [])
     {
@@ -213,12 +231,15 @@ class Collection extends \Yiisoft\Db\MongoDb\Collection
     /**
      * Creates new file in GridFS collection with specified content.
      * Additional attributes can be added file document using $metadata.
+     *
      * @param string $bytes string of bytes to store.
      * @param array $metadata other metadata fields to include in the file document.
      * @param array $options list of options in format: optionName => optionValue
+     *
+     * @throws Exception on failure.
+     *
      * @return mixed the "_id" of the saved file document. This will be a generated [[\MongoId]]
      * unless an "_id" was explicitly specified in the metadata.
-     * @throws Exception on failure.
      */
     public function insertFileContent($bytes, $metadata = [], $options = [])
     {
@@ -230,13 +251,16 @@ class Collection extends \Yiisoft\Db\MongoDb\Collection
     /**
      * Creates new file in GridFS collection from uploaded file.
      * Additional attributes can be added file document using $metadata.
+     *
      * @param string $name name of the uploaded file to store. This should correspond to
      * the file field's name attribute in the HTML form.
      * @param array $metadata other metadata fields to include in the file document.
      * @param array $options list of options in format: optionName => optionValue
+     *
+     * @throws Exception on failure.
+     *
      * @return mixed the "_id" of the saved file document. This will be a generated [[\MongoId]]
      * unless an "_id" was explicitly specified in the metadata.
-     * @throws Exception on failure.
      */
     public function insertUploads($name, $metadata = [], $options = [])
     {
@@ -253,9 +277,12 @@ class Collection extends \Yiisoft\Db\MongoDb\Collection
 
     /**
      * Retrieves the file with given _id.
+     *
      * @param mixed $id _id of the file to find.
-     * @return Download|null found file, or null if file does not exist
+     *
      * @throws Exception on failure.
+     *
+     * @return Download|null found file, or null if file does not exist
      */
     public function get($id)
     {
@@ -265,9 +292,12 @@ class Collection extends \Yiisoft\Db\MongoDb\Collection
 
     /**
      * Deletes the file with given _id.
+     *
      * @param mixed $id _id of the file to find.
-     * @return bool whether the operation was successful.
+     *
      * @throws Exception on failure.
+     *
+     * @return bool whether the operation was successful.
      */
     public function delete($id)
     {
@@ -279,7 +309,9 @@ class Collection extends \Yiisoft\Db\MongoDb\Collection
      * Makes sure that indexes, which are crucial for the file processing,
      * exist at this collection and [[chunkCollection]].
      * The check result is cached per collection instance.
+     *
      * @param bool $force whether to ignore internal collection instance cache.
+     *
      * @return $this self reference.
      */
     public function ensureIndexes($force = false)

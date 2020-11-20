@@ -1,17 +1,20 @@
 <?php
+
+declare(strict_types=1);
 /**
  * @link http://www.yiiframework.com/
+ *
  * @copyright Copyright (c) 2008 Yii Software LLC
  * @license http://www.yiiframework.com/license/
  */
 
 namespace Yiisoft\Db\MongoDb\File;
 
-use yii\base\InvalidConfigException;
 use yii\base\BaseObject;
+use yii\base\InvalidConfigException;
 use yii\di\Instance;
-use Yiisoft\Strings\StringHelper;
 use Yiisoft\Db\MongoDb\Connection;
+use Yiisoft\Strings\StringHelper;
 
 /**
  * StreamWrapper provides stream wrapper for MongoDB GridFS, allowing file operations via
@@ -50,6 +53,7 @@ use Yiisoft\Db\MongoDb\Connection;
  * @property array $contextOptions Context options. This property is read-only.
  *
  * @author Paul Klimov <klimov.paul@gmail.com>
+ *
  * @since 2.1
  */
 class StreamWrapper extends BaseObject
@@ -89,9 +93,9 @@ class StreamWrapper extends BaseObject
      */
     private $_pointerOffset = 0;
 
-
     /**
      * Registers this steam wrapper.
+     *
      * @param string $protocol name of the protocol to be used.
      * @param bool $force whether to register wrapper, even if protocol is already taken.
      */
@@ -104,11 +108,12 @@ class StreamWrapper extends BaseObject
             stream_wrapper_unregister($protocol);
         }
 
-        stream_wrapper_register($protocol, get_called_class(), STREAM_IS_URL);
+        stream_wrapper_register($protocol, static::class, STREAM_IS_URL);
     }
 
     /**
      * Returns options associated with [[context]].
+     *
      * @return array context options.
      */
     public function getContextOptions()
@@ -121,6 +126,7 @@ class StreamWrapper extends BaseObject
 
     /**
      * Parses stream open path, initializes internal parameters.
+     *
      * @param string $path stream open path.
      */
     private function parsePath($path)
@@ -134,8 +140,10 @@ class StreamWrapper extends BaseObject
 
     /**
      * Prepares [[Download]] instance for the read operations.
-     * @return bool success.
+     *
      * @throws InvalidConfigException on invalid context configuration.
+     *
+     * @return bool success.
      */
     private function prepareDownload()
     {
@@ -164,8 +172,10 @@ class StreamWrapper extends BaseObject
 
     /**
      * Prepares [[Upload]] instance for the write operations.
-     * @return bool success.
+     *
      * @throws InvalidConfigException on invalid context configuration.
+     *
+     * @return bool success.
      */
     private function prepareUpload()
     {
@@ -186,8 +196,10 @@ class StreamWrapper extends BaseObject
 
     /**
      * Fetches associated file collection from stream options.
-     * @return Collection file collection instance.
+     *
      * @throws InvalidConfigException on invalid stream options.
+     *
+     * @return Collection file collection instance.
      */
     private function fetchCollection()
     {
@@ -202,9 +214,8 @@ class StreamWrapper extends BaseObject
             return $collection;
         }
 
-        $connection = isset($contextOptions[$this->_protocol]['db'])
-            ? $contextOptions[$this->_protocol]['db']
-            : 'mongodb';
+        $connection = $contextOptions[$this->_protocol]['db']
+            ?? 'mongodb';
 
         /* @var $connection Connection */
         $connection = Instance::ensure($connection, Connection::class);
@@ -215,25 +226,27 @@ class StreamWrapper extends BaseObject
 
     /**
      * Default template for file statistic data set.
+     *
      * @see stat()
+     *
      * @return array statistic information.
      */
     private function fileStatisticsTemplate()
     {
         return [
-            0  => 0,  'dev'     => 0,
-            1  => 0,  'ino'     => 0,
-            2  => 0,  'mode'    => 0,
-            3  => 0,  'nlink'   => 0,
-            4  => 0,  'uid'     => 0,
-            5  => 0,  'gid'     => 0,
-            6  => -1, 'rdev'    => -1,
-            7  => 0,  'size'    => 0,
-            8  => 0,  'atime'   => 0,
-            9  => 0,  'mtime'   => 0,
-            10 => 0,  'ctime'   => 0,
+            0 => 0,  'dev' => 0,
+            1 => 0,  'ino' => 0,
+            2 => 0,  'mode' => 0,
+            3 => 0,  'nlink' => 0,
+            4 => 0,  'uid' => 0,
+            5 => 0,  'gid' => 0,
+            6 => -1, 'rdev' => -1,
+            7 => 0,  'size' => 0,
+            8 => 0,  'atime' => 0,
+            9 => 0,  'mtime' => 0,
+            10 => 0,  'ctime' => 0,
             11 => -1, 'blksize' => -1,
-            12 => -1, 'blocks'  => -1,
+            12 => -1, 'blocks' => -1,
         ];
     }
 
@@ -242,6 +255,7 @@ class StreamWrapper extends BaseObject
     /**
      * Closes a resource.
      * This method is called in response to `fclose()`.
+     *
      * @see fclose()
      */
     public function stream_close()
@@ -258,7 +272,9 @@ class StreamWrapper extends BaseObject
     /**
      * Tests for end-of-file on a file pointer.
      * This method is called in response to `feof()`.
+     *
      * @see feof()
+     *
      * @return bool `true` if the read/write position is at the end of the stream and
      * if no more data is available to be read, or `false` otherwise.
      */
@@ -272,11 +288,14 @@ class StreamWrapper extends BaseObject
     /**
      * Opens file.
      * This method is called immediately after the wrapper is initialized (f.e. by `fopen()` and `file_get_contents()`).
+     *
      * @see fopen()
+     *
      * @param string $path specifies the URL that was passed to the original function.
      * @param string $mode mode used to open the file, as detailed for `fopen()`.
      * @param int $options additional flags set by the streams API.
      * @param string $openedPath real opened path.
+     *
      * @return bool whether operation is successful.
      */
     public function stream_open($path, $mode, $options, &$openedPath)
@@ -299,9 +318,12 @@ class StreamWrapper extends BaseObject
     /**
      * Reads from stream.
      * This method is called in response to `fread()` and `fgets()`.
+     *
      * @see fread()
+     *
      * @param int $count count of bytes of data from the current position should be returned.
-     * @return string|false if there are less than count bytes available, return as many as are available.
+     *
+     * @return false|string if there are less than count bytes available, return as many as are available.
      * If no more data is available, return `false`.
      */
     public function stream_read($count)
@@ -317,8 +339,11 @@ class StreamWrapper extends BaseObject
     /**
      * Writes to stream.
      * This method is called in response to `fwrite()`.
+     *
      * @see fwrite()
+     *
      * @param string $data string to be stored into the underlying stream.
+     *
      * @return int the number of bytes that were successfully stored.
      */
     public function stream_write($data)
@@ -335,7 +360,9 @@ class StreamWrapper extends BaseObject
     /**
      * This method is called in response to `fflush()` and when the stream is being closed
      * while any unflushed data has been written to it before.
+     *
      * @see fflush()
+     *
      * @return bool whether cached data was successfully stored.
      */
     public function stream_flush()
@@ -346,7 +373,9 @@ class StreamWrapper extends BaseObject
     /**
      * Retrieve information about a file resource.
      * This method is called in response to `stat()`.
+     *
      * @see stat()
+     *
      * @return array file statistic information.
      */
     public function stream_stat()
@@ -366,7 +395,9 @@ class StreamWrapper extends BaseObject
     /**
      * Seeks to specific location in a stream.
      * This method is called in response to `fseek()`.
+     *
      * @see fseek()
+     *
      * @param int $offset The stream offset to seek to.
      * @param int $whence
      * Possible values:
@@ -405,7 +436,9 @@ class StreamWrapper extends BaseObject
     /**
      * Retrieve the current position of a stream.
      * This method is called in response to `fseek()` to determine the current position.
+     *
      * @see fseek()
+     *
      * @return int Should return the current position of the stream.
      */
     public function stream_tell()

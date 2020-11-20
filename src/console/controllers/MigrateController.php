@@ -1,6 +1,9 @@
 <?php
+
+declare(strict_types=1);
 /**
  * @link http://www.yiiframework.com/
+ *
  * @copyright Copyright (c) 2008 Yii Software LLC
  * @license http://www.yiiframework.com/license/
  */
@@ -8,11 +11,11 @@
 namespace Yiisoft\Db\MongoDb\Console\Controllers;
 
 use Yii;
-use Yiisoft\Yii\Console\Controllers\BaseMigrateController;
-use Yiisoft\Yii\Console\Exception;
+use Yiisoft\Arrays\ArrayHelper;
 use Yiisoft\Db\MongoDb\Connection;
 use Yiisoft\Db\MongoDb\Query;
-use Yiisoft\Arrays\ArrayHelper;
+use Yiisoft\Yii\Console\Controllers\BaseMigrateController;
+use Yiisoft\Yii\Console\Exception;
 
 /**
  * Manages application MongoDB migrations.
@@ -69,12 +72,13 @@ use Yiisoft\Arrays\ArrayHelper;
  * ```
  *
  * @author Klimov Paul <klimov@zfort.com>
+ *
  * @since 2.0
  */
 class MigrateController extends BaseMigrateController
 {
     /**
-     * @var string|array the name of the collection for keeping applied migration information.
+     * @var array|string the name of the collection for keeping applied migration information.
      */
     public $migrationCollection = 'migration';
     /**
@@ -86,7 +90,6 @@ class MigrateController extends BaseMigrateController
      * component ID of the DB connection.
      */
     public $db = 'mongodb';
-
 
     /**
      * {@inheritdoc}
@@ -102,8 +105,11 @@ class MigrateController extends BaseMigrateController
     /**
      * This method is invoked right before an action is to be executed (after all possible filters.)
      * It checks the existence of the [[migrationPath]].
+     *
      * @param \yii\base\Action $action the action to be executed.
+     *
      * @throws Exception if db component isn't configured
+     *
      * @return bool whether the action should continue to be executed.
      */
     public function beforeAction($action)
@@ -124,7 +130,9 @@ class MigrateController extends BaseMigrateController
 
     /**
      * Creates a new migration instance.
+     *
      * @param string $class the migration class name
+     *
      * @return \Yiisoft\Db\MongoDb\Migration the migration instance
      */
     protected function createMigration($class)
@@ -141,7 +149,7 @@ class MigrateController extends BaseMigrateController
             }
         }
 
-        return new $class(['db' => $this->db, 'compact' => isset($this->compact) ? $this->compact : false]);
+        return new $class(['db' => $this->db, 'compact' => $this->compact ?? false]);
     }
 
     /**
@@ -193,9 +201,7 @@ class MigrateController extends BaseMigrateController
 
         $history = array_slice($history, 0, $limit);
 
-        $history = ArrayHelper::map($history, 'version', 'apply_time');
-
-        return $history;
+        return ArrayHelper::map($history, 'version', 'apply_time');
     }
 
     private $baseMigrationEnsured = false;
@@ -242,6 +248,7 @@ class MigrateController extends BaseMigrateController
 
     /**
      * {@inheritdoc}
+     *
      * @since 2.1.5
      */
     protected function truncateDatabase()

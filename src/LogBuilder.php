@@ -1,6 +1,9 @@
 <?php
+
+declare(strict_types=1);
 /**
  * @link http://www.yiiframework.com/
+ *
  * @copyright Copyright (c) 2008 Yii Software LLC
  * @license http://www.yiiframework.com/license/
  */
@@ -22,14 +25,17 @@ use yii\base\BaseObject;
  * LogBuilder allows composition and escaping of the log entries.
  *
  * @author Paul Klimov <klimov.paul@gmail.com>
+ *
  * @since 2.1
  */
 class LogBuilder extends BaseObject
 {
     /**
      * Generate log/profile token.
-     * @param string|array $namespace command namespace
+     *
+     * @param array|string $namespace command namespace
      * @param array $data command data.
+     *
      * @return string token.
      */
     public function generateToken($namespace, $data = [])
@@ -42,7 +48,9 @@ class LogBuilder extends BaseObject
 
     /**
      * Encodes complex log data into JSON format string.
+     *
      * @param mixed $data raw data.
+     *
      * @return string encoded data string.
      */
     public function encodeData($data)
@@ -52,7 +60,9 @@ class LogBuilder extends BaseObject
 
     /**
      * Pre-processes the log data before sending it to `json_encode()`.
+     *
      * @param mixed $data raw data.
+     *
      * @return mixed the processed data.
      */
     protected function processData($data)
@@ -103,7 +113,9 @@ class LogBuilder extends BaseObject
 
     /**
      * Processes [[Javascript]] composing recoverable value.
+     *
      * @param Javascript $javascript javascript BSON object.
+     *
      * @return string processed javascript.
      */
     private function processJavascript(Javascript $javascript)

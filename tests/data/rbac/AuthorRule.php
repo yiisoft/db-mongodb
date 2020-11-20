@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Yiisoft\Db\MongoDb\Tests\Data\Rbac;
 
 use Yiisoft\Rbac\Rule;
@@ -11,7 +13,6 @@ class AuthorRule extends Rule
 {
     public $name = 'isAuthor';
     public $reallyReally = false;
-
 
     /**
      * {@inheritdoc}

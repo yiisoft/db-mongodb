@@ -1,6 +1,9 @@
 <?php
+
+declare(strict_types=1);
 /**
  * @link http://www.yiiframework.com/
+ *
  * @copyright Copyright (c) 2008 Yii Software LLC
  * @license http://www.yiiframework.com/license/
  */
@@ -8,9 +11,9 @@
 namespace Yiisoft\Db\MongoDb;
 
 use MongoDB\Driver\Manager;
+use Yii;
 use yii\base\Component;
 use yii\base\InvalidConfigException;
-use Yii;
 
 /**
  * Connection represents a connection to a MongoDb server.
@@ -75,6 +78,7 @@ use Yii;
  * details.
  *
  * @author Paul Klimov <klimov.paul@gmail.com>
+ *
  * @since 2.0
  */
 class Connection extends Component
@@ -118,12 +122,14 @@ class Connection extends Component
     public $driverOptions = [];
     /**
      * @var Manager MongoDB driver manager.
+     *
      * @since 2.1
      */
     public $manager;
     /**
      * @var array type map to use for BSON unserialization.
      * Note: default type map will be automatically merged into this field, possibly overriding user-defined values.
+     *
      * @see http://php.net/manual/en/mongodb-driver-cursor.settypemap.php
      * @since 2.1
      */
@@ -133,24 +139,28 @@ class Connection extends Component
      * When enabled this option may reduce performance. MongoDB commands may contain large data,
      * consuming both CPU and memory.
      * It makes sense to disable this option in the production environment.
+     *
      * @since 2.1
      */
     public $enableLogging = true;
     /**
      * @var bool whether to enable profiling the commands and queries being executed.
      * This option will have no effect in case [[enableLogging]] is disabled.
+     *
      * @since 2.1
      */
     public $enableProfiling = true;
     /**
      * @var string name of the protocol, which should be used for the GridFS stream wrapper.
      * Only alphanumeric values are allowed: do not use any URL special characters, such as '/', '&', ':' etc.
+     *
      * @see \Yiisoft\Db\MongoDb\File\StreamWrapper
      * @since 2.1
      */
     public $fileStreamProtocol = 'gridfs';
     /**
      * @var string name of the class, which should serve as a stream wrapper for [[fileStreamProtocol]] protocol.
+     *
      * @since 2.1
      */
     public $fileStreamWrapperClass = 'Yiisoft\Db\MongoDb\File\StreamWrapper';
@@ -166,24 +176,27 @@ class Connection extends Component
      */
     private $_databases = [];
     /**
-     * @var QueryBuilder|array|string the query builder for this connection
+     * @var array|QueryBuilder|string the query builder for this connection
+     *
      * @since 2.1
      */
     private $_queryBuilder = 'Yiisoft\Db\MongoDb\QueryBuilder';
     /**
-     * @var LogBuilder|array|string log entries builder used for this connecton.
+     * @var array|LogBuilder|string log entries builder used for this connecton.
+     *
      * @since 2.1
      */
     private $_logBuilder = 'Yiisoft\Db\MongoDb\LogBuilder';
     /**
      * @var bool whether GridFS stream wrapper has been already registered.
+     *
      * @since 2.1
      */
     private $_fileStreamWrapperRegistered = false;
 
-
     /**
      * Sets default database name.
+     *
      * @param string $name default database name.
      */
     public function setDefaultDatabaseName($name)
@@ -194,8 +207,10 @@ class Connection extends Component
     /**
      * Returns default database name, if it is not set,
      * attempts to determine it from [[dsn]] value.
-     * @return string default database name
+     *
      * @throws \yii\base\InvalidConfigException if unable to determine default database name.
+     *
+     * @return string default database name
      */
     public function getDefaultDatabaseName()
     {
@@ -203,7 +218,7 @@ class Connection extends Component
             if (preg_match('/^mongodb:\\/\\/.+\\/([^?&]+)/s', $this->dsn, $matches)) {
                 $this->_defaultDatabaseName = $matches[1];
             } else {
-                throw new InvalidConfigException("Unable to determine default database name from dsn.");
+                throw new InvalidConfigException('Unable to determine default database name from dsn.');
             }
         }
 
@@ -212,7 +227,9 @@ class Connection extends Component
 
     /**
      * Returns the query builder for the this MongoDB connection.
+     *
      * @return QueryBuilder the query builder for the this MongoDB connection.
+     *
      * @since 2.1
      */
     public function getQueryBuilder()
@@ -225,7 +242,9 @@ class Connection extends Component
 
     /**
      * Sets the query builder for the this MongoDB connection.
-     * @param QueryBuilder|array|string|null $queryBuilder the query builder for this MongoDB connection.
+     *
+     * @param array|QueryBuilder|string|null $queryBuilder the query builder for this MongoDB connection.
+     *
      * @since 2.1
      */
     public function setQueryBuilder($queryBuilder)
@@ -235,7 +254,9 @@ class Connection extends Component
 
     /**
      * Returns log builder for this connection.
+     *
      * @return LogBuilder the log builder for this connection.
+     *
      * @since 2.1
      */
     public function getLogBuilder()
@@ -248,7 +269,9 @@ class Connection extends Component
 
     /**
      * Sets log builder used for this connection.
-     * @param array|string|LogBuilder $logBuilder the log builder for this connection.
+     *
+     * @param array|LogBuilder|string $logBuilder the log builder for this connection.
+     *
      * @since 2.1
      */
     public function setLogBuilder($logBuilder)
@@ -258,8 +281,10 @@ class Connection extends Component
 
     /**
      * Returns the MongoDB database with the given name.
+     *
      * @param string|null $name database name, if null default one will be used.
      * @param bool $refresh whether to reestablish the database connection even, if it is found in the cache.
+     *
      * @return Database database instance.
      */
     public function getDatabase($name = null, $refresh = false)
@@ -276,7 +301,9 @@ class Connection extends Component
 
     /**
      * Selects the database with given name.
+     *
      * @param string $name database name.
+     *
      * @return Database database instance.
      */
     protected function selectDatabase($name)
@@ -290,16 +317,18 @@ class Connection extends Component
 
     /**
      * Returns the MongoDB collection with the given name.
-     * @param string|array $name collection name. If string considered as the name of the collection
+     *
+     * @param array|string $name collection name. If string considered as the name of the collection
      * inside the default database. If array - first element considered as the name of the database,
      * second - as name of collection inside that database
      * @param bool $refresh whether to reload the collection instance even if it is found in the cache.
+     *
      * @return Collection Mongo collection instance.
      */
     public function getCollection($name, $refresh = false)
     {
         if (is_array($name)) {
-            list($dbName, $collectionName) = $name;
+            [$dbName, $collectionName] = $name;
             return $this->getDatabase($dbName)->getCollection($collectionName, $refresh);
         }
         return $this->getDatabase()->getCollection($name, $refresh);
@@ -307,17 +336,19 @@ class Connection extends Component
 
     /**
      * Returns the MongoDB GridFS collection.
-     * @param string|array $prefix collection prefix. If string considered as the prefix of the GridFS
+     *
+     * @param array|string $prefix collection prefix. If string considered as the prefix of the GridFS
      * collection inside the default database. If array - first element considered as the name of the database,
      * second - as prefix of the GridFS collection inside that database, if no second element present
      * default "fs" prefix will be used.
      * @param bool $refresh whether to reload the collection instance even if it is found in the cache.
+     *
      * @return file\Collection Mongo GridFS collection instance.
      */
     public function getFileCollection($prefix = 'fs', $refresh = false)
     {
         if (is_array($prefix)) {
-            list($dbName, $collectionPrefix) = $prefix;
+            [$dbName, $collectionPrefix] = $prefix;
             if (!isset($collectionPrefix)) {
                 $collectionPrefix = 'fs';
             }
@@ -329,6 +360,7 @@ class Connection extends Component
 
     /**
      * Returns a value indicating whether the Mongo connection is established.
+     *
      * @return bool whether the Mongo connection is established
      */
     public function getIsActive()
@@ -339,13 +371,14 @@ class Connection extends Component
     /**
      * Establishes a Mongo connection.
      * It does nothing if a MongoDB connection has already been established.
+     *
      * @throws Exception if connection fails
      */
     public function open()
     {
         if ($this->manager === null) {
             if (empty($this->dsn)) {
-                throw new InvalidConfigException(get_class($this) . '::dsn cannot be empty.');
+                throw new InvalidConfigException(static::class . '::dsn cannot be empty.');
             }
             $token = 'Opening MongoDB connection: ' . $this->dsn;
             try {
@@ -367,7 +400,7 @@ class Connection extends Component
                 $this->typeMap,
                 [
                     'root' => 'array',
-                    'document' => 'array'
+                    'document' => 'array',
                 ]
             );
         }
@@ -401,9 +434,12 @@ class Connection extends Component
 
     /**
      * Creates MongoDB command.
+     *
      * @param array $document command document contents.
      * @param string|null $databaseName database name, if not set [[defaultDatabaseName]] will be used.
+     *
      * @return Command command instance.
+     *
      * @since 2.1
      */
     public function createCommand($document = [], $databaseName = null)
@@ -417,7 +453,9 @@ class Connection extends Component
 
     /**
      * Registers GridFS stream wrapper for the [[fileStreamProtocol]] protocol.
+     *
      * @param bool $force whether to enforce registration even wrapper has been already registered.
+     *
      * @return string registered stream protocol name.
      */
     public function registerFileStreamWrapper($force = false)

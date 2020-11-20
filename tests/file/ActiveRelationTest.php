@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Yiisoft\Db\MongoDb\File;
 
 use Yiisoft\Db\MongoDb\Tests\Data\ActiveRecord\Customer;
@@ -67,14 +69,14 @@ class ActiveRelationTest extends TestCase
         $this->assertTrue($customer->isRelationPopulated('file'));
         $this->assertTrue($file instanceof CustomerFile);
         $this->assertEquals((string) $file->_id, (string) $customer->file_id);
-        $this->assertEquals(1, count($customer->relatedRecords));
+        $this->assertCount(1, $customer->relatedRecords);
     }
 
     public function testFindEager()
     {
         /* @var $customers Customer[] */
         $customers = Customer::find()->with('file')->all();
-        $this->assertEquals(5, count($customers));
+        $this->assertCount(5, $customers);
         $this->assertTrue($customers[0]->isRelationPopulated('file'));
         $this->assertTrue($customers[1]->isRelationPopulated('file'));
         $this->assertTrue($customers[0]->file instanceof CustomerFile);

@@ -1,17 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Yiisoft\Db\MongoDb\Tests\Rbac;
 
-use Yii;
 use yii\caching\ArrayCache;
 use yii\caching\Cache;
-use Yiisoft\Rbac\Item;
-use Yiisoft\Rbac\Permission;
-use Yiisoft\Rbac\Role;
 use Yiisoft\Db\MongoDb\Rbac\MongoDbManager;
 use Yiisoft\Db\MongoDb\Tests\Data\Rbac\ActionRule;
 use Yiisoft\Db\MongoDb\Tests\Data\Rbac\AuthorRule;
 use Yiisoft\Db\MongoDb\Tests\TestCase;
+use Yiisoft\Rbac\Item;
+use Yiisoft\Rbac\Permission;
+use Yiisoft\Rbac\Role;
 
 class MongoDbManagerTest extends TestCase
 {
@@ -19,7 +20,6 @@ class MongoDbManagerTest extends TestCase
      * @var MongoDbManager
      */
     protected $auth;
-
 
     protected function setUp()
     {
@@ -119,7 +119,7 @@ class MongoDbManagerTest extends TestCase
         $this->prepareData();
 
         $rule = $this->auth->getRule('isAuthor');
-        $rule->name = "newName";
+        $rule->name = 'newName';
         $rule->reallyReally = false;
         $this->auth->update('isAuthor', $rule);
 
@@ -127,7 +127,7 @@ class MongoDbManagerTest extends TestCase
         $this->assertEquals(null, $rule);
 
         $rule = $this->auth->getRule('newName');
-        $this->assertEquals("newName", $rule->name);
+        $this->assertEquals('newName', $rule->name);
         $this->assertEquals(false, $rule->reallyReally);
 
         $rule->reallyReally = true;
@@ -379,9 +379,9 @@ class MongoDbManagerTest extends TestCase
 
         $this->auth = $this->createManager();
 
-        $this->assertEquals(0, count($this->auth->getAssignments(0)));
-        $this->assertEquals(1, count($this->auth->getAssignments(42)));
-        $this->assertEquals(2, count($this->auth->getAssignments(1337)));
+        $this->assertCount(0, $this->auth->getAssignments(0));
+        $this->assertCount(1, $this->auth->getAssignments(42));
+        $this->assertCount(2, $this->auth->getAssignments(1337));
     }
 
     public function testGetAssignmentsByRole()
@@ -408,7 +408,6 @@ class MongoDbManagerTest extends TestCase
         $this->assertTrue($this->auth->canAddChild($author, $reader));
         $this->assertFalse($this->auth->canAddChild($reader, $author));
     }
-
 
     public function testRemoveAllRules()
     {

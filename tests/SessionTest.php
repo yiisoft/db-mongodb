@@ -1,9 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Yiisoft\Db\MongoDb\Tests;
 
-use Yiisoft\Db\MongoDb\Session;
 use Yii;
+use Yiisoft\Db\MongoDb\Session;
 
 class SessionTest extends TestCase
 {
@@ -20,6 +22,7 @@ class SessionTest extends TestCase
 
     /**
      * Creates test session instance.
+     *
      * @return Session session instance.
      */
     protected function createSession()
@@ -39,7 +42,7 @@ class SessionTest extends TestCase
 
         $id = uniqid();
         $data = [
-            'name' => 'value'
+            'name' => 'value',
         ];
         $dataSerialized = serialize($data);
         $this->assertTrue($session->writeSession($id, $dataSerialized), 'Unable to write session!');
@@ -54,7 +57,7 @@ class SessionTest extends TestCase
         $this->assertTrue($row['expire'] > time(), 'Wrong session expire!');
 
         $newData = [
-            'name' => 'new value'
+            'name' => 'new value',
         ];
         $newDataSerialized = serialize($newData);
         $this->assertTrue($session->writeSession($id, $newDataSerialized), 'Unable to update session!');
@@ -76,7 +79,7 @@ class SessionTest extends TestCase
 
         $id = uniqid();
         $data = [
-            'name' => 'value'
+            'name' => 'value',
         ];
         $dataSerialized = serialize($data);
         $session->writeSession($id, $dataSerialized);
@@ -97,7 +100,7 @@ class SessionTest extends TestCase
 
         $id = uniqid();
         $data = [
-            'name' => 'value'
+            'name' => 'value',
         ];
         $dataSerialized = serialize($data);
         $session->writeSession($id, $dataSerialized);
@@ -146,7 +149,7 @@ class SessionTest extends TestCase
         $session = $this->createSession();
         $session->writeCallback = function ($session) {
             return [
-                'user_id' => 15
+                'user_id' => 15,
             ];
         };
 

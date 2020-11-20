@@ -1,6 +1,9 @@
 <?php
+
+declare(strict_types=1);
 /**
  * @link http://www.yiiframework.com/
+ *
  * @copyright Copyright (c) 2008 Yii Software LLC
  * @license http://www.yiiframework.com/license/
  */
@@ -11,9 +14,9 @@ use MongoDB\BSON\Binary;
 use MongoDB\BSON\Type;
 use Yii;
 use yii\base\InvalidConfigException;
+use Yiisoft\Arrays\ArrayHelper;
 use Yiisoft\Db\BaseActiveRecord;
 use Yiisoft\Db\StaleObjectException;
-use Yiisoft\Arrays\ArrayHelper;
 use Yiisoft\Strings\Inflector;
 use Yiisoft\Strings\StringHelper;
 
@@ -21,6 +24,7 @@ use Yiisoft\Strings\StringHelper;
  * ActiveRecord is the base class for classes representing Mongo documents in terms of objects.
  *
  * @author Paul Klimov <klimov.paul@gmail.com>
+ *
  * @since 2.0
  */
 abstract class ActiveRecord extends BaseActiveRecord
@@ -29,6 +33,7 @@ abstract class ActiveRecord extends BaseActiveRecord
      * Returns the Mongo connection used by this AR class.
      * By default, the "mongodb" application component is used as the Mongo connection.
      * You may override this method if you want to use a different database connection.
+     *
      * @return Connection the database connection used by this AR class.
      */
     public static function getDb()
@@ -48,6 +53,7 @@ abstract class ActiveRecord extends BaseActiveRecord
      * @param array $condition description of the objects to update.
      * Please refer to [[Query::where()]] on how to specify this parameter.
      * @param array $options list of options in format: optionName => optionValue.
+     *
      * @return int the number of documents updated.
      */
     public static function updateAll($attributes, $condition = [], $options = [])
@@ -68,6 +74,7 @@ abstract class ActiveRecord extends BaseActiveRecord
      * @param array $condition description of the objects to update.
      * Please refer to [[Query::where()]] on how to specify this parameter.
      * @param array $options list of options in format: optionName => optionValue.
+     *
      * @return int the number of documents updated.
      */
     public static function updateAllCounters($counters, $condition = [], $options = [])
@@ -88,6 +95,7 @@ abstract class ActiveRecord extends BaseActiveRecord
      * @param array $condition description of the objects to delete.
      * Please refer to [[Query::where()]] on how to specify this parameter.
      * @param array $options list of options in format: optionName => optionValue.
+     *
      * @return int the number of documents deleted.
      */
     public static function deleteAll($condition = [], $options = [])
@@ -97,11 +105,12 @@ abstract class ActiveRecord extends BaseActiveRecord
 
     /**
      * {@inheritdoc}
+     *
      * @return ActiveQuery the newly created [[ActiveQuery]] instance.
      */
     public static function find()
     {
-        return Yii::createObject(ActiveQuery::class, [get_called_class()]);
+        return Yii::createObject(ActiveQuery::class, [static::class]);
     }
 
     /**
@@ -115,15 +124,17 @@ abstract class ActiveRecord extends BaseActiveRecord
      * By default this method returns the class name as the collection name by calling [[Inflector::camel2id()]].
      * For example, 'Customer' becomes 'customer', and 'OrderItem' becomes
      * 'order_item'. You may override this method if the collection is not named after this convention.
-     * @return string|array the collection name
+     *
+     * @return array|string the collection name
      */
     public static function collectionName()
     {
-        return Inflector::pascalCaseToId(StringHelper::baseName(get_called_class()), '_');
+        return Inflector::pascalCaseToId(StringHelper::baseName(static::class), '_');
     }
 
     /**
      * Return the Mongo collection instance for this AR class.
+     *
      * @return Collection collection instance.
      */
     public static function getCollection()
@@ -158,6 +169,7 @@ abstract class ActiveRecord extends BaseActiveRecord
      * ```
      *
      * @throws \yii\base\InvalidConfigException if not implemented
+     *
      * @return array list of attribute names.
      */
     public function attributes()
@@ -200,17 +212,17 @@ abstract class ActiveRecord extends BaseActiveRecord
      * If the validation fails, the record will not be inserted into the collection.
      * @param array $attributes list of attributes that need to be saved. Defaults to null,
      * meaning all attributes that are loaded will be saved.
-     * @return bool whether the attributes are valid and the record is inserted successfully.
+     *
      * @throws \Exception in case insert failed.
+     *
+     * @return bool whether the attributes are valid and the record is inserted successfully.
      */
     public function insert($runValidation = true, $attributes = null)
     {
         if ($runValidation && !$this->validate($attributes)) {
             return false;
         }
-        $result = $this->insertInternal($attributes);
-
-        return $result;
+        return $this->insertInternal($attributes);
     }
 
     /**
@@ -245,6 +257,7 @@ abstract class ActiveRecord extends BaseActiveRecord
 
     /**
      * @see ActiveRecord::update()
+     *
      * @throws StaleObjectException
      */
     protected function updateInternal($attributes = null)
@@ -300,11 +313,12 @@ abstract class ActiveRecord extends BaseActiveRecord
      * In the above step 1 and 3, events named [[EVENT_BEFORE_DELETE]] and [[EVENT_AFTER_DELETE]]
      * will be raised by the corresponding methods.
      *
-     * @return int|bool the number of documents deleted, or false if the deletion is unsuccessful for some reason.
-     * Note that it is possible the number of documents deleted is 0, even though the deletion execution is successful.
      * @throws StaleObjectException if [[optimisticLock|optimistic locking]] is enabled and the data
      * being deleted is outdated.
      * @throws \Exception in case delete failed.
+     *
+     * @return bool|int the number of documents deleted, or false if the deletion is unsuccessful for some reason.
+     * Note that it is possible the number of documents deleted is 0, even though the deletion execution is successful.
      */
     public function delete()
     {
@@ -319,6 +333,7 @@ abstract class ActiveRecord extends BaseActiveRecord
 
     /**
      * @see ActiveRecord::delete()
+     *
      * @throws StaleObjectException
      */
     protected function deleteInternal()
@@ -343,7 +358,9 @@ abstract class ActiveRecord extends BaseActiveRecord
      * Returns a value indicating whether the given active record is the same as the current one.
      * The comparison is made by comparing the collection names and the primary key values of the two active records.
      * If one of the records [[isNewRecord|is new]] they are also considered not equal.
+     *
      * @param ActiveRecord $record record to compare to
+     *
      * @return bool whether the two active records refer to the same row in the same Mongo collection.
      */
     public function equals($record)
@@ -369,8 +386,11 @@ abstract class ActiveRecord extends BaseActiveRecord
 
     /**
      * Converts data to array recursively, converting MongoDB BSON objects to readable values.
+     *
      * @param mixed $data the data to be converted into an array.
+     *
      * @return array the array representation of the data.
+     *
      * @since 2.1
      */
     private function toArrayInternal($data)
@@ -389,7 +409,8 @@ abstract class ActiveRecord extends BaseActiveRecord
                 }
             }
             return $data;
-        } elseif (is_object($data)) {
+        }
+        if (is_object($data)) {
             return ArrayHelper::toArray($data);
         }
         return [$data];
@@ -397,8 +418,11 @@ abstract class ActiveRecord extends BaseActiveRecord
 
     /**
      * Converts MongoDB BSON object to readable value.
+     *
      * @param Type $object MongoDB BSON object.
+     *
      * @return array|string object dump value.
+     *
      * @since 2.1
      */
     private function dumpBsonObject(Type $object)

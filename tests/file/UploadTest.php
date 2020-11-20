@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Yiisoft\Db\MongoDb\File;
 
 use MongoDB\BSON\ObjectID;
@@ -91,7 +93,7 @@ class UploadTest extends TestCase
         $upload = $collection->createUpload([
             'document' => [
                 '_id' => $id,
-            ]
+            ],
         ]);
         $document = $upload->addContent('object ID')->complete();
         $this->assertSame($id, $document['_id']);
@@ -100,7 +102,7 @@ class UploadTest extends TestCase
         $upload = $collection->createUpload([
             'document' => [
                 '_id' => $id,
-            ]
+            ],
         ]);
         $document = $upload->addContent('object ID')->complete();
         $this->assertSame($id, (string)$document['_id']);
@@ -109,7 +111,7 @@ class UploadTest extends TestCase
         $upload = $collection->createUpload([
             'document' => [
                 '_id' => $id,
-            ]
+            ],
         ]);
         $document = $upload->addContent('object ID')->complete();
         $this->assertSame($id, $document['_id']);

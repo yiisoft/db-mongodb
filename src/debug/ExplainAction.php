@@ -1,6 +1,9 @@
 <?php
+
+declare(strict_types=1);
 /**
  * @link http://www.yiiframework.com/
+ *
  * @copyright Copyright (c) 2008 Yii Software LLC
  * @license http://www.yiiframework.com/license/
  */
@@ -16,6 +19,7 @@ use yii\web\HttpException;
  *
  * @author Sergey Smirnov <webdevsega@yandex.ru>
  * @author Klimov Paul <klimov@zfort.com>
+ *
  * @since 2.0.5
  */
 class ExplainAction extends Action
@@ -25,13 +29,15 @@ class ExplainAction extends Action
      */
     public $panel;
 
-
     /**
      * Runs the explain action
+     *
      * @param int $seq
      * @param string $tag
-     * @return string explain result content
+     *
      * @throws HttpException if requested log not found
+     *
+     * @return string explain result content
      */
     public function run($seq, $tag)
     {
@@ -62,6 +68,7 @@ class ExplainAction extends Action
      * Runs explain command over the query
      *
      * @param string $queryString query log string.
+     *
      * @return array|false explain results, `false` on failure.
      */
     protected function explainQuery($queryString)
@@ -89,6 +96,7 @@ class ExplainAction extends Action
      * Converts BSON object log entries into actual objects.
      *
      * @param array $query raw query filter.
+     *
      * @return array|string prepared query
      */
     private function prepareQueryFiler($query)

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Yiisoft\Db\MongoDb\Tests\Data\ActiveRecord;
 
 /**
@@ -8,7 +10,6 @@ namespace Yiisoft\Db\MongoDb\Tests\Data\ActiveRecord;
 class ActiveRecord extends \Yiisoft\Db\MongoDb\ActiveRecord
 {
     public static $db;
-
 
     /**
      * {@inheritdoc}

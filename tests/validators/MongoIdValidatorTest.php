@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Yiisoft\Db\MongoDb\Tests\Validators;
 
 use MongoDB\BSON\ObjectID;
@@ -49,7 +51,7 @@ class MongoIdValidatorTest extends TestCase
         $validator->forceFormat = null;
         $model->id = '4d3ed089fb60ab534684b7e9';
         $model->validate();
-        $this->assertTrue(is_string($model->id));
+        $this->assertIsString($model->id);
         $model->id = new ObjectID('4d3ed089fb60ab534684b7e9');
         $model->validate();
         $this->assertTrue($model->id instanceof ObjectID);
@@ -62,7 +64,7 @@ class MongoIdValidatorTest extends TestCase
         $validator->forceFormat = 'string';
         $model->id = new ObjectID('4d3ed089fb60ab534684b7e9');
         $model->validate();
-        $this->assertTrue(is_string($model->id));
+        $this->assertIsString($model->id);
     }
 }
 

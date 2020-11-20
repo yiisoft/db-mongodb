@@ -1,6 +1,9 @@
 <?php
+
+declare(strict_types=1);
 /**
  * @link http://www.yiiframework.com/
+ *
  * @copyright Copyright (c) 2008 Yii Software LLC
  * @license http://www.yiiframework.com/license/
  */
@@ -51,6 +54,7 @@ use Yiisoft\Arrays\ArrayHelper;
  * should take care of possible typecast on your own.
  *
  * @author Paul Klimov <klimov.paul@gmail.com>
+ *
  * @since 2.1
  */
 class QueryBuilder extends BaseObject
@@ -60,9 +64,9 @@ class QueryBuilder extends BaseObject
      */
     public $db;
 
-
     /**
      * Constructor.
+     *
      * @param Connection $connection the database connection.
      * @param array $config name-value pairs that will be used to initialize the object properties
      */
@@ -77,8 +81,10 @@ class QueryBuilder extends BaseObject
     /**
      * Generates 'create collection' command.
      * https://docs.mongodb.com/manual/reference/method/db.createCollection/
+     *
      * @param string $collectionName collection name.
      * @param array $options collection options in format: "name" => "value"
+     *
      * @return array command document.
      */
     public function createCollection($collectionName, array $options = [])
@@ -101,6 +107,7 @@ class QueryBuilder extends BaseObject
     /**
      * Generates drop database command.
      * https://docs.mongodb.com/manual/reference/method/db.dropDatabase/
+     *
      * @return array command document.
      */
     public function dropDatabase()
@@ -111,7 +118,9 @@ class QueryBuilder extends BaseObject
     /**
      * Generates drop collection command.
      * https://docs.mongodb.com/manual/reference/method/db.collection.drop/
+     *
      * @param string $collectionName name of the collection to be dropped.
+     *
      * @return array command document.
      */
     public function dropCollection($collectionName)
@@ -121,7 +130,9 @@ class QueryBuilder extends BaseObject
 
     /**
      * Generates create indexes command.
+     *
      * @see https://docs.mongodb.com/manual/reference/method/db.collection.createIndex/
+     *
      * @param string|null $databaseName database name.
      * @param string $collectionName collection name.
      * @param array[] $indexes indexes specification. Each specification should be an array in format: optionName => value
@@ -135,6 +146,7 @@ class QueryBuilder extends BaseObject
      *
      * See [[https://docs.mongodb.com/manual/reference/method/db.collection.createIndex/#options-for-all-index-types]]
      * for the full list of options.
+     *
      * @return array command document.
      */
     public function createIndexes($databaseName, $collectionName, $indexes)
@@ -171,7 +183,9 @@ class QueryBuilder extends BaseObject
     /**
      * Generates index name for the given column orders.
      * Columns should be normalized using [[buildSortFields()]] before being passed to this method.
+     *
      * @param array $columns columns with sort order.
+     *
      * @return string index name.
      */
     public function generateIndexName($columns)
@@ -185,8 +199,10 @@ class QueryBuilder extends BaseObject
 
     /**
      * Generates drop indexes command.
+     *
      * @param string $collectionName collection name
      * @param string $index index name or pattern, use `*` in order to drop all indexes.
+     *
      * @return array command document.
      */
     public function dropIndexes($collectionName, $index)
@@ -199,6 +215,7 @@ class QueryBuilder extends BaseObject
 
     /**
      * Generates list indexes command.
+     *
      * @param string $collectionName collection name
      * @param array $options command options.
      * Available options are:
@@ -214,9 +231,11 @@ class QueryBuilder extends BaseObject
 
     /**
      * Generates count command
+     *
      * @param string $collectionName
      * @param array $condition
      * @param array $options
+     *
      * @return array command document.
      */
     public function count($collectionName, $condition = [], $options = [])
@@ -232,10 +251,12 @@ class QueryBuilder extends BaseObject
 
     /**
      * Generates 'find and modify' command.
+     *
      * @param string $collectionName collection name
      * @param array $condition filter condition
      * @param array $update update criteria
      * @param array $options list of options in format: optionName => optionValue.
+     *
      * @return array command document.
      */
     public function findAndModify($collectionName, $condition = [], $update = [], $options = [])
@@ -269,10 +290,12 @@ class QueryBuilder extends BaseObject
 
     /**
      * Generates 'distinct' command.
+     *
      * @param string $collectionName collection name.
      * @param string $fieldName target field name.
      * @param array $condition filter condition
      * @param array $options list of options in format: optionName => optionValue.
+     *
      * @return array command document.
      */
     public function distinct($collectionName, $fieldName, $condition = [], $options = [])
@@ -294,6 +317,7 @@ class QueryBuilder extends BaseObject
 
     /**
      * Generates 'group' command.
+     *
      * @param string $collectionName
      * @@param mixed $keys fields to group by. If an array or non-code object is passed,
      * it will be the key used to group results. If instance of [[Javascript]] passed,
@@ -305,6 +329,7 @@ class QueryBuilder extends BaseObject
      * @param array $options optional parameters to the group command. Valid options include:
      *  - condition - criteria for including a document in the aggregation.
      *  - finalize - function called once per unique key that takes the final output of the reduce function.
+     *
      * @return array command document.
      */
     public function group($collectionName, $keys, $initial, $reduce, $options = [])
@@ -334,7 +359,7 @@ class QueryBuilder extends BaseObject
             }
         }
 
-        $document = [
+        return [
             'group' => array_merge(
                 [
                     'ns' => $collectionName,
@@ -343,22 +368,22 @@ class QueryBuilder extends BaseObject
                     '$reduce' => $reduce,
                 ],
                 $options
-            )
+            ),
         ];
-
-        return $document;
     }
 
     /**
      * Generates 'map-reduce' command.
+     *
      * @see https://docs.mongodb.com/manual/core/map-reduce/
+     *
      * @param string $collectionName collection name.
      * @param \MongoDB\BSON\Javascript|string $map function, which emits map data from collection.
      * Argument will be automatically cast to [[\MongoDB\BSON\Javascript]].
      * @param \MongoDB\BSON\Javascript|string $reduce function that takes two arguments (the map key
      * and the map values) and does the aggregation.
      * Argument will be automatically cast to [[\MongoDB\BSON\Javascript]].
-     * @param string|array $out output collection name. It could be a string for simple output
+     * @param array|string $out output collection name. It could be a string for simple output
      * ('outputCollection'), or an array for parametrized output (['merge' => 'outputCollection']).
      * You can pass ['inline' => true] to fetch the result at once without temporary collection usage.
      * @param array $condition filter condition for including a document in the aggregation.
@@ -386,7 +411,7 @@ class QueryBuilder extends BaseObject
             'mapReduce' => $collectionName,
             'map' => $map,
             'reduce' => $reduce,
-            'out' => $out
+            'out' => $out,
         ];
 
         if (!empty($condition)) {
@@ -402,9 +427,11 @@ class QueryBuilder extends BaseObject
 
     /**
      * Generates 'aggregate' command.
+     *
      * @param string $collectionName collection name
      * @param array $pipelines list of pipeline operators.
      * @param array $options optional parameters.
+     *
      * @return array command document.
      */
     public function aggregate($collectionName, $pipelines, $options = [])
@@ -415,7 +442,7 @@ class QueryBuilder extends BaseObject
             }
         }
 
-        $document = array_merge(
+        return array_merge(
             [
                 'aggregate' => $collectionName,
                 'pipeline' => $pipelines,
@@ -423,14 +450,14 @@ class QueryBuilder extends BaseObject
             ],
             $options
         );
-
-        return $document;
     }
 
     /**
      * Generates 'explain' command.
+     *
      * @param string $collectionName collection name.
      * @param array $query query options.
+     *
      * @return array command document.
      */
     public function explain($collectionName, $query)
@@ -457,8 +484,10 @@ class QueryBuilder extends BaseObject
 
     /**
      * Generates 'listDatabases' command.
+     *
      * @param array $condition filter condition.
      * @param array $options command options.
+     *
      * @return array command document.
      */
     public function listDatabases($condition = [], $options = [])
@@ -472,8 +501,10 @@ class QueryBuilder extends BaseObject
 
     /**
      * Generates 'listCollections' command.
+     *
      * @param array $condition filter condition.
      * @param array $options command options.
+     *
      * @return array command document.
      */
     public function listCollections($condition = [], $options = [])
@@ -489,7 +520,9 @@ class QueryBuilder extends BaseObject
 
     /**
      * Normalizes fields list for the MongoDB select composition.
+     *
      * @param array|string $fields raw fields.
+     *
      * @return array normalized select fields.
      */
     public function buildSelectFields($fields)
@@ -507,7 +540,9 @@ class QueryBuilder extends BaseObject
 
     /**
      * Normalizes fields list for the MongoDB sort composition.
+     *
      * @param array|string $fields raw fields.
+     *
      * @return array normalized sort fields.
      */
     public function buildSortFields($fields)
@@ -530,7 +565,9 @@ class QueryBuilder extends BaseObject
 
     /**
      * Converts "\Yiisoft\Db\*" quick condition keyword into actual Mongo condition keyword.
+     *
      * @param string $key raw condition key.
+     *
      * @return string actual key.
      */
     protected function normalizeConditionKeyword($key)
@@ -551,7 +588,9 @@ class QueryBuilder extends BaseObject
     /**
      * Converts given value into [[ObjectID]] instance.
      * If array given, each element of it will be processed.
+     *
      * @param mixed $rawId raw id(s).
+     *
      * @return array|ObjectID normalized id(s).
      */
     protected function ensureMongoId($rawId)
@@ -563,12 +602,12 @@ class QueryBuilder extends BaseObject
             }
 
             return $result;
-        } elseif (is_object($rawId)) {
+        }
+        if (is_object($rawId)) {
             if ($rawId instanceof ObjectID) {
                 return $rawId;
-            } else {
-                $rawId = (string) $rawId;
             }
+            $rawId = (string) $rawId;
         }
         try {
             $mongoId = new ObjectID($rawId);
@@ -582,10 +621,13 @@ class QueryBuilder extends BaseObject
 
     /**
      * Parses the condition specification and generates the corresponding Mongo condition.
+     *
      * @param array $condition the condition specification. Please refer to [[Query::where()]]
      * on how to specify a condition.
-     * @return array the generated Mongo condition
+     *
      * @throws InvalidArgumentException if the condition is in bad format
+     *
+     * @return array the generated Mongo condition
      */
     public function buildCondition($condition)
     {
@@ -603,7 +645,8 @@ class QueryBuilder extends BaseObject
 
         if (!is_array($condition)) {
             throw new InvalidArgumentException('Condition should be an array.');
-        } elseif (empty($condition)) {
+        }
+        if (empty($condition)) {
             return [];
         }
         if (isset($condition[0])) { // operator format: operator, operand 1, operand 2, ...
@@ -623,7 +666,9 @@ class QueryBuilder extends BaseObject
 
     /**
      * Creates a condition based on column-value pairs.
+     *
      * @param array $condition the condition specification.
+     *
      * @return array the generated Mongo condition.
      */
     public function buildHashCondition($condition)
@@ -657,10 +702,13 @@ class QueryBuilder extends BaseObject
 
     /**
      * Composes `NOT` condition.
+     *
      * @param string $operator the operator to use for connecting the given operands
      * @param array $operands the Mongo conditions to connect.
-     * @return array the generated Mongo condition.
+     *
      * @throws InvalidArgumentException if wrong number of operands have been given.
+     *
+     * @return array the generated Mongo condition.
      */
     public function buildNotCondition($operator, $operands)
     {
@@ -685,8 +733,10 @@ class QueryBuilder extends BaseObject
 
     /**
      * Connects two or more conditions with the `AND` operator.
+     *
      * @param string $operator the operator to use for connecting the given operands
      * @param array $operands the Mongo conditions to connect.
+     *
      * @return array the generated Mongo condition.
      */
     public function buildAndCondition($operator, $operands)
@@ -702,8 +752,10 @@ class QueryBuilder extends BaseObject
 
     /**
      * Connects two or more conditions with the `OR` operator.
+     *
      * @param string $operator the operator to use for connecting the given operands
      * @param array $operands the Mongo conditions to connect.
+     *
      * @return array the generated Mongo condition.
      */
     public function buildOrCondition($operator, $operands)
@@ -719,11 +771,14 @@ class QueryBuilder extends BaseObject
 
     /**
      * Creates an Mongo condition, which emulates the `BETWEEN` operator.
+     *
      * @param string $operator the operator to use
      * @param array $operands the first operand is the column name. The second and third operands
      * describe the interval that column value should be in.
-     * @return array the generated Mongo condition.
+     *
      * @throws InvalidArgumentException if wrong number of operands have been given.
+     *
+     * @return array the generated Mongo condition.
      */
     public function buildBetweenCondition($operator, $operands)
     {
@@ -737,25 +792,28 @@ class QueryBuilder extends BaseObject
                 $column => [
                     '$lt' => $value1,
                     '$gt' => $value2,
-                ]
+                ],
             ];
         }
         return [
             $column => [
                 '$gte' => $value1,
                 '$lte' => $value2,
-            ]
+            ],
         ];
     }
 
     /**
      * Creates an Mongo condition with the `IN` operator.
+     *
      * @param string $operator the operator to use (e.g. `IN` or `NOT IN`)
      * @param array $operands the first operand is the column name. If it is an array
      * a composite IN condition will be generated.
      * The second operand is an array of values that column value should be among.
-     * @return array the generated Mongo condition.
+     *
      * @throws InvalidArgumentException if wrong number of operands have been given.
+     *
+     * @return array the generated Mongo condition.
      */
     public function buildInCondition($operator, $operands)
     {
@@ -801,6 +859,7 @@ class QueryBuilder extends BaseObject
      * @param string $operator MongoDB the operator to use (`$in` OR `$nin`)
      * @param array $columns list of compare columns
      * @param array $values compare values in format: columnName => [values]
+     *
      * @return array the generated Mongo condition.
      */
     private function buildCompositeInCondition($operator, $columns, $values)
@@ -831,11 +890,14 @@ class QueryBuilder extends BaseObject
 
     /**
      * Creates a Mongo regular expression condition.
+     *
      * @param string $operator the operator to use
      * @param array $operands the first operand is the column name.
      * The second operand is a single value that column value should be compared with.
-     * @return array the generated Mongo condition.
+     *
      * @throws InvalidArgumentException if wrong number of operands have been given.
+     *
+     * @return array the generated Mongo condition.
      */
     public function buildRegexCondition($operator, $operands)
     {
@@ -856,11 +918,14 @@ class QueryBuilder extends BaseObject
 
     /**
      * Creates a Mongo condition, which emulates the `LIKE` operator.
+     *
      * @param string $operator the operator to use
      * @param array $operands the first operand is the column name.
      * The second operand is a single value that column value should be compared with.
-     * @return array the generated Mongo condition.
+     *
      * @throws InvalidArgumentException if wrong number of operands have been given.
+     *
+     * @return array the generated Mongo condition.
      */
     public function buildLikeCondition($operator, $operands)
     {
@@ -877,12 +942,15 @@ class QueryBuilder extends BaseObject
 
     /**
      * Creates an Mongo condition like `{$operator:{field:value}}`.
+     *
      * @param string $operator the operator to use. Besides regular MongoDB operators, aliases like `>`, `<=`,
      * and so on, can be used here.
      * @param array $operands the first operand is the column name.
      * The second operand is a single value that column value should be compared with.
-     * @return string the generated Mongo condition.
+     *
      * @throws InvalidArgumentException if wrong number of operands have been given.
+     *
+     * @return string the generated Mongo condition.
      */
     public function buildSimpleCondition($operator, $operands)
     {

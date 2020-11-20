@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Yiisoft\Db\MongoDb\Tests;
 
 use Yiisoft\Db\MongoDb\BatchQueryResult;
@@ -78,7 +80,7 @@ class BatchQueryResultTest extends TestCase
         foreach ($batch as $rows) {
             $allRows = array_merge($allRows, $rows);
         }
-        $this->assertEquals(9, count($allRows));
+        $this->assertCount(9, $allRows);
 
         // sorted query
         $query = new Query();
@@ -88,7 +90,7 @@ class BatchQueryResultTest extends TestCase
         foreach ($batch as $rows) {
             $allRows = array_merge($allRows, $rows);
         }
-        $this->assertEquals(9, count($allRows));
+        $this->assertCount(9, $allRows);
         $this->assertEquals('name1', $allRows[0]['name']);
         $this->assertEquals('name2', $allRows[1]['name']);
         $this->assertEquals('name3', $allRows[2]['name']);
@@ -98,7 +100,7 @@ class BatchQueryResultTest extends TestCase
         foreach ($batch as $rows) {
             $allRows = array_merge($allRows, $rows);
         }
-        $this->assertEquals(9, count($allRows));
+        $this->assertCount(9, $allRows);
         // reset
         $batch->reset();
 
@@ -110,7 +112,7 @@ class BatchQueryResultTest extends TestCase
         foreach ($batch as $rows) {
             $allRows = array_merge($allRows, $rows);
         }
-        $this->assertEquals(0, count($allRows));
+        $this->assertCount(0, $allRows);
 
         // query with index
         $query = new Query();
@@ -119,7 +121,7 @@ class BatchQueryResultTest extends TestCase
         foreach ($query->batch(2, $db) as $rows) {
             $allRows = array_merge($allRows, $rows);
         }
-        $this->assertEquals(9, count($allRows));
+        $this->assertCount(9, $allRows);
         $this->assertEquals('address1', $allRows['name1']['address']);
         $this->assertEquals('address2', $allRows['name2']['address']);
         $this->assertEquals('address3', $allRows['name3']['address']);
@@ -131,7 +133,7 @@ class BatchQueryResultTest extends TestCase
         foreach ($query->each(100, $db) as $rows) {
             $allRows[] = $rows;
         }
-        $this->assertEquals(9, count($allRows));
+        $this->assertCount(9, $allRows);
         $this->assertEquals('name1', $allRows[0]['name']);
         $this->assertEquals('name2', $allRows[1]['name']);
         $this->assertEquals('name3', $allRows[2]['name']);
@@ -143,7 +145,7 @@ class BatchQueryResultTest extends TestCase
         foreach ($query->each(100, $db) as $key => $row) {
             $allRows[$key] = $row;
         }
-        $this->assertEquals(9, count($allRows));
+        $this->assertCount(9, $allRows);
         $this->assertEquals('address1', $allRows['name1']['address']);
         $this->assertEquals('address2', $allRows['name2']['address']);
         $this->assertEquals('address3', $allRows['name3']['address']);
@@ -158,7 +160,7 @@ class BatchQueryResultTest extends TestCase
         foreach ($query->batch(2, $db) as $models) {
             $customers = array_merge($customers, $models);
         }
-        $this->assertEquals(9, count($customers));
+        $this->assertCount(9, $customers);
         $this->assertEquals('name1', $customers[0]->name);
         $this->assertEquals('name2', $customers[1]->name);
         $this->assertEquals('name3', $customers[2]->name);
@@ -172,9 +174,9 @@ class BatchQueryResultTest extends TestCase
                 $this->assertTrue($model->isRelationPopulated('orders'));
             }
         }
-        $this->assertEquals(9, count($customers));
-        $this->assertEquals(2, count($customers[0]->orders));
-        $this->assertEquals(2, count($customers[1]->orders));
-        $this->assertEquals(2, count($customers[2]->orders));
+        $this->assertCount(9, $customers);
+        $this->assertCount(2, $customers[0]->orders);
+        $this->assertCount(2, $customers[1]->orders);
+        $this->assertCount(2, $customers[2]->orders);
     }
 }

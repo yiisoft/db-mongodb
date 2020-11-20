@@ -1,10 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Yiisoft\Db\MongoDb\File;
 
 use MongoDB\BSON\ObjectID;
-use Yiisoft\Db\MongoDb\File\Cursor;
-use Yiisoft\Db\MongoDb\File\Download;
 use Yiisoft\Db\MongoDb\Tests\TestCase;
 
 /**
@@ -68,7 +68,7 @@ class CollectionTest extends TestCase
         $this->assertTrue($id instanceof ObjectID);
 
         $files = $this->findAll($collection);
-        $this->assertEquals(1, count($files));
+        $this->assertCount(1, $files);
 
         $file = $files[0];
         $this->assertEquals(basename($filename), $file['filename']);
@@ -84,7 +84,7 @@ class CollectionTest extends TestCase
         $this->assertTrue($id instanceof ObjectID);
 
         $files = $this->findAll($collection);
-        $this->assertEquals(1, count($files));
+        $this->assertCount(1, $files);
 
         /* @var $file Download */
         $file = $files[0];
@@ -133,15 +133,15 @@ class CollectionTest extends TestCase
         for ($i = 1; $i <=10; $i++) {
             $bytes = 'Test file content ' . $i;
             $collection->insertFileContent($bytes, [
-                'index' => $i
+                'index' => $i,
             ], ['chunkSize' => 15]);
         }
 
-        $this->assertEquals(1, $collection->remove(['index' => ['$in' =>[1, 2, 3]]], ['limit' => 1]));
+        $this->assertEquals(1, $collection->remove(['index' => ['$in' => [1, 2, 3]]], ['limit' => 1]));
         $this->assertEquals(9, $collection->count());
         $this->assertEquals(18, $collection->getChunkCollection()->count());
 
-        $this->assertEquals(3, $collection->remove(['index' => ['$in' =>[5, 7, 9]]]));
+        $this->assertEquals(3, $collection->remove(['index' => ['$in' => [5, 7, 9]]]));
         $this->assertEquals(6, $collection->count());
         $this->assertEquals(12, $collection->getChunkCollection()->count());
 

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Yiisoft\Db\MongoDb\Tests;
 
 use MongoDB\BSON\ObjectID;
@@ -38,7 +40,7 @@ class MigrationTest extends TestCase
         $migration = $this->createMigration();
 
         $migration->createIndexes('customer', [
-            ['key' => 'name']
+            ['key' => 'name'],
         ]);
         $this->assertCount(2, $migration->db->getCollection('customer')->listIndexes());
 
@@ -107,7 +109,6 @@ class Migration extends \Yiisoft\Db\MongoDb\Migration
      * @var array list of log messages
      */
     public $logs = [];
-
 
     /**
      * {@inheritdoc}

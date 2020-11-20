@@ -1,6 +1,9 @@
 <?php
+
+declare(strict_types=1);
 /**
  * @link http://www.yiiframework.com/
+ *
  * @copyright Copyright (c) 2008 Yii Software LLC
  * @license http://www.yiiframework.com/license/
  */
@@ -9,8 +12,8 @@ namespace Yiisoft\Db\MongoDb\File;
 
 use MongoDB\BSON\ObjectID;
 use Yii;
-use yii\base\InvalidConfigException;
 use yii\base\BaseObject;
+use yii\base\InvalidConfigException;
 use yii\helpers\FileHelper;
 use Yiisoft\Strings\StringHelper;
 
@@ -41,6 +44,7 @@ use Yiisoft\Strings\StringHelper;
  * @property int $size File size. This property is read-only.
  *
  * @author Paul Klimov <klimov.paul@gmail.com>
+ *
  * @since 2.1
  */
 class Download extends BaseObject
@@ -67,10 +71,10 @@ class Download extends BaseObject
      */
     private $_resource;
 
-
     /**
-     * @return array document to be downloaded.
      * @throws InvalidConfigException on invalid document configuration.
+     *
+     * @return array document to be downloaded.
      */
     public function getDocument()
     {
@@ -92,6 +96,7 @@ class Download extends BaseObject
      * Sets data of the document to be downloaded.
      * Document can be specified by its ID, in this case its data will be fetched automatically
      * via extra query.
+     *
      * @param array|ObjectID $document document raw data or document ID.
      */
     public function setDocument($document)
@@ -101,29 +106,34 @@ class Download extends BaseObject
 
     /**
      * Returns the size of the associated file.
+     *
      * @return int file size.
      */
     public function getSize()
     {
         $document = $this->getDocument();
-        return isset($document['length']) ? $document['length'] : 0;
+        return $document['length'] ?? 0;
     }
 
     /**
      * Returns associated file's filename.
+     *
      * @return string|null file name.
      */
     public function getFilename()
     {
         $document = $this->getDocument();
-        return isset($document['filename']) ? $document['filename'] : null;
+        return $document['filename'] ?? null;
     }
 
     /**
      * Returns file chunks read cursor.
+     *
      * @param bool $refresh whether to recreate cursor, if it is already exist.
-     * @return \MongoDB\Driver\Cursor chuck list cursor.
+     *
      * @throws InvalidConfigException
+     *
+     * @return \MongoDB\Driver\Cursor chuck list cursor.
      */
     public function getChunkCursor($refresh = false)
     {
@@ -140,7 +150,9 @@ class Download extends BaseObject
 
     /**
      * Returns iterator for the file chunks cursor.
+     *
      * @param bool $refresh whether to recreate iterator, if it is already exist.
+     *
      * @return \Iterator chuck cursor iterator.
      */
     public function getChunkIterator($refresh = false)
@@ -154,7 +166,9 @@ class Download extends BaseObject
 
     /**
      * Saves file into the given stream.
+     *
      * @param resource $stream stream, which file should be saved to.
+     *
      * @return int number of written bytes.
      */
     public function toStream($stream)
@@ -168,7 +182,9 @@ class Download extends BaseObject
 
     /**
      * Saves download to the physical file.
+     *
      * @param string $filename name of the physical file.
+     *
      * @return int number of written bytes.
      */
     public function toFile($filename)
@@ -180,6 +196,7 @@ class Download extends BaseObject
 
     /**
      * Returns a string of the bytes in the associated file.
+     *
      * @return string file content.
      */
     public function toString()
@@ -194,6 +211,7 @@ class Download extends BaseObject
     /**
      * Returns an opened stream resource, which can be used to read file.
      * Note: each invocation of this method will create new file resource.
+     *
      * @return resource stream resource.
      */
     public function toResource()
@@ -203,7 +221,7 @@ class Download extends BaseObject
         $context = stream_context_create([
             $protocol => [
                 'download' => $this,
-            ]
+            ],
         ]);
 
         $document = $this->getDocument();
@@ -213,13 +231,15 @@ class Download extends BaseObject
 
     /**
      * Return part of a file.
+     *
      * @param int $start reading start position.
      * If non-negative, the returned string will start at the start'th position in file, counting from zero.
      * If negative, the returned string will start at the start'th character from the end of file.
      * @param int $length number of bytes to read.
      * If given and is positive, the string returned will contain at most length characters beginning from start (depending on the length of file).
      * If given and is negative, then that many characters will be omitted from the end of file (after the start position has been calculated when a start is negative).
-     * @return string|false the extracted part of file or `false` on failure
+     *
+     * @return false|string the extracted part of file or `false` on failure
      */
     public function substr($start, $length)
     {
@@ -288,6 +308,7 @@ class Download extends BaseObject
 
     /**
      * Alias of [[toString()]] method.
+     *
      * @return string file content.
      */
     public function getBytes()
@@ -297,7 +318,9 @@ class Download extends BaseObject
 
     /**
      * Alias of [[toFile()]] method.
+     *
      * @param string $filename name of the physical file.
+     *
      * @return int number of written bytes.
      */
     public function write($filename)
@@ -307,6 +330,7 @@ class Download extends BaseObject
 
     /**
      * Returns persistent stream resource, which can be used to read file.
+     *
      * @return resource file stream resource.
      */
     public function getResource()
