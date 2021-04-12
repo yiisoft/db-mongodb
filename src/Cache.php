@@ -27,9 +27,9 @@ use yii\di\Instance;
  *
  * ```php
  * 'cache' => [
- *     '__class' => yii\caching\Cache::class,
+ *     'class' => yii\caching\Cache::class,
  *     'handler' => [
- *         '__class' => Yiisoft\Db\MongoDb\Cache::class,
+ *         'class' => Yiisoft\Db\MongoDb\Cache::class,
  *         // 'db' => 'mymongodb',
  *         // 'cacheCollection' => 'my_cache',
  *     ]

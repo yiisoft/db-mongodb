@@ -37,7 +37,7 @@ class MongoDbPanel extends DbPanel
     public function init()
     {
         $this->actions['mongodb-explain'] = [
-            '__class' => ExplainAction::class,
+            'class' => ExplainAction::class,
             'panel' => $this,
         ];
     }

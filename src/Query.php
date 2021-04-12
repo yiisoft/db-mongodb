@@ -305,7 +305,7 @@ class Query extends Component implements QueryInterface
     public function batch($batchSize = 100, $db = null)
     {
         return Yii::createObject([
-            '__class' => BatchQueryResult::class,
+            'class' => BatchQueryResult::class,
             'query' => $this,
             'batchSize' => $batchSize,
             'db' => $db,
@@ -335,7 +335,7 @@ class Query extends Component implements QueryInterface
     public function each($batchSize = 100, $db = null)
     {
         return Yii::createObject([
-            '__class' => BatchQueryResult::class,
+            'class' => BatchQueryResult::class,
             'query' => $this,
             'batchSize' => $batchSize,
             'db' => $db,

@@ -28,7 +28,7 @@ class SessionTest extends TestCase
     protected function createSession()
     {
         return Yii::createObject([
-            '__class' => Session::class,
+            'class' => Session::class,
             'db' => $this->getConnection(),
             'sessionCollection' => static::$sessionCollection,
         ]);

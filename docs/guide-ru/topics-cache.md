@@ -10,7 +10,7 @@ return [
     'components' => [
         // ...
         'cache' => [
-            '__class' => Yiisoft\Db\MongoDb\Cache::class,
+            'class' => Yiisoft\Db\MongoDb\Cache::class,
         ],
     ]
 ];
