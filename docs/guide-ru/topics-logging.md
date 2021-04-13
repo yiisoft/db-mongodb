@@ -9,7 +9,7 @@ return [
     //....
     'components' => [
         'mongodb' => [
-            '__class' => Yiisoft\Db\MongoDb\Connection::class,
+            'class' => Yiisoft\Db\MongoDb\Connection::class,
             'dsn' => 'mongodb://developer:password@localhost:27017/mydatabase',
             'enableLogging' => true, // включить логирование
             'enableProfiling' => true, // включить профилирование

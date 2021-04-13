@@ -60,7 +60,7 @@ use yii\base\InvalidConfigException;
  * [
  *      'components' => [
  *          'mongodb' => [
- *              '__class' => Yiisoft\Db\MongoDb\Connection::class,
+ *              'class' => Yiisoft\Db\MongoDb\Connection::class,
  *              'dsn' => 'mongodb://developer:password@localhost:27017/mydatabase',
  *          ],
  *      ],
@@ -309,7 +309,7 @@ class Connection extends Component
     protected function selectDatabase($name)
     {
         return Yii::createObject([
-            '__class' => Database::class,
+            'class' => Database::class,
             'name' => $name,
             'connection' => $this,
         ]);

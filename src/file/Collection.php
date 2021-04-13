@@ -115,7 +115,7 @@ class Collection extends \Yiisoft\Db\MongoDb\Collection
     {
         if ($refresh || !is_object($this->_chunkCollection)) {
             $this->_chunkCollection = Yii::createObject([
-                '__class' => \Yiisoft\Db\MongoDb\Collection::class,
+                'class' => \Yiisoft\Db\MongoDb\Collection::class,
                 'database' => $this->database,
                 'name' => $this->getPrefix() . '.chunks',
             ]);
@@ -137,7 +137,7 @@ class Collection extends \Yiisoft\Db\MongoDb\Collection
     {
         if ($refresh || !is_object($this->_fileCollection)) {
             $this->_fileCollection = Yii::createObject([
-                '__class' => \Yiisoft\Db\MongoDb\Collection::class,
+                'class' => \Yiisoft\Db\MongoDb\Collection::class,
                 'database' => $this->database,
                 'name' => $this->name,
             ]);

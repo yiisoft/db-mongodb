@@ -10,10 +10,10 @@ return [
     'modules' => [
         // ...
         'gii' => [
-            '__class' => Yiisoft\Yii\Gii\Module::class,
+            'class' => Yiisoft\Yii\Gii\Module::class,
             'generators' => [
                 'mongoDbModel' => [
-                    '__class' => Yiisoft\Db\MongoDb\Gii\Model\Generator::class,
+                    'class' => Yiisoft\Db\MongoDb\Gii\Model\Generator::class,
                 ]
             ],
         ],

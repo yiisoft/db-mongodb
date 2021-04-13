@@ -60,7 +60,7 @@ use Yiisoft\Yii\Console\Exception;
  * return [
  *     'controllerMap' => [
  *         'mongodb-migrate' => [
- *             '__class' => Yiisoft\Db\MongoDb\Console\Controllers\MigrateController::class,
+ *             'class' => Yiisoft\Db\MongoDb\Console\Controllers\MigrateController::class,
  *             'migrationNamespaces' => [
  *                 'app\migrations',
  *                 'some\extension\migrations',
