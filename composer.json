@@ -33,7 +33,7 @@
         "roave/infection-static-analysis-plugin": "^1.6",
         "spatie/phpunit-watcher": "^1.23",
         "vimeo/psalm": "^4.3",
-        "yiisoft/arrays": "^2.0",
+        "yiisoft/arrays": "^2.0|^3.0",
         "yiisoft/cache": "^1.0",
         "yiisoft/di": "dev-master",
         "yiisoft/factory": "^1.0",
