@@ -6,7 +6,7 @@
     <br>
 </p>
 
-This extension provides the [MongoDB](https://www.mongodb.com/) integration for the [Yii framework](http://www.yiiframework.com).
+This extension provides the [MongoDB](https://www.mongodb.com/) integration for the [Yii framework](https://www.yiiframework.com).
 
 For license information check the [LICENSE](LICENSE.md)-file.
 
@@ -16,17 +16,16 @@ Documentation is at [docs/guide/README.md](docs/guide/README.md).
 [![Total Downloads](https://poser.pugx.org/yiisoft/db-mongodb/downloads.png)](https://packagist.org/packages/yiisoft/db-mongodb)
 [![Build Status](https://travis-ci.com/yiisoft/db-mongodb.svg?branch=master)](https://travis-ci.com/yiisoft/db-mongodb)
 
-
 Installation
 ------------
 
-This extension requires [MongoDB PHP Extension](http://us1.php.net/manual/en/set.mongodb.php) version 1.0.0 or higher.
+This extension requires [MongoDB PHP Extension](https://us1.php.net/manual/en/set.mongodb.php) version 1.0.0 or higher.
 
 This extension requires MongoDB server version 3.0 or higher.
 
-The preferred way to install this extension is through [composer](http://getcomposer.org/download/).
+The preferred way to install this extension is through [composer](https://getcomposer.org/download/).
 
-```
+```shell
 composer require --prefer-dist yiisoft/db-mongodb
 ```
 

@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 /**
- * @link http://www.yiiframework.com/
+ * @link https://www.yiiframework.com/
  *
- * @copyright Copyright (c) 2008 Yii Software LLC
- * @license http://www.yiiframework.com/license/
+ * @copyright Copyright © 2008 by Yii Software (https://www.yiiframework.com/)
+ * @license https://www.yiiframework.com/license/
  */
 
 namespace Yiisoft\Db\MongoDb\File;
@@ -48,7 +48,7 @@ use Yiisoft\Strings\StringHelper;
  * $fileContent = stream_get_contents($resource);
  * ```
  *
- * @see http://php.net/manual/en/function.stream-wrapper-register.php
+ * @see https://php.net/manual/en/function.stream-wrapper-register.php
  *
  * @property array $contextOptions Context options. This property is read-only.
  *

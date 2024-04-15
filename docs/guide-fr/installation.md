@@ -3,19 +3,19 @@ Installation
 
 ## Requirements
 
-l'extention  [MongoDB PHP Extension](http://us1.php.net/manual/en/set.mongodb.php) version 1.0.0 ou plus.
+l'extention  [MongoDB PHP Extension](https://us1.php.net/manual/en/set.mongodb.php) version 1.0.0 ou plus.
 
-## Installation du composer:
+## Installation du composer
 
-Il est preferable d'installer composer depuis :  [composer](http://getcomposer.org/download/).
+Il est preferable d'installer composer depuis :  [composer](https://getcomposer.org/download/).
 
-et puis executer la commande: 
+et puis executer la commande:
 
 ```
 php composer.phar require --prefer-dist yiisoft/yii2-mongodb
 ```
 
-ou bien ajouter : 
+ou bien ajouter :
 
 ```
 "yiisoft/yii2-mongodb": "~2.1.0"

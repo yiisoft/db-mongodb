@@ -477,9 +477,9 @@ class MongoDbManagerTest extends TestCase
         $this->assertFalse($auth->checkAccess($userId, 'Reader', ['action' => 'write']));
 
         // using DI
-        \Yii::$container->set('write_rule', ['__class' => \Yiisoft\Db\MongoDb\Tests\Data\Rbac\ActionRule::class, 'action' => 'write']);
-        \Yii::$container->set('delete_rule', ['__class' => \Yiisoft\Db\MongoDb\Tests\Data\Rbac\ActionRule::class, 'action' => 'delete']);
-        \Yii::$container->set('all_rule', ['__class' => \Yiisoft\Db\MongoDb\Tests\Data\Rbac\ActionRule::class, 'action' => 'all']);
+        \Yii::$container->set('write_rule', ['class' => \Yiisoft\Db\MongoDb\Tests\Data\Rbac\ActionRule::class, 'action' => 'write']);
+        \Yii::$container->set('delete_rule', ['class' => \Yiisoft\Db\MongoDb\Tests\Data\Rbac\ActionRule::class, 'action' => 'delete']);
+        \Yii::$container->set('all_rule', ['class' => \Yiisoft\Db\MongoDb\Tests\Data\Rbac\ActionRule::class, 'action' => 'all']);
 
         $role = $auth->createRole('Writer');
         $role->ruleName = 'write_rule';
