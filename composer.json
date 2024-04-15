@@ -5,17 +5,17 @@
         "yii",
         "mongo",
         "mongodb",
-        "active-record",
         "gridfs"
     ],
     "type": "library",
     "license": "BSD-3-Clause",
     "support": {
+        "source": "https://github.com/yiisoft/db-mongodb",
         "issues": "https://github.com/yiisoft/db-mongodb/issues",
-        "forum": "http://www.yiiframework.com/forum/",
-        "wiki": "http://www.yiiframework.com/wiki/",
-        "irc": "irc://irc.freenode.net/yii",
-        "source": "https://github.com/yiisoft/db-mongodb"
+        "forum": "https://www.yiiframework.com/forum/",
+        "wiki": "https://www.yiiframework.com/wiki/",
+        "chat": "https://t.me/yii3en",
+        "irc": "irc://irc.freenode.net/yii"
     },
     "authors": [
         {
@@ -24,15 +24,14 @@
         }
     ],
     "require": {
-        "php": "^7.4|^8.0",
-        "ext-mongodb": ">=1.0.0"
+        "php": "^8.0",
+        "ext-mongodb": ">=1.8.0"
     },
     "require-dev": {
-        "phan/phan": "^3.0",
-        "phpunit/phpunit": "^9.4",
+        "phpunit/phpunit": "^9.5|^10.0",
         "roave/infection-static-analysis-plugin": "^1.6",
         "spatie/phpunit-watcher": "^1.23",
-        "vimeo/psalm": "^4.3",
+        "vimeo/psalm": "^4.30|^5.20",
         "yiisoft/arrays": "^2.0|^3.0",
         "yiisoft/cache": "^1.0",
         "yiisoft/di": "dev-master",
@@ -41,12 +40,6 @@
         "yiisoft/strings": "^2.0",
         "yiisoft/var-dumper": "^1.0"
     },
-    "repositories": [
-        {
-            "type": "composer",
-            "url": "https://asset-packagist.org"
-        }
-    ],
     "autoload": {
         "psr-4": {
             "Yiisoft\\Db\\MongoDb\\": "src"
