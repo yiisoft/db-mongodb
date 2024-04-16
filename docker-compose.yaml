@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  db-mongodb-php:
+    container_name: db-mongodb-php
+    hostname: db-mongodb-php
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        PHP_VERSION: ${PHP_VERSION:-8.1}
+    volumes:
+      - .:/code
+    networks: &network
+      - db-mongodb-network
+
+  db-mongodb-db:
+    image: mongo
+    container_name: db-mongodb-db
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: password
+    networks: *network
+
+networks:
+  db-mongodb-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16
