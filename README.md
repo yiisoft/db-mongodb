@@ -10,7 +10,7 @@ This extension provides the [MongoDB](https://www.mongodb.com/) integration for 
 
 For license information check the [LICENSE](LICENSE.md)-file.
 
-Documentation is at [docs/guide/README.md](docs/guide/README.md).
+Documentation is at [README.md](docs/guide/en/README.md).
 
 [![Latest Stable Version](https://poser.pugx.org/yiisoft/db-mongodb/v/stable.png)](https://packagist.org/packages/yiisoft/db-mongodb)
 [![Total Downloads](https://poser.pugx.org/yiisoft/db-mongodb/downloads.png)](https://packagist.org/packages/yiisoft/db-mongodb)
