@@ -15,5 +15,6 @@ final class Dsn
         public ?string $uri,
         public array $uriOptions = [],
         public array $driverOptions = []
-    ) {}
+    ) {
+    }
 }
