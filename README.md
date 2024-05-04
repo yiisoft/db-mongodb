@@ -28,7 +28,7 @@ This extension provides the [MongoDB](https://www.mongodb.com/) integration for 
 
 ## Installation
 
-The package could be installed with composer:
+The package could be installed with [composer](https://getcomposer.org/download/)
 
 ```shell
 composer require yiisoft/db-mongodb
