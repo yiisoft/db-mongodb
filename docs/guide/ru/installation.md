@@ -12,7 +12,7 @@
 Для этого запустите
 
 ```
-php composer.phar require --prefer-dist yiisoft/yii2-mongodb
+php composer.phar require yiisoft/yii2-mongodb
 ```
 
 или добавьте

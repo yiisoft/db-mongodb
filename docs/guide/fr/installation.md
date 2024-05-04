@@ -12,7 +12,7 @@ Il est preferable d'installer composer depuis :  [composer](http://getcomposer.o
 et puis executer la commande: 
 
 ```
-php composer.phar require --prefer-dist yiisoft/yii2-mongodb
+php composer.phar require yiisoft/yii2-mongodb
 ```
 
 ou bien ajouter : 
