@@ -1,11 +1,11 @@
 <p align="center">
     <a href="https://github.com/yiisoft" target="_blank">
-        <img src="https://yiisoft.github.io/docs/images/yii_logo.svg" height="100px">
+        <img src="https://yiisoft.github.io/docs/images/yii_logo.svg" height="100px" alt="Yii">
     </a>
-    <a href="https://www.mongodb.com/" target="_blank" rel="external">
-        <img src="https://webassets.mongodb.com/_com_assets/cms/mongodb-logo-rgb-j6w271g1xn.jpg" height="80px">
+    <a href="https://www.mongodb.com/" target="_blank">
+        <img src="https://webassets.mongodb.com/_com_assets/cms/mongodb-logo-rgb-j6w271g1xn.jpg" height="80px" alt="MongoDB">
     </a>
-    <h1 align="center">Yii Framework MongoDB extension</h1>
+    <h1 align="center">Yii Database MongoDB driver</h1>
     <br>
 </p>
 
@@ -54,17 +54,59 @@ return [
 ];
 ```
 
+## Basic usage
+
+Once you have a MongoDB connection instance, you can execute a MongoDB commands and queries
+using `Yiisoft\Db\MongoDb\Command`:
+
+```php
+// execute command:
+$result = Yii::$app->mongodb->createCommand(['listIndexes' => 'some_collection'])->execute();
+
+// execute query (find):
+$cursor = Yii::$app->mongodb->createCommand(['projection' => ['name' => true]])->query('some_collection');
+
+// execute batch (bulk) operations:
+Yii::$app->mongodb->createCommand()
+    ->addInsert(['name' => 'new'])
+    ->addUpdate(['name' => 'existing'], ['name' => 'updated'])
+    ->addDelete(['name' => 'old'])
+    ->executeBatch('customer');
+```
+
+Using the connection instance you may access databases and collections.
+Most of the MongoDB commands are accessible via `\Yiisoft\Db\MongoDb\Collection` instance:
+
+```php
+$collection = Yii::$app->mongodb->getCollection('customer');
+$collection->insert(['name' => 'John Smith', 'status' => 1]);
+```
+
+To perform `find` queries, you should use `\Yiisoft\Db\MongoDb\Query`:
+
+```php
+use Yiisoft\Db\MongoDb\Query;
+
+$query = new Query();
+// compose the query
+$query->select(['name', 'status'])
+    ->from('customer')
+    ->limit(10);
+// execute the query
+$rows = $query->all();
+```
+
 ## Documentation
 
-- Guide: [English](docs/guide/en/README.md), [Français](docs/guide/fr/README.md), [日本語](docs/guide/ja/README.md), [Português - Brasil](docs/guide/pt-BR/README.md), [Русский](docs/guide/ru/README.md)
+- Guide: [English](docs/guide/en/README.md), [Français](docs/guide/fr/README.md), [Português - Brasil](docs/guide/pt-BR/README.md), [Русский](docs/guide/ru/README.md), [日本語](docs/guide/ja/README.md)
 - [Internals](docs/internals.md)
 
-If you need help or have a question, the [Yii Forum](https://forum.yiiframework.com/c/yii-3-0/63) is a good place
-for that. You may also check out other [Yii Community Resources](https://www.yiiframework.com/community).
+If you need help or have a question, the [Yii Forum](https://forum.yiiframework.com/c/yii-3-0/63) is a good place for that.
+You may also check out other [Yii Community Resources](https://www.yiiframework.com/community).
 
 ## License
 
-The Yii Framework MongoDB extension is free software. It is released under the terms of the BSD License.
+The Yii Database MongoDB driver is free software. It is released under the terms of the BSD License.
 Please see [`LICENSE`](./LICENSE.md) for more information.
 
 Maintained by [Yii Software](https://www.yiiframework.com/).
@@ -80,4 +122,3 @@ Maintained by [Yii Software](https://www.yiiframework.com/).
 [![Telegram](https://img.shields.io/badge/telegram-join-1DA1F2?style=flat&logo=telegram)](https://t.me/yii3en)
 [![Facebook](https://img.shields.io/badge/facebook-join-1DA1F2?style=flat&logo=facebook&logoColor=ffffff)](https://www.facebook.com/groups/yiitalk)
 [![Slack](https://img.shields.io/badge/slack-join-1DA1F2?style=flat&logo=slack)](https://yiiframework.com/go/slack)
-

@@ -12,7 +12,7 @@
 下記のコマンドを実行してください。
 
 ```
-php composer.phar require yiisoft/yii2-mongodb
+composer require yiisoft/yii2-mongodb
 ```
 
 または、あなたの `composer.json` ファイルの `require` セクションに、下記を追加してください。

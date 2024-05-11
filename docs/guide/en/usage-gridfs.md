@@ -1,11 +1,10 @@
-Using GridFS
-============
+# Using GridFS
 
 This extension supports [MongoGridFS](https://docs.mongodb.com/manual/core/gridfs/) via
-classes under namespace "\Yiisoft\Db\MongoDb\File".
+classes under namespace `\Yiisoft\Db\MongoDb\File`.
 There you will find specific Collection, Query and ActiveRecord classes.
 
-You can upload a file using [[\Yiisoft\Db\MongoDb\File\Upload]]:
+You can upload a file using `\Yiisoft\Db\MongoDb\File\Upload`:
 
 ```php
 $document = Yii::$app->mongodb->getFileCollection()->createUpload()
@@ -15,13 +14,13 @@ $document = Yii::$app->mongodb->getFileCollection()->createUpload()
     ->complete();
 ```
 
-You can download the file using [[\Yiisoft\Db\MongoDb\File\Download]]:
+You can download the file using `\Yiisoft\Db\MongoDb\File\Download`:
 
 ```php
 Yii::$app->mongodb->getFileCollection()->createDownload($document['_id'])->toFile('/path/to/file.dat');
 ```
 
-Each row of the file query result contains [[\Yiisoft\Db\MongoDb\File\Download]] instance at the key 'file':
+Each row of the file query result contains `\Yiisoft\Db\MongoDb\File\Download` instance at the key `file`:
 
 ```php
 use Yiisoft\Db\MongoDb\File\Query;
@@ -37,7 +36,7 @@ foreach ($rows as $row) {
 }
 ```
 
-Using [\Yiisoft\Db\MongoDb\File\ActiveRecord]] you can manipulate the file using 'file' property:
+Using `\Yiisoft\Db\MongoDb\File\ActiveRecord` you can manipulate the file using `file` property:
 
 ```php
 use Yiisoft\Db\MongoDb\File\ActiveRecord;
@@ -58,11 +57,11 @@ echo $row['file']->toString(); // outputs file content
 ```
 
 You may as well operate GridFS files via regular PHP stream resource.
-You will need to register a stream wrapper provided by this extension - [[\Yiisoft\Db\MongoDb\File\StreamWrapper]].
-This can be done via [[\Yiisoft\Db\MongoDb\File\Connection::registerFileStreamWrapper()]].
+You will need to register a stream wrapper provided by this extension, `\Yiisoft\Db\MongoDb\File\StreamWrapper`.
+This can be done via `\Yiisoft\Db\MongoDb\File\Connection::registerFileStreamWrapper()`.
 Once stream wrapper is registered, you may open a stream resource using following format:
 
-```
+```php
 'protocol://databaseName.fileCollectionPrefix?file_attribute=value'
 ```
 

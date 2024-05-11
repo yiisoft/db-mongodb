@@ -1,10 +1,9 @@
-Using the MongoDB DebugPanel
-============================
+# Using the MongoDB DebugPanel
 
-The yii2 MongoDB extensions provides a debug panel that can be integrated with the yii debug module
+The Yii MongoDB Extension provides a debug panel that can be integrated with the [Yii Debug Extension](https://github.com/yiisoft/yii-debug)
 and shows the executed MongoDB queries.
 
-Add the following to you application config to enable it (if you already have the debug module
+Add the following to you application config to enable it (if you already have the [Yii Debug Extension](https://github.com/yiisoft/yii-debug)
 enabled, it is sufficient to just add the panels configuration):
 
 ```php
