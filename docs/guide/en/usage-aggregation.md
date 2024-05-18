@@ -1,26 +1,23 @@
-Aggregation
-===========
+# Aggregation
 
-This extension provides support for the [MongoDB aggregation functionality](https://docs.mongodb.com/manual/aggregation/) wrapping corresponding commands into PHP methods of [[\Yiisoft\Db\MongoDb\Command]].
+This extension provides support for the [MongoDB aggregation functionality](https://docs.mongodb.com/manual/aggregation/) wrapping corresponding commands into PHP methods of `\Yiisoft\Db\MongoDb\Command`.
 
+## Single Purpose Aggregation Operations
 
-Single Purpose Aggregation Operations
--------------------------------------
-
-The simplest MongoDB aggregation operations are `count` and `distinct`, which are available via [[\Yiisoft\Db\MongoDb\Command::count()]]
-and [[\Yiisoft\Db\MongoDb\Command::distinct()]] correspondingly. For example:
+The simplest MongoDB aggregation operations are `count` and `distinct`, which are available via `\Yiisoft\Db\MongoDb\Command::count()`
+and `\Yiisoft\Db\MongoDb\Command::distinct()` correspondingly. For example:
 
 ```php
 $booksCount = Yii::$app->mongodb->createCommand()->count('books', ['category' => 'programming']);
 ```
 
-You may as well use [[\Yiisoft\Db\MongoDb\Collection::count()]] and [[\Yiisoft\Db\MongoDb\Collection::distinct()]] shortcut methods:
+You may as well use `\Yiisoft\Db\MongoDb\Collection::count()` and `\Yiisoft\Db\MongoDb\Collection::distinct()` shortcut methods:
 
 ```php
 $booksCount = Yii::$app->mongodb->getCollection('books')->count(['category' => 'programming']);
 ```
 
-Methods `count()` and `distinct()` are also available at [[\Yiisoft\Db\MongoDb\Query]] class:
+Methods `count()` and `distinct()` are also available at `\Yiisoft\Db\MongoDb\Query` class:
 
 ```php
 $booksCount = (new Query())
@@ -29,11 +26,9 @@ $booksCount = (new Query())
     ->count();
 ```
 
+## Pipeline
 
-Pipeline
---------
-
-[Aggregation Pipeline](https://docs.mongodb.com/manual/core/aggregation-pipeline/) can be executed via [[\Yiisoft\Db\MongoDb\Command::aggregate()]].
+[Aggregation Pipeline](https://docs.mongodb.com/manual/core/aggregation-pipeline/) can be executed with `\Yiisoft\Db\MongoDb\Command::aggregate()`.
 The following example display how you can group books by `authorId` field:
 
 ```php
@@ -46,7 +41,7 @@ $authors = Yii::$app->mongodb->createCommand()->aggregate('books', [
 ]);
 ```
 
-You may as well use [[\Yiisoft\Db\MongoDb\Collection::aggregate()]] as shortcut.
+You may as well use `\Yiisoft\Db\MongoDb\Collection::aggregate()` as shortcut.
 In the following example we are grouping books by both `authorId` and `category` fields:
 
 ```php
@@ -94,7 +89,7 @@ Please refer to [MongoDB Aggregation Pipeline Docs](https://docs.mongodb.com/man
 about pipeline specifications.
 
 
-## Aggregation via [[\Yiisoft\Db\MongoDb\Query]]
+## Aggregation via `\Yiisoft\Db\MongoDb\Query`
 
 Simple aggregations can be performed via following methods of the [[\Yiisoft\Db\MongoDb\Query]] class:
 
@@ -103,7 +98,7 @@ Simple aggregations can be performed via following methods of the [[\Yiisoft\Db\
  - `min()` - returns the minimum of the specified column values.
  - `max()` - returns the maximum of the specified column values.
 
-In case of these methods invocation [[\Yiisoft\Db\MongoDb\Query::$where]] will be used for `$match` pipeline composition.
+In case of these methods invocation `\Yiisoft\Db\MongoDb\Query::$where` will be used for `$match` pipeline composition.
 
 ```php
 use Yiisoft\Db\MongoDb\Query;
@@ -115,10 +110,9 @@ $maxPrice = (new Query())
 ```
 
 
-Map Reduce
-----------
+## Map Reduce
 
-[Map Reduce](https://docs.mongodb.com/manual/core/map-reduce/) can be executed via [[\Yiisoft\Db\MongoDb\Command::mapReduce()]].
+[Map Reduce](https://docs.mongodb.com/manual/core/map-reduce/) can be executed with `\Yiisoft\Db\MongoDb\Command::mapReduce()`.
 
 ```php
 $result = Yii::$app->mongodb->createCommand()->mapReduce('books',
@@ -129,7 +123,7 @@ $result = Yii::$app->mongodb->createCommand()->mapReduce('books',
 );
 ```
 
-You may as well use [[\Yiisoft\Db\MongoDb\Collection::mapReduce()]] as shortcut.
+You may as well use `\Yiisoft\Db\MongoDb\Collection::mapReduce()` as shortcut.
 
 ```php
 $result = Yii::$app->mongodb->getCollection('books')->mapReduce(
