@@ -3,7 +3,7 @@
         <img src="https://yiisoft.github.io/docs/images/yii_logo.svg" height="100px" alt="Yii">
     </a>
     <a href="https://www.mongodb.com/" target="_blank">
-        <img src="https://webassets.mongodb.com/_com_assets/cms/mongodb-logo-rgb-j6w271g1xn.jpg" height="80px" alt="MongoDB">
+        <img src="https://webassets.mongodb.com/_com_assets/cms/mongodb-logo-rgb-j6w271g1xn.jpg" height="100px" alt="MongoDB">
     </a>
     <h1 align="center">Yii Database MongoDB driver</h1>
     <br>
@@ -22,8 +22,8 @@ This extension provides the [MongoDB](https://www.mongodb.com/) integration for 
 
 ## Requirements
 
-- This extension requires [MongoDB PHP Extension](http://us1.php.net/manual/en/set.mongodb.php) version 1.8.0 or higher.
-- This extension requires MongoDB server version 3.0 or higher.
+- [MongoDB PHP Extension](http://us1.php.net/manual/en/set.mongodb.php) version 1.8.0 or higher.
+- MongoDB server version 3.0 or higher.
 - PHP 8.1 or higher.
 
 ## Installation
@@ -53,8 +53,6 @@ return [
     ],
 ];
 ```
-
-## Basic usage
 
 Once you have a MongoDB connection instance, you can execute a MongoDB commands and queries
 using `Yiisoft\Db\MongoDb\Command`:
