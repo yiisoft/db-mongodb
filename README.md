@@ -22,7 +22,7 @@ This extension provides the [MongoDB](https://www.mongodb.com/) integration for 
 
 ## Requirements
 
-- [MongoDB PHP Extension](http://us1.php.net/manual/en/set.mongodb.php) version 1.8.0 or higher.
+- [MongoDB PHP Extension](https://us1.php.net/manual/en/set.mongodb.php) version 1.8.0 or higher.
 - MongoDB server version 3.0 or higher.
 - PHP 8.1 or higher.
 
@@ -96,8 +96,7 @@ $rows = $query->all();
 
 ## Documentation
 
-- Guide: [English](docs/guide/en/README.md), [Français](docs/guide/fr/README.md),
-  [Русский](docs/guide/ru/README.md), [日本語](docs/guide/ja/README.md)
+- Guide: [English](docs/guide/en/README.md), [Français](docs/guide/fr/README.md), [Русский](docs/guide/ru/README.md), [日本語](docs/guide/ja/README.md)
 - [Internals](docs/internals.md)
 
 If you need help or have a question, the [Yii Forum](https://forum.yiiframework.com/c/yii-3-0/63) is a good place for that.
