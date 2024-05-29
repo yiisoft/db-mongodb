@@ -18,11 +18,11 @@
 [![type-coverage](https://shepherd.dev/github/yiisoft/db-mongodb/coverage.svg)](https://shepherd.dev/github/yiisoft/db-mongodb)
 [![psalm-level](https://shepherd.dev/github/yiisoft/db-mongodb/level.svg)](https://shepherd.dev/github/yiisoft/db-mongodb)
 
-This extension provides the [MongoDB](https://www.mongodb.com/) integration for the [Yii framework](http://www.yiiframework.com).
+This extension provides the [MongoDB](https://www.mongodb.com/) integration for the [Yii framework](https://www.yiiframework.com).
 
 ## Requirements
 
-- [MongoDB PHP Extension](https://us1.php.net/manual/en/set.mongodb.php) version 1.8.0 or higher.
+- [MongoDB PHP Extension](https://www.php.net/manual/en/set.mongodb.php) version 1.8.0 or higher.
 - MongoDB server version 3.0 or higher.
 - PHP 8.1 or higher.
 
