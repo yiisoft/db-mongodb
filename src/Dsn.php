@@ -14,7 +14,6 @@ final class Dsn
     public function __construct(
         public ?string $uri,
         public array $uriOptions = [],
-        public array $driverOptions = []
-    ) {
-    }
+        public array $driverOptions = [],
+    ) {}
 }
