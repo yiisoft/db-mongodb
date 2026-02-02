@@ -1,3 +1,6 @@
+> [!WARNING]
+> There is official MongoDB support planned for Yii3 DB. [Use official PHP client instead](https://www.mongodb.com/docs/php-library/current/).
+
 <p align="center">
     <a href="https://github.com/yiisoft" target="_blank">
         <img src="https://yiisoft.github.io/docs/images/yii_logo.svg" height="100px" alt="Yii">
