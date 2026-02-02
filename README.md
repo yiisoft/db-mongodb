@@ -1,5 +1,5 @@
 > [!WARNING]
-> There is official MongoDB support planned for Yii3 DB. [Use official PHP client instead](https://www.mongodb.com/docs/php-library/current/).
+> There is no official MongoDB support planned for Yii3 DB. [Use official PHP client instead](https://www.mongodb.com/docs/php-library/current/).
 
 <p align="center">
     <a href="https://github.com/yiisoft" target="_blank">
